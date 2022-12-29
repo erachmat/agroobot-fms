@@ -1,0 +1,51 @@
+package com.example.agroobot_fms.model.list_menu;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Child {
+    @SerializedName("menu_id_int")
+    @Expose
+    private Integer menuIdInt;
+    @SerializedName("name_var")
+    @Expose
+    private String nameVar;
+    @SerializedName("url_var")
+    @Expose
+    private String urlVar;
+    @SerializedName("icon_var")
+    @Expose
+    private String iconVar;
+
+    public Integer getMenuIdInt() {
+        return menuIdInt;
+    }
+
+    public void setMenuIdInt(Integer menuIdInt) {
+        this.menuIdInt = menuIdInt;
+    }
+
+    public String getNameVar() {
+        return nameVar;
+    }
+
+    public void setNameVar(String nameVar) {
+        this.nameVar = nameVar;
+    }
+
+    public String getUrlVar() {
+        return urlVar;
+    }
+
+    public void setUrlVar(String urlVar) {
+        this.urlVar = urlVar;
+    }
+
+    public String getIconVar() {
+        return iconVar;
+    }
+
+    public void setIconVar(String iconVar) {
+        this.iconVar = iconVar;
+    }
+}
