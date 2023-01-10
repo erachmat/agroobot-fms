@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/beranda"
+        android:icon="@drawable/home_simple"
+        android:title="Beranda" />
+
+    <item
+        android:id="@+id/jadwal"
+        android:icon="@drawable/calender_grey"
+        android:title="Jadwal" />
+
+    <item
+        android:id="@+id/panen"
+        android:icon="@drawable/seed_plus"
+        android:title="Panen" />
+
+    <item
+        android:id="@+id/anggaran"
+        android:icon="@drawable/chart_pie"
+        android:title="Anggaran" />
+</menu>
