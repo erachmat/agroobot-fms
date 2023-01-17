@@ -18,6 +18,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:src="@drawable/round_arrow_back"/>
 
         <TextView
@@ -94,8 +95,6 @@
             app:smsp_hintSize="@dimen/_10ssp"
             app:smsp_underlineColor="@color/white"
             app:smsp_selectedItemListColor="@color/green" />
-
-
 
     </LinearLayout>
 
@@ -327,11 +326,11 @@
                 android:id="@+id/btn_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/worksans_medium"
-                android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
                 android:background="@drawable/custom_border_grey"
-                android:text="Aktivitas" />
+                android:fontFamily="@font/worksans_medium"
+                android:text="Aktivitas"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp" />
 
             <TextView
                 android:id="@+id/btn_pengamatan"
@@ -376,6 +375,49 @@
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/_10sdp"
         android:paddingEnd="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"/>
+        android:paddingBottom="@dimen/_10sdp"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pengamatan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:visibility="gone"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_dokumentasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_catatan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:visibility="visible"/>
 
 </LinearLayout>

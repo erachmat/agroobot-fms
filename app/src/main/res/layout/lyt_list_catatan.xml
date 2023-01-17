@@ -16,14 +16,14 @@
             android:padding="@dimen/_10sdp">
 
             <TextView
-                android:id="@+id/txt_activity"
+                android:id="@+id/txt_id_saran"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/worksans_medium"
                 android:textSize="@dimen/_10ssp"
                 android:textColor="@color/green"
                 android:background="@drawable/custom_border_green"
-                android:text="Aktivitas" />
+                android:text="Catatan / Saran" />
 
             <ImageView
                 android:id="@+id/btn_edit"
@@ -45,15 +45,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/worksans_medium"
-                android:text="Aplikasi Pestisida (Insek/Fungi) + Pest Solution (utk OPT)"
-                android:layout_below="@+id/txt_activity"
+                android:text="Catatan dan Saran"
+                android:layout_below="@+id/txt_id_saran"
                 android:maxLines="2"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_12ssp"
                 android:textColor="@color/black" />
 
             <LinearLayout
-                android:id="@+id/lyt_bahan"
+                android:id="@+id/lyt_saran"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -67,26 +67,26 @@
                     android:fontFamily="@font/worksans_regular"
                     android:textColor="@color/grey_30"
                     android:textSize="@dimen/_10ssp"
-                    android:text="Bahan" />
+                    android:text="Saran" />
 
                 <TextView
-                    android:id="@+id/txt_bahan"
+                    android:id="@+id/txt_saran"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:fontFamily="@font/worksans_medium"
                     android:textColor="@color/grey_dark"
                     android:textSize="@dimen/_10ssp"
-                    android:text=": Insektisida + PS" />
+                    android:text=": Sudah oke" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lyt_dosis"
+                android:id="@+id/lyt_penilaian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/lyt_bahan">
+                android:layout_below="@+id/lyt_saran">
 
                 <TextView
                     android:layout_width="0dp"
@@ -95,7 +95,7 @@
                     android:fontFamily="@font/worksans_regular"
                     android:textColor="@color/grey_30"
                     android:textSize="@dimen/_10ssp"
-                    android:text="Dosis" />
+                    android:text="Penilaian" />
 
                 <TextView
                     android:id="@+id/txt_dosis"
@@ -105,63 +105,7 @@
                     android:fontFamily="@font/worksans_medium"
                     android:textColor="@color/grey_dark"
                     android:textSize="@dimen/_10ssp"
-                    android:text=": 50% : 50%" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lyt_jumlah_hst"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@+id/lyt_dosis">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/worksans_regular"
-                    android:textColor="@color/grey_30"
-                    android:textSize="@dimen/_10ssp"
-                    android:text="Jumlah HST" />
-
-                <TextView
-                    android:id="@+id/txt_jumlah_hst"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:fontFamily="@font/worksans_medium"
-                    android:textColor="@color/grey_dark"
-                    android:textSize="@dimen/_10ssp"
-                    android:text=": 42" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lyt_satuan_hst"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@+id/lyt_jumlah_hst">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/worksans_regular"
-                    android:textColor="@color/grey_30"
-                    android:textSize="@dimen/_10ssp"
-                    android:text="Satuan HST" />
-
-                <TextView
-                    android:id="@+id/txt_satuan_hst"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:fontFamily="@font/worksans_medium"
-                    android:textColor="@color/grey_dark"
-                    android:textSize="@dimen/_10ssp"
-                    android:text=": HST" />
+                    android:text=": Dilakukan" />
 
             </LinearLayout>
 
