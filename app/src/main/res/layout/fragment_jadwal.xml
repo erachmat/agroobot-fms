@@ -75,30 +75,36 @@
                         android:layout_marginTop="@dimen/_2sdp"
                         android:src="@drawable/profile_circled"/>
 
-                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                        android:id="@+id/sp_petani"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_weight="3"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        app:smsp_arrowSize="0dp"
-                        app:smsp_hint="Pilih Petani"
-                        app:smsp_itemColor="@color/black"
-                        app:smsp_itemListColor="@color/black"
-                        app:smsp_itemListHintBackgroundColor="#808080"
-                        app:smsp_itemListHintColor="#FFFFFF"
-                        app:smsp_floatingLabelColor="@color/white"
-                        app:smsp_multilineError="false"
-                        app:smsp_isSearchable="true"
-                        app:smsp_underlineColor="@color/white"
-                        app:smsp_selectedItemListColor="@color/green" />
+                        android:layout_marginStart="@dimen/_10sdp">
 
-                    <ImageView
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:src="@drawable/round_arrow_back_grey"/>
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/sp_petani"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            app:smsp_arrowSize="0dp"
+                            app:smsp_hint="Pilih Petani"
+                            app:smsp_itemColor="@color/black"
+                            app:smsp_itemListColor="@color/black"
+                            app:smsp_itemListHintBackgroundColor="#808080"
+                            app:smsp_itemListHintColor="#FFFFFF"
+                            app:smsp_floatingLabelColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_isSearchable="true"
+                            app:smsp_underlineColor="@color/white"
+                            app:smsp_selectedItemListColor="@color/green" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/round_arrow_back_grey"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -116,30 +122,36 @@
                         android:layout_marginTop="@dimen/_2sdp"
                         android:src="@drawable/land_plots"/>
 
-                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                        android:id="@+id/sp_lahan"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_weight="3"
-                        app:smsp_arrowSize="0dp"
-                        app:smsp_floatingLabelColor="@color/white"
-                        app:smsp_hint="Pilih Lahan"
-                        app:smsp_isSearchable="true"
-                        app:smsp_itemColor="@color/black"
-                        app:smsp_itemListColor="@color/black"
-                        app:smsp_itemListHintBackgroundColor="#808080"
-                        app:smsp_itemListHintColor="#FFFFFF"
-                        app:smsp_multilineError="false"
-                        app:smsp_selectedItemListColor="@color/green"
-                        app:smsp_underlineColor="@color/white" />
+                        android:layout_marginStart="@dimen/_10sdp">
 
-                    <ImageView
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:src="@drawable/round_arrow_back_grey"/>
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/sp_lahan"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            app:smsp_arrowSize="0dp"
+                            app:smsp_floatingLabelColor="@color/white"
+                            app:smsp_hint="Pilih Lahan"
+                            app:smsp_isSearchable="true"
+                            app:smsp_itemColor="@color/black"
+                            app:smsp_itemListColor="@color/black"
+                            app:smsp_itemListHintBackgroundColor="#808080"
+                            app:smsp_itemListHintColor="#FFFFFF"
+                            app:smsp_multilineError="false"
+                            app:smsp_selectedItemListColor="@color/green"
+                            app:smsp_underlineColor="@color/white" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/round_arrow_back_grey"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -157,30 +169,36 @@
                         android:layout_marginTop="@dimen/_2sdp"
                         android:src="@drawable/more_time_rounded"/>
 
-                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                        android:id="@+id/sp_periode"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_weight="3"
-                        app:smsp_arrowSize="0dp"
-                        app:smsp_hint="Pilih Periode"
-                        app:smsp_itemColor="@color/black"
-                        app:smsp_itemListColor="@color/black"
-                        app:smsp_itemListHintBackgroundColor="#808080"
-                        app:smsp_itemListHintColor="#FFFFFF"
-                        app:smsp_floatingLabelColor="@color/white"
-                        app:smsp_multilineError="false"
-                        app:smsp_isSearchable="true"
-                        app:smsp_underlineColor="@color/white"
-                        app:smsp_selectedItemListColor="@color/green" />
+                        android:layout_marginStart="@dimen/_10sdp">
 
-                    <ImageView
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:src="@drawable/round_arrow_back_grey"/>
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/sp_periode"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            app:smsp_arrowSize="0dp"
+                            app:smsp_hint="Pilih Periode"
+                            app:smsp_itemColor="@color/black"
+                            app:smsp_itemListColor="@color/black"
+                            app:smsp_itemListHintBackgroundColor="#808080"
+                            app:smsp_itemListHintColor="#FFFFFF"
+                            app:smsp_floatingLabelColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_isSearchable="true"
+                            app:smsp_underlineColor="@color/white"
+                            app:smsp_selectedItemListColor="@color/green" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/round_arrow_back_grey"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

@@ -165,7 +165,7 @@ public interface GetService {
             @Header("Authorization") String token);
 
     @POST(GET_ONE_CULTIVATION_TASK_URL)
-    Call<GetOne> listMenu(
+    Call<GetOne> getOneCultivation(
             @Header("Authorization") String token,
             @Body GetOneBody getOneBody);
 

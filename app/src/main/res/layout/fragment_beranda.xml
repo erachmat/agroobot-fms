@@ -12,8 +12,7 @@
     <!-- TOP BAR -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.75"
+        android:layout_height="wrap_content"
         android:background="@color/semi_black"
         android:padding="@dimen/_10sdp">
 
@@ -36,8 +35,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9.25"
+        android:layout_height="match_parent"
         android:visibility="visible">
 
         <LinearLayout

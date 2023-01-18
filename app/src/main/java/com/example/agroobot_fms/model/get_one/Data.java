@@ -1,8 +1,13 @@
 package com.example.agroobot_fms.model.get_one;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.example.agroobot_fms.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class Data {
@@ -18,7 +23,7 @@ public class Data {
     private List<Documentation> documentation = null;
     @SerializedName("rating")
     @Expose
-    private List<Object> rating = null;
+    private List<Rating> rating = null;
 
     public List<Activity> getActivity() {
         return activity;
@@ -44,11 +49,11 @@ public class Data {
         this.documentation = documentation;
     }
 
-    public List<Object> getRating() {
+    public List<Rating> getRating() {
         return rating;
     }
 
-    public void setRating(List<Object> rating) {
+    public void setRating(List<Rating> rating) {
         this.rating = rating;
     }
 }

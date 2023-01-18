@@ -2,8 +2,11 @@ package com.example.agroobot_fms;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.agroobot_fms.AnggaranFragment;
 import com.example.agroobot_fms.BerandaFragment;
@@ -14,40 +17,60 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private ViewPager2 viewPager;
+    private MenuItem menuItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        viewPager = findViewById(R.id.pager);
+        viewPager.setOffscreenPageLimit(5);
+        viewPager.setUserInputEnabled(false);
+        viewPager.setAdapter(new ViewPagerAdapter(this));
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        // as soon as the application opens the first
-        // fragment should be shown to the user
-        // in this case it is algorithm fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BerandaFragment()).commit();
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                bottomNav.getMenu().getItem(position).setChecked(true);
+                menuItem = bottomNav.getMenu().getItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
-        // By using switch we can easily get
-        // the selected fragment
-        // by using there id.
-        Fragment selectedFragment = null;
-        int itemId = item.getItemId();
-        if (itemId == R.id.beranda) {
-            selectedFragment = new BerandaFragment();
-        } else if (itemId == R.id.jadwal) {
-            selectedFragment = new JadwalFragment();
-        } else if (itemId == R.id.panen) {
-            selectedFragment = new PanenFragment();
-        } else if (itemId == R.id.anggaran) {
-            selectedFragment = new AnggaranFragment();
+        switch (item.getItemId()) {
+            case R.id.beranda:
+                viewPager.setCurrentItem(0);
+                break;
+
+            case R.id.jadwal:
+                viewPager.setCurrentItem(1);
+                break;
+
+            case R.id.panen:
+                viewPager.setCurrentItem(2);
+                break;
+
+            case R.id.anggaran:
+                viewPager.setCurrentItem(3);
+                break;
+
         }
-        // It will help to replace the
-        // one fragment to other.
-        if (selectedFragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-        }
-        return true;
+        return false;
     };
 }

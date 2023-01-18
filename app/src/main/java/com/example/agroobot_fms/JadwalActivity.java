@@ -21,8 +21,13 @@ import com.example.agroobot_fms.adapter.DokumentasiAdapter;
 import com.example.agroobot_fms.adapter.EventAdapter;
 import com.example.agroobot_fms.adapter.PengamatanAdapter;
 import com.example.agroobot_fms.model.Event;
+import com.example.agroobot_fms.model.get_one.Data;
 import com.example.agroobot_fms.utils.CalendarUtils;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -34,13 +39,28 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     private RecyclerView calendarRecyclerView, rvActivity, rvPengamatan;
     private RecyclerView rvDokumentasi, rvCatatan;
     private LocalDate selectedDate;
+    private JsonObject dataJadwal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal);
+
+        if (getIntent().getExtras() != null) {
+
+            String dogGson = getIntent().getStringExtra("dataJadwal");
+            if(dogGson != null){
+                Gson gson = new Gson();
+                Data dog = gson.fromJson(dogGson, Data.class);
+                Toast.makeText(this, dog.getActivity().get(0).getActivityTxt(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
         initWidgets();
+
         CalendarUtils.selectedDate = LocalDate.now();
+
         setWeekView();
         setRvActivity();
         setRvPengamatan();
@@ -59,10 +79,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     }
 
     private void setRvActivity() {
-        ActivityAdapter activityAdapter = new ActivityAdapter();
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvActivity.setLayoutManager(layoutManager);
-        rvActivity.setAdapter(activityAdapter);
+
+//        ActivityAdapter activityAdapter = new ActivityAdapter(getApplicationContext(),
+//                dataJadwal.get("activity"));
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+//        rvActivity.setLayoutManager(layoutManager);
+//        rvActivity.setAdapter(activityAdapter);
     }
 
     private void setRvPengamatan() {

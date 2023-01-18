@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context=".AddDataPanenActivity">
+    tools:context=".AddDataAnggaranActivty">
 
     <!-- TOP BAR -->
     <RelativeLayout
@@ -27,7 +27,7 @@
             android:layout_centerInParent="true"
             android:layout_marginStart="@dimen/_5sdp"
             android:fontFamily="@font/worksans_medium"
-            android:text="Tambah Data Panen"
+            android:text="Tambah Data Anggaran"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp" />
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/worksans_medium"
-                android:text="Informasi Panen"
+                android:text="Rencana Anggaran"
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:textSize="@dimen/_14ssp" />
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/worksans_medium"
-                        android:text="Komoditas"
+                        android:text="Kategori"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
 
@@ -84,13 +84,13 @@
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                            android:id="@+id/sp_komoditas"
+                            android:id="@+id/sp_kategori"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_floatingLabelColor="@color/white"
-                            app:smsp_hint="- Pilih Komoditas -"
+                            app:smsp_hint="- Pilih Kategori -"
                             app:smsp_hintSize="@dimen/_12ssp"
                             app:smsp_itemColor="@color/black"
                             app:smsp_itemListColor="@color/black"
@@ -113,7 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/worksans_medium"
-                        android:text="Lahan"
+                        android:text="Kegiatan"
                         android:textColor="@color/black"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_12ssp" />
@@ -127,13 +127,13 @@
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                            android:id="@+id/sp_lahan"
+                            android:id="@+id/sp_kegiatan"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_40sdp"
                             android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_floatingLabelColor="@color/white"
-                            app:smsp_hint="- Pilih Lahan - "
+                            app:smsp_hint="- Pilih Kegiatan - "
                             app:smsp_hintSize="@dimen/_12ssp"
                             app:smsp_itemColor="@color/black"
                             app:smsp_itemListColor="@color/black"
@@ -156,92 +156,70 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/worksans_medium"
-                        android:text="Periode Tanam"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_12ssp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/custom_border"
-                        android:layout_marginTop="@dimen/_5sdp">
-
-                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                            android:id="@+id/sp_periode_tanam"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
-                            app:smsp_arrowSize="0dp"
-                            app:smsp_floatingLabelColor="@color/white"
-                            app:smsp_hint="- Periode Tanam -"
-                            app:smsp_hintSize="@dimen/_12ssp"
-                            app:smsp_itemColor="@color/black"
-                            app:smsp_itemListColor="@color/black"
-                            app:smsp_itemListHintBackgroundColor="#808080"
-                            app:smsp_itemListHintColor="#FFFFFF"
-                            app:smsp_multilineError="false"
-                            app:smsp_selectedItemListColor="@color/green"
-                            app:smsp_underlineColor="@color/white" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:src="@drawable/round_arrow_back_grey"/>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/worksans_medium"
-                        android:text="Tanggal Panen"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_12ssp" />
-
-                    <LinearLayout
-                        android:id="@+id/lyt_tgl_panen"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/custom_border"
-                        android:layout_marginTop="@dimen/_5sdp">
-
-                        <ImageView
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:src="@drawable/calender_grey"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/worksans_medium"
-                            android:text="dd/mm/yyyy"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:textColor="@color/grey_dark_25"
-                            android:textSize="@dimen/_12ssp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/worksans_medium"
-                        android:text="Hasil Panen (Kg)"
+                        android:text="Luas"
                         android:textColor="@color/black"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_12ssp" />
 
                     <EditText
-                        android:id="@+id/et_hasil_panen"
+                        android:id="@+id/et_luas"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:background="@drawable/custom_border"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/grey_dark_25" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans_medium"
+                        android:text="Satuan"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <EditText
+                        android:id="@+id/et_satuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:background="@drawable/custom_border"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/grey_dark_25" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans_medium"
+                        android:text="Jumlah"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <EditText
+                        android:id="@+id/et_jumlah"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:background="@drawable/custom_border"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/grey_dark_25" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans_medium"
+                        android:text="Harga"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <EditText
+                        android:id="@+id/et_harga"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
                         android:background="@drawable/custom_border"
@@ -258,89 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/worksans_medium"
-                android:text="Hasil Panen Penjemuran"
-                android:textColor="@color/black"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:textSize="@dimen/_14ssp" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/custom_border"
-                android:visibility="visible">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_10sdp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/worksans_medium"
-                        android:text="Tanggal Penggilingan"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_12ssp" />
-
-                    <LinearLayout
-                        android:id="@+id/lyt_tgl_penggilingan"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/custom_border"
-                        android:layout_marginTop="@dimen/_5sdp">
-
-                        <ImageView
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:src="@drawable/calender_grey"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/worksans_medium"
-                            android:text="dd/mm/yyyy"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:textColor="@color/grey_dark_25"
-                            android:textSize="@dimen/_12ssp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/worksans_medium"
-                        android:text="Hasil Penggilingan (Kg)"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:textSize="@dimen/_12ssp" />
-
-                    <EditText
-                        android:id="@+id/et_hasil_penggilingan"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
-                        android:background="@drawable/custom_border"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:fontFamily="@font/worksans_regular"
-                        android:textSize="@dimen/_12ssp"
-                        android:textColor="@color/grey_dark_25" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/worksans_medium"
-                android:text="Upload Dokumentasi Panen"
+                android:text="Upload Dokumentasi"
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:textSize="@dimen/_14ssp" />
@@ -422,7 +318,7 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/btn_add_data_panen"
+                android:id="@+id/btn_add_data_anggaran"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:orientation="horizontal"

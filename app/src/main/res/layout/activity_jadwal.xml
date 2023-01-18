@@ -376,7 +376,7 @@
         android:paddingStart="@dimen/_10sdp"
         android:paddingEnd="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_pengamatan"
@@ -418,6 +418,6 @@
         android:paddingStart="@dimen/_10sdp"
         android:paddingEnd="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
 </LinearLayout>
