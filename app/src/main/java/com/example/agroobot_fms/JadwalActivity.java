@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.agroobot_fms.adapter.ActivityAdapter;
 import com.example.agroobot_fms.adapter.CalendarAdapter;
@@ -25,12 +26,8 @@ import com.example.agroobot_fms.model.get_one.Data;
 import com.example.agroobot_fms.utils.CalendarUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class JadwalActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
@@ -40,6 +37,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     private RecyclerView rvDokumentasi, rvCatatan;
     private LocalDate selectedDate;
     private JsonObject dataJadwal;
+    private RelativeLayout btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,28 +46,39 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
         if (getIntent().getExtras() != null) {
 
-            String dogGson = getIntent().getStringExtra("dataJadwal");
-            if(dogGson != null){
+            String dataJson = getIntent().getStringExtra("dataJadwal");
+            if(dataJson != null){
                 Gson gson = new Gson();
-                Data dog = gson.fromJson(dogGson, Data.class);
-                Toast.makeText(this, dog.getActivity().get(0).getActivityTxt(),
-                        Toast.LENGTH_SHORT).show();
+                Data data = gson.fromJson(dataJson, Data.class);
+
+                initWidgets();
+                setRvActivity(getApplicationContext(), data);
+
+//                Toast.makeText(this, data.getActivity().get(0).getActivityTxt(),
+//                        Toast.LENGTH_SHORT).show();
             }
         }
-
-        initWidgets();
 
         CalendarUtils.selectedDate = LocalDate.now();
 
         setWeekView();
-        setRvActivity();
         setRvPengamatan();
         setRvDokumentasi();
         setRvCatatan();
     }
 
-    private void initWidgets()
-    {
+    private void initWidgets() {
+
+        btnAdd = findViewById(R.id.btn_add);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),
+                        FormAddActivity.class);
+                startActivity(intent);
+            }
+        });
+
         rvActivity = findViewById(R.id.rv_activity);
         rvPengamatan = findViewById(R.id.rv_pengamatan);
         rvDokumentasi = findViewById(R.id.rv_dokumentasi);
@@ -78,13 +87,13 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         monthYearText = findViewById(R.id.monthYearTV);
     }
 
-    private void setRvActivity() {
+    private void setRvActivity(Context context, Data data) {
 
-//        ActivityAdapter activityAdapter = new ActivityAdapter(getApplicationContext(),
-//                dataJadwal.get("activity"));
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        rvActivity.setLayoutManager(layoutManager);
-//        rvActivity.setAdapter(activityAdapter);
+        ActivityAdapter activityAdapter = new ActivityAdapter(context,
+                data.getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+        rvActivity.setLayoutManager(layoutManager);
+        rvActivity.setAdapter(activityAdapter);
     }
 
     private void setRvPengamatan() {
@@ -108,8 +117,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         rvCatatan.setAdapter(catatanAdapter);
     }
 
-    private void setWeekView()
-    {
+    private void setWeekView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
 
@@ -120,14 +128,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         setEventAdpater();
     }
 
-    public void previousWeekAction(View view)
-    {
+    public void previousWeekAction(View view) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
         setWeekView();
     }
 
-    public void nextWeekAction(View view)
-    {
+    public void nextWeekAction(View view) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
         setWeekView();
     }

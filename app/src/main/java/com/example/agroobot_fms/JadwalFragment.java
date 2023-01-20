@@ -50,8 +50,9 @@ public class JadwalFragment extends Fragment {
     String idPetani;
     private String idLahan;
     private String idPeriode;
-    private ProgressDialog progressDialog;
+    SharedPreferences preferences;
 
+    private ProgressDialog progressDialog;
 
     public JadwalFragment() {
         // Required empty public constructor
@@ -105,18 +106,38 @@ public class JadwalFragment extends Fragment {
 
                             if(response.code() == 200) {
                                 if (response.body() != null) {
-                                    String message = response.body().getMessage();
 
+                                    String message = response.body().getMessage();
                                     if(response.body().getCode() == 0) {
+
+                                        preferences = getContext().getSharedPreferences(
+                                        "MySharedPref", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString("idPetani", idPetani);
+                                        editor.putString("idLahan", idLahan);
+                                        editor.putString("idPeriode", idPeriode);
+                                        editor.apply();
 
                                         Data result = response.body().getData();
 
-                                        String dogJson = new Gson().toJson(result);
+                                        String dataJson = new Gson().toJson(result);
 
                                         Intent intent = new Intent(getContext(),
                                                 JadwalActivity.class);
-                                        intent.putExtra("dataJadwal", dogJson);
+                                        intent.putExtra("dataJadwal", dataJson);
                                         startActivity(intent);
+                                    } else {
+
+                                        preferences = getContext().getSharedPreferences(
+                                                "MySharedPref", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putBoolean("isUserLogin", false);
+                                        editor.apply();
+
+                                        Intent intent = new Intent(getContext(),
+                                                LoginActivity.class);
+                                        startActivity(intent);
+                                        getActivity().finish();
                                     }
 
                                     Toast.makeText(getContext(), message,

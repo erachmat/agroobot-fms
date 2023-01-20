@@ -15,7 +15,7 @@ public class Data {
     private String fullnameVar;
     @SerializedName("username_var")
     @Expose
-    private Object usernameVar;
+    private String usernameVar;
     @SerializedName("email_var")
     @Expose
     private String emailVar;
@@ -39,10 +39,10 @@ public class Data {
     private String createdOnDtm;
     @SerializedName("updated_by_var")
     @Expose
-    private Object updatedByVar;
+    private String updatedByVar;
     @SerializedName("updated_on_dtm")
     @Expose
-    private Object updatedOnDtm;
+    private String updatedOnDtm;
     @SerializedName("last_login_on_dtm")
     @Expose
     private String lastLoginOnDtm;
@@ -77,11 +77,11 @@ public class Data {
         this.fullnameVar = fullnameVar;
     }
 
-    public Object getUsernameVar() {
+    public String getUsernameVar() {
         return usernameVar;
     }
 
-    public void setUsernameVar(Object usernameVar) {
+    public void setUsernameVar(String usernameVar) {
         this.usernameVar = usernameVar;
     }
 
@@ -141,19 +141,19 @@ public class Data {
         this.createdOnDtm = createdOnDtm;
     }
 
-    public Object getUpdatedByVar() {
+    public String getUpdatedByVar() {
         return updatedByVar;
     }
 
-    public void setUpdatedByVar(Object updatedByVar) {
+    public void setUpdatedByVar(String updatedByVar) {
         this.updatedByVar = updatedByVar;
     }
 
-    public Object getUpdatedOnDtm() {
+    public String getUpdatedOnDtm() {
         return updatedOnDtm;
     }
 
-    public void setUpdatedOnDtm(Object updatedOnDtm) {
+    public void setUpdatedOnDtm(String updatedOnDtm) {
         this.updatedOnDtm = updatedOnDtm;
     }
 

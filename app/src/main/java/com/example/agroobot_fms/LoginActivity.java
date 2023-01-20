@@ -48,14 +48,6 @@ public class LoginActivity extends AppCompatActivity {
 
         initView();
 
-        SharedPreferences preferences = getSharedPreferences("MySharedPref",
-                Context.MODE_PRIVATE);
-        if (preferences.contains("isUserLogin")) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
 //        SharedPreferences preferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
 //        SharedPreferences.Editor editor = preferences.edit();
 //        editor.remove("isUserLogin");
@@ -92,8 +84,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(response.code() == 200) {
                             if (response.body() != null) {
-                                String message = response.body().getMessage();
 
+                                String message = response.body().getMessage();
                                 if(response.body().getCode() == 0) {
 
                                     Data result = response.body().getData();
@@ -102,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                             "MySharedPref", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = preferences.edit();
                                     editor.putString("tokenLogin", result.getToken());
+                                    editor.putString("fullnameVar", result.getFullnameVar());
                                     editor.putBoolean("isUserLogin", true);
                                     editor.apply();
 

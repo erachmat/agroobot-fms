@@ -33,9 +33,91 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_margin="@dimen/_10sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                android:id="@+id/sp_pilih_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:smsp_arrowSize="0dp"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                app:smsp_hint="- Pilih Aktifitas Tugas Petani -"
+                app:smsp_itemColor="@color/black"
+                app:smsp_itemListColor="@color/black"
+                app:smsp_itemListHintBackgroundColor="#808080"
+                app:smsp_itemListHintColor="#FFFFFF"
+                app:smsp_floatingLabelColor="@color/white"
+                app:smsp_multilineError="false"
+                app:smsp_underlineColor="@color/white"
+                app:smsp_hintSize="@dimen/_12ssp"
+                app:smsp_selectedItemListColor="@color/green" />
+
+            <ImageView
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/round_arrow_back_right"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_kosong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:background="@drawable/custom_border"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/worksans_semibold"
+                android:textAlignment="center"
+                android:text="Form"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/worksans_regular"
+                android:text="Pilih aktifitas terlebih dahulu"
+                android:textAlignment="center"
+                android:textColor="#BDBEBF"
+                android:textSize="@dimen/_12ssp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,87 +125,6 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/_10sdp"
             android:background="@color/grey">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_margin="@dimen/_10sdp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                        android:id="@+id/sp_pilih_activity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        app:smsp_arrowSize="0dp"
-                        android:paddingStart="@dimen/_10sdp"
-                        android:paddingEnd="@dimen/_10sdp"
-                        app:smsp_hint="- Pilih Aktifitas Tugas Petani -"
-                        app:smsp_itemColor="@color/black"
-                        app:smsp_itemListColor="@color/black"
-                        app:smsp_itemListHintBackgroundColor="#808080"
-                        app:smsp_itemListHintColor="#FFFFFF"
-                        app:smsp_floatingLabelColor="@color/white"
-                        app:smsp_multilineError="false"
-                        app:smsp_underlineColor="@color/white"
-                        app:smsp_hintSize="@dimen/_12ssp"
-                        app:smsp_selectedItemListColor="@color/green" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/round_arrow_back_right"/>
-
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_kosong"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/custom_border"
-                android:visibility="gone">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_10sdp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/worksans_semibold"
-                        android:text="Form"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14ssp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/worksans_regular"
-                        android:text="Pilih aktifitas terlebih dahulu"
-                        android:textAlignment="center"
-                        android:layout_centerInParent="true"
-                        android:textColor="#BDBEBF"
-                        android:textSize="@dimen/_12ssp" />
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_activity"
@@ -304,19 +305,16 @@
                         android:layout_marginTop="@dimen/_20sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_kondisi_daun"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_hint="- Pilih kondisi daun -"
                             app:smsp_itemColor="@color/black"
@@ -334,9 +332,11 @@
                             android:layout_height="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -347,19 +347,16 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_kondisi_pengairan"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_hint="- Pilih kondisi pengairan -"
                             app:smsp_itemColor="@color/black"
@@ -377,9 +374,11 @@
                             android:layout_height="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -390,19 +389,16 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_kondisi_bulir"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_hint="- Pilih kondisi bulir -"
                             app:smsp_itemColor="@color/black"
@@ -420,9 +416,11 @@
                             android:layout_height="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -433,19 +431,16 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_kondisi_lahan"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_hint="- Pilih kondisi lahan -"
                             app:smsp_itemColor="@color/black"
@@ -463,9 +458,11 @@
                             android:layout_height="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -476,19 +473,16 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_kondisi_anakan"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_hint="- Pilih kondisi anakan -"
                             app:smsp_itemColor="@color/black"
@@ -506,9 +500,53 @@
                             android:layout_height="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans_regular"
+                        android:text="Adakah Serangan Hama/Penyakit"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_border"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/sp_hama"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            app:smsp_arrowSize="0dp"
+                            app:smsp_hint="- Pilih kondisi -"
+                            app:smsp_itemColor="@color/black"
+                            app:smsp_itemListColor="@color/black"
+                            app:smsp_itemListHintBackgroundColor="#808080"
+                            app:smsp_itemListHintColor="#FFFFFF"
+                            app:smsp_floatingLabelColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_underlineColor="@color/white"
+                            app:smsp_hintSize="@dimen/_12ssp"
+                            app:smsp_selectedItemListColor="@color/green" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/round_arrow_back_grey"/>
+
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -566,7 +604,7 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/custom_border"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -665,7 +703,7 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:gravity="center"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:background="@drawable/button_rounded_blue">
 
                 <TextView
