@@ -95,6 +95,7 @@ import com.example.agroobot_fms.model.update_rating.UpdateRatingResponse;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -197,6 +198,7 @@ public interface GetService {
             @Part("land_code_var") RequestBody landCodeVar,
             @Part("period_plant_txt") RequestBody periodPlantText,
             @Part("time_calender_dte") RequestBody timeCalendarDte,
+            @Part MultipartBody.Part images,
             @Part("created_by_var") RequestBody createdByVar);
 
     @POST(CREATE_ACTIVITY_URL)

@@ -41,7 +41,7 @@
                 android:src="@drawable/trash"/>
 
             <TextView
-                android:id="@+id/txt_activity_title"
+                android:id="@+id/txt_saran_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/worksans_medium"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_below="@+id/txt_activity_title">
+                android:layout_below="@+id/txt_saran_title">
 
                 <TextView
                     android:layout_width="0dp"
@@ -98,7 +98,7 @@
                     android:text="Penilaian" />
 
                 <TextView
-                    android:id="@+id/txt_dosis"
+                    android:id="@+id/txt_penilaian"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"

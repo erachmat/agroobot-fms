@@ -64,6 +64,11 @@ dependencies {
 
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    implementation "com.karumi:dexter:5.0.0"
+    implementation 'com.github.yalantis:ucrop:2.2.2'
+
     testImplementation 'junit:junit:4.13.2'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

@@ -4,6 +4,7 @@ import static com.example.agroobot_fms.utils.CalendarUtils.daysInWeekArray;
 import static com.example.agroobot_fms.utils.CalendarUtils.monthYearFromDate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,17 +28,23 @@ import com.example.agroobot_fms.utils.CalendarUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class JadwalActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
 
-    private TextView monthYearText;
-    private RecyclerView calendarRecyclerView, rvActivity, rvPengamatan;
-    private RecyclerView rvDokumentasi, rvCatatan;
     private LocalDate selectedDate;
     private JsonObject dataJadwal;
+
+    private RecyclerView calendarRecyclerView, rvActivity, rvPengamatan;
+    private RecyclerView rvDokumentasi, rvCatatan;
     private RelativeLayout btnAdd;
+    CardView lytRvDokumentasi;
+    private TextView monthYearText;
+    TextView btnActivity, btnPengamatan, btnDokumentasi, btnCatatan;
+    TextView txtTanggal, txtHari, txtBulan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +55,19 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
             String dataJson = getIntent().getStringExtra("dataJadwal");
             if(dataJson != null){
+
                 Gson gson = new Gson();
                 Data data = gson.fromJson(dataJson, Data.class);
 
                 initWidgets();
+
                 setRvActivity(getApplicationContext(), data);
+
+                setRvPengamatan(getApplicationContext(), data);
+
+                setRvCatatan(getApplicationContext(), data);
+
+                setRvDokumentasi(getApplicationContext(), data);
 
 //                Toast.makeText(this, data.getActivity().get(0).getActivityTxt(),
 //                        Toast.LENGTH_SHORT).show();
@@ -62,9 +77,6 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         CalendarUtils.selectedDate = LocalDate.now();
 
         setWeekView();
-        setRvPengamatan();
-        setRvDokumentasi();
-        setRvCatatan();
     }
 
     private void initWidgets() {
@@ -79,16 +91,116 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
             }
         });
 
+        btnActivity = findViewById(R.id.btn_activity);
+        btnActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setView("activity");
+            }
+        });
+
+        btnPengamatan = findViewById(R.id.btn_pengamatan);
+        btnPengamatan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setView("pengamatan");
+            }
+        });
+
+        btnDokumentasi = findViewById(R.id.btn_dokumentasi);
+        btnDokumentasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setView("dokumentasi");
+            }
+        });
+
+        btnCatatan = findViewById(R.id.btn_catatan);
+        btnCatatan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setView("catatan");
+            }
+        });
+
+        Calendar calendar = Calendar.getInstance();;
+
+        SimpleDateFormat sdfHari = new SimpleDateFormat("EEE");
+        String hari = sdfHari.format(calendar.getTime());
+
+        SimpleDateFormat sdfTanggal = new SimpleDateFormat("dd");
+        String tanggal = sdfTanggal.format(calendar.getTime());
+
+        SimpleDateFormat sdfBulan = new SimpleDateFormat("MMM yyyy");
+        String bulan = sdfBulan.format(calendar.getTime());
+
+        txtTanggal = findViewById(R.id.txt_tanggal);
+        txtTanggal.setText(tanggal);
+
+        txtHari = findViewById(R.id.txt_hari);
+        txtHari.setText(hari);
+
+        txtBulan = findViewById(R.id.txt_bulan);
+        txtBulan.setText(bulan);
+
         rvActivity = findViewById(R.id.rv_activity);
         rvPengamatan = findViewById(R.id.rv_pengamatan);
         rvDokumentasi = findViewById(R.id.rv_dokumentasi);
         rvCatatan = findViewById(R.id.rv_catatan);
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
+
+        lytRvDokumentasi = findViewById(R.id.lyt_rv_dokumentasi);
+
         monthYearText = findViewById(R.id.monthYearTV);
     }
 
-    private void setRvActivity(Context context, Data data) {
+    private void setView(String opsi) {
 
+        switch (opsi) {
+            case "activity":
+
+                rvActivity.setVisibility(View.VISIBLE);
+
+                rvPengamatan.setVisibility(View.GONE);
+                lytRvDokumentasi.setVisibility(View.GONE);
+                rvDokumentasi.setVisibility(View.GONE);
+                rvCatatan.setVisibility(View.GONE);
+
+                break;
+            case "pengamatan":
+
+                rvPengamatan.setVisibility(View.VISIBLE);
+
+                rvActivity.setVisibility(View.GONE);
+                lytRvDokumentasi.setVisibility(View.GONE);
+                rvDokumentasi.setVisibility(View.GONE);
+                rvCatatan.setVisibility(View.GONE);
+
+                break;
+            case "dokumentasi":
+
+                lytRvDokumentasi.setVisibility(View.VISIBLE);
+                rvDokumentasi.setVisibility(View.VISIBLE);
+
+                rvPengamatan.setVisibility(View.GONE);
+                rvActivity.setVisibility(View.GONE);
+                rvCatatan.setVisibility(View.GONE);
+
+                break;
+            case "catatan":
+
+                rvCatatan.setVisibility(View.VISIBLE);
+
+                rvDokumentasi.setVisibility(View.GONE);
+                rvPengamatan.setVisibility(View.GONE);
+                rvActivity.setVisibility(View.GONE);
+                lytRvDokumentasi.setVisibility(View.GONE);
+
+                break;
+        }
+    }
+
+    private void setRvActivity(Context context, Data data) {
         ActivityAdapter activityAdapter = new ActivityAdapter(context,
                 data.getActivity());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
@@ -96,23 +208,25 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         rvActivity.setAdapter(activityAdapter);
     }
 
-    private void setRvPengamatan() {
-        PengamatanAdapter pengamatanAdapter = new PengamatanAdapter();
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+    private void setRvPengamatan(Context context, Data data) {
+        PengamatanAdapter pengamatanAdapter = new PengamatanAdapter(context,
+                data.getObservation());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         rvPengamatan.setLayoutManager(layoutManager);
         rvPengamatan.setAdapter(pengamatanAdapter);
     }
 
-    private void setRvDokumentasi() {
-        DokumentasiAdapter dokumentasiAdapter = new DokumentasiAdapter();
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
+    private void setRvDokumentasi(Context context, Data data) {
+        DokumentasiAdapter dokumentasiAdapter = new DokumentasiAdapter(context,
+                data.getDocumentation());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
         rvDokumentasi.setLayoutManager(layoutManager);
         rvDokumentasi.setAdapter(dokumentasiAdapter);
     }
 
-    private void setRvCatatan() {
-        CatatanAdapter catatanAdapter = new CatatanAdapter();
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+    private void setRvCatatan(Context context, Data data) {
+        CatatanAdapter catatanAdapter = new CatatanAdapter(context, data.getRating());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         rvCatatan.setLayoutManager(layoutManager);
         rvCatatan.setAdapter(catatanAdapter);
     }

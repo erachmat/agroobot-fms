@@ -39,10 +39,10 @@ public class Observation {
     private String createdOnDtm;
     @SerializedName("updated_by_var")
     @Expose
-    private Object updatedByVar;
+    private String updatedByVar;
     @SerializedName("updated_on_dtm")
     @Expose
-    private Object updatedOnDtm;
+    private String updatedOnDtm;
 
     public String getIdSeq() {
         return idSeq;
@@ -132,19 +132,19 @@ public class Observation {
         this.createdOnDtm = createdOnDtm;
     }
 
-    public Object getUpdatedByVar() {
+    public String getUpdatedByVar() {
         return updatedByVar;
     }
 
-    public void setUpdatedByVar(Object updatedByVar) {
+    public void setUpdatedByVar(String updatedByVar) {
         this.updatedByVar = updatedByVar;
     }
 
-    public Object getUpdatedOnDtm() {
+    public String getUpdatedOnDtm() {
         return updatedOnDtm;
     }
 
-    public void setUpdatedOnDtm(Object updatedOnDtm) {
+    public void setUpdatedOnDtm(String updatedOnDtm) {
         this.updatedOnDtm = updatedOnDtm;
     }
 }
