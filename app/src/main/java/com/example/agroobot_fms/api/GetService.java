@@ -128,20 +128,21 @@ public interface GetService {
             @Header("Authorization") String token,
             @Query("id_seq") int idSeq);
 
-    @FormUrlEncoded
+    @Multipart
     @POST(CREATE_DATA_PANEN_URL)
     Call<CreateDataPanen> createDataPanen(
             @Header("Authorization") String token,
-            @Field("commodity_name_var") String commodityNameVar,
-            @Field("land_code_var") String landCodeVar,
-            @Field("period_plant_txt") String periodPlantText,
-            @Field("harvest_flo") String harvestFlo,
-            @Field("harvest_on_dte") String harvestOnDte,
-            @Field("harvest_drying_flo") String harvestDryingflo,
-            @Field("harvest_drying_dte") String harvestDryingDte,
-            @Field("harvest_milling_flo") String harvestMillingFlo,
-            @Field("harvest_milling_dte") String harvestMilingDte,
-            @Field("created_by_var") String createdByVar);
+            @Part("commodity_name_var") RequestBody commodityNameVar,
+            @Part("land_code_var") RequestBody landCodeVar,
+            @Part("period_plant_txt") RequestBody periodPlantText,
+            @Part("harvest_flo") RequestBody harvestFlo,
+            @Part("harvest_on_dte") RequestBody harvestOnDte,
+            @Part("harvest_drying_flo") RequestBody harvestDryingflo,
+            @Part("harvest_drying_dte") RequestBody harvestDryingDte,
+            @Part("harvest_milling_flo") RequestBody harvestMillingFlo,
+            @Part("harvest_milling_dte") RequestBody harvestMilingDte,
+            @Part MultipartBody.Part images,
+            @Part("created_by_var") RequestBody createdByVar);
 
     @Multipart
     @PATCH(UPDATE_DATA_PANEN_URL)
@@ -157,6 +158,7 @@ public interface GetService {
             @Part("harvest_drying_dte") RequestBody harvestDryingDte,
             @Part("harvest_milling_flo") RequestBody harvestMillingFlo,
             @Part("harvest_milling_dte") RequestBody harvestMilingDte,
+            @Part MultipartBody.Part images,
             @Part("updated_by_var") RequestBody updatedByVar);
 
 

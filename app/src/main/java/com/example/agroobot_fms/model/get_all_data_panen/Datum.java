@@ -38,7 +38,7 @@ public class Datum {
     private String harvestMillingDte;
     @SerializedName("document_txt")
     @Expose
-    private List<Object> documentTxt = null;
+    private List<String> documentTxt = null;
     @SerializedName("created_by_var")
     @Expose
     private String createdByVar;
@@ -138,11 +138,11 @@ public class Datum {
         this.harvestMillingDte = harvestMillingDte;
     }
 
-    public List<Object> getDocumentTxt() {
+    public List<String> getDocumentTxt() {
         return documentTxt;
     }
 
-    public void setDocumentTxt(List<Object> documentTxt) {
+    public void setDocumentTxt(List<String> documentTxt) {
         this.documentTxt = documentTxt;
     }
 

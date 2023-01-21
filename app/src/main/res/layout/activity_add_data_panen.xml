@@ -75,19 +75,16 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_komoditas"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_floatingLabelColor="@color/white"
                             app:smsp_hint="- Pilih Komoditas -"
@@ -103,11 +100,12 @@
                         <ImageView
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -118,19 +116,16 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_lahan"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_floatingLabelColor="@color/white"
                             app:smsp_hint="- Pilih Lahan - "
@@ -146,11 +141,12 @@
                         <ImageView
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -161,19 +157,16 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_periode_tanam"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_floatingLabelColor="@color/white"
                             app:smsp_hint="- Periode Tanam -"
@@ -189,11 +182,12 @@
                         <ImageView
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,6 +214,7 @@
                             android:src="@drawable/calender_grey"/>
 
                         <TextView
+                            android:id="@+id/txt_tgl_panen"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/worksans_medium"
@@ -281,6 +276,89 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/worksans_medium"
+                        android:text="Tanggal Penjemuran"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <LinearLayout
+                        android:id="@+id/lyt_tgl_penjemuran"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/custom_border"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:src="@drawable/calender_grey"/>
+
+                        <TextView
+                            android:id="@+id/txt_tgl_penjemuran"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans_medium"
+                            android:text="dd/mm/yyyy"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:textColor="@color/grey_dark_25"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans_medium"
+                        android:text="Hasil Penjemuran (Kg)"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <EditText
+                        android:id="@+id/et_hasil_penjemuran"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:background="@drawable/custom_border"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/grey_dark_25" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/worksans_medium"
+                android:text="Hasil Penggilingan"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textSize="@dimen/_14ssp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/custom_border"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_10sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans_medium"
                         android:text="Tanggal Penggilingan"
                         android:textColor="@color/black"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -302,6 +380,7 @@
                             android:src="@drawable/calender_grey"/>
 
                         <TextView
+                            android:id="@+id/txt_tgl_penggilingan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/worksans_medium"
@@ -422,7 +501,7 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/btn_add_data_panen"
+                android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:orientation="horizontal"

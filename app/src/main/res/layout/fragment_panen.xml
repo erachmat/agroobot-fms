@@ -33,73 +33,59 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:background="@color/white">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/grey">
+            android:layout_weight="3"
+            android:background="@drawable/custom_border">
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/et_search"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/_10sdp"
-                android:gravity="center_vertical"
-                android:background="@color/white">
+                android:layout_height="@dimen/_30sdp"
+                android:background="@null"/>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="@drawable/custom_border">
+            <ImageView
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/search_line"/>
 
-                    <EditText
-                        android:id="@+id/et_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_30sdp"
-                        android:background="@null"/>
+        </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/search_line"/>
+        <ImageView
+            android:id="@+id/btn_add"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:src="@drawable/ic_plus_box"/>
 
-                </RelativeLayout>
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/btn_add"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:src="@drawable/ic_plus_box"/>
+    <!-- Table View-->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@color/white">
 
-            </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_data_panen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"/>
 
-            <!-- Table View-->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/white">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_data_panen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:nestedScrollingEnabled="false" />
-
-            </HorizontalScrollView>
-
-        </LinearLayout>
-
-    </ScrollView>
+    </HorizontalScrollView>
 
 </LinearLayout>

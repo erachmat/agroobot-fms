@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="top"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/txtNo"
+        android:text="No"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txtKomoditas"
+        android:text="Komoditas"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txtLahan"
+        android:text="Lahan"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txtPeriodeTanam"
+        android:text="Periode Tanam"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txtTglPanen"
+        android:text="Tanggal Panen"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txtHasilPanen"
+        android:text="Hasil Panen (Kg)"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txtStatusApproval"
+        android:text="Status Approval"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <RelativeLayout
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btn_action"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ice_eye"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txtAction"
+            android:text="Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/worksans_regular"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textSize="@dimen/_12ssp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

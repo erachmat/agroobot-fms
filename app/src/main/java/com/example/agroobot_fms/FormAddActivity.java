@@ -344,12 +344,12 @@ public class FormAddActivity extends AppCompatActivity {
                     createDocumentationCall.enqueue(new Callback<CreateDocumentation>() {
                         @Override
                         public void onResponse(Call<CreateDocumentation> call, Response<CreateDocumentation> response) {
+
                             progressDialog.dismiss();
 
                             if(response.code() == 200) {
                                 if (response.body() != null) {
                                     String message = response.body().getMessage();
-
                                     if(response.body().getCode() == 0) {
 
                                     }
@@ -895,7 +895,6 @@ public class FormAddActivity extends AppCompatActivity {
                 }).check();
     }
 
-
     public void showImagePickerOptions() {
 
         ImagePickerActivity.showImagePickerOptions(this, new ImagePickerActivity.PickerOptionListener() {
@@ -912,7 +911,6 @@ public class FormAddActivity extends AppCompatActivity {
         });
 
     }
-
 
     private void launchCameraIntent() {
         Intent intent = new Intent(FormAddActivity.this, ImagePickerActivity.class);
