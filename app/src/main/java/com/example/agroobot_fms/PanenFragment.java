@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,10 @@ import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
 import com.example.agroobot_fms.model.create_observation.CreateObservation;
 import com.example.agroobot_fms.model.get_all_data_panen.DataPanen;
+import com.example.agroobot_fms.model.get_all_data_panen.Datum;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +45,8 @@ public class PanenFragment extends Fragment {
     private ProgressDialog progressDialog;
 
     SharedPreferences sh;
+    List<Datum> listData;
+    DataPanenAdapter dataPanenAdapter;
 
     public PanenFragment() {
         // Required empty public constructor
@@ -91,6 +99,51 @@ public class PanenFragment extends Fragment {
                 initDataPanen();
             }
         });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //after the change calling the method and passing the search input
+                filter(editable.toString());
+            }
+        });
+    }
+
+    private void filter(String text) {
+        // creating a new array list to filter our data.
+        List<Datum> filteredlist = new ArrayList<>();
+
+        // running a for loop to compare elements.
+        for (Datum item : listData) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getCommodityNameVar().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item);
+            }
+        }
+
+        dataPanenAdapter.filterList(filteredlist);
+
+//        if (filteredlist.isEmpty()) {
+//            // if no item is added in filtered list we are
+//            // displaying a toast message as no data found.
+//            Toast.makeText(getContext(), "No Data Found..", Toast.LENGTH_SHORT).show();
+//        } else {
+//            // at last we are passing that filtered
+//            // list to our adapter class.
+//            dataPanenAdapter.filterList(filteredlist);
+//        }
     }
 
     private void initDataPanen() {
@@ -117,8 +170,11 @@ public class PanenFragment extends Fragment {
                 if(response.code() == 200) {
                     if (response.body() != null) {
                         if(response.body().getCode() == 0) {
-                            DataPanenAdapter dataPanenAdapter = new DataPanenAdapter(getContext(),
-                                    response.body().getData());
+
+                            listData = response.body().getData();
+
+                            dataPanenAdapter = new DataPanenAdapter(getContext(),
+                                    listData);
                             rvDataPanen.setAdapter(dataPanenAdapter);
                         } else {
 

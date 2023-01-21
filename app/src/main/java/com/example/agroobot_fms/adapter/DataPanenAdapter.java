@@ -13,11 +13,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.agroobot_fms.AddDataPanenActivity;
 import com.example.agroobot_fms.DetailDataPanenActivity;
 import com.example.agroobot_fms.R;
 import com.example.agroobot_fms.model.get_all_data_panen.Datum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataPanenAdapter extends RecyclerView.Adapter<DataPanenAdapter.ViewHolder>{
@@ -52,6 +52,14 @@ public class DataPanenAdapter extends RecyclerView.Adapter<DataPanenAdapter.View
             holder.txtStatusApproval.setBackgroundResource(R.drawable.table_header_cell_bg);
             holder.txtAction.setBackgroundResource(R.drawable.table_header_cell_bg);
 
+            holder.txtNo.setText("No");
+            holder.txtKomoditas.setText("Komoditas");
+            holder.txtLahan.setText("Lahan");
+            holder.txtPeriodeTanam.setText("Periode Tanam");
+            holder.txtTglPanen.setText("Tanggal Panen");
+            holder.txtHasilPanen.setText("Hasil Panen (Kg)");
+            holder.txtStatusApproval.setText("Status Approval");
+            holder.txtStatusApproval.setText("Action");
         } else {
 
             Datum dataItem = data.get(position - 1);
@@ -97,7 +105,16 @@ public class DataPanenAdapter extends RecyclerView.Adapter<DataPanenAdapter.View
 
     @Override
     public int getItemCount() {
-        return data.size()+1;
+        return data.size() + 1;
+    }
+
+    public void filterList(List<Datum> filteredlist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        data = filteredlist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

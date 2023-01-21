@@ -52,6 +52,14 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.ViewHo
             holder.txtPetani.setBackgroundResource(R.drawable.table_header_cell_bg);
             holder.txtAction.setBackgroundResource(R.drawable.table_header_cell_bg);
 
+            holder.txtNo.setText("No");
+            holder.txtKomoditas.setText("Komoditas");
+            holder.txtPeriodeTanam.setText("Periode Tanam");
+            holder.txtPetani.setText("Petani");
+            holder.txtLahan.setText("Lahan");
+            holder.txtBudgetPlan.setText("Budget Plan");
+            holder.txtAction.setText("Action");
+
         } else {
 
             Datum dataItem = data.get(position - 1);
@@ -97,7 +105,16 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return data.size()+1;
+        return data.size() + 1;
+    }
+
+    public void filterList(List<Datum> filteredlist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        data = filteredlist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
