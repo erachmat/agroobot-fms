@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ public class PanenFragment extends Fragment {
     EditText etSearch;
     ImageView btnAdd;
     RecyclerView rvDataPanen;
+    SwipeRefreshLayout swipeRefresh;
     private ProgressDialog progressDialog;
 
     SharedPreferences sh;
@@ -66,9 +68,11 @@ public class PanenFragment extends Fragment {
 
     private void initView(View view) {
 
+        swipeRefresh = view.findViewById(R.id.swipe_refresh);
         etSearch = view.findViewById(R.id.et_search);
-
+        rvDataPanen = view.findViewById(R.id.rv_data_panen);
         btnAdd = view.findViewById(R.id.btn_add);
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,18 +82,23 @@ public class PanenFragment extends Fragment {
             }
         });
 
-        rvDataPanen = view.findViewById(R.id.rv_data_panen);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvDataPanen.setLayoutManager(layoutManager);
 
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initDataPanen();
+            }
+        });
     }
 
     private void initDataPanen() {
 
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading....");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(getContext());
+//        progressDialog.setMessage("Loading....");
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
 
         sh = getContext().getSharedPreferences("MySharedPref",
                 Context.MODE_PRIVATE);
@@ -101,7 +110,9 @@ public class PanenFragment extends Fragment {
             @Override
             public void onResponse(Call<DataPanen> call, Response<DataPanen> response) {
 
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
+
+                swipeRefresh.setRefreshing(false);
 
                 if(response.code() == 200) {
                     if (response.body() != null) {
@@ -140,7 +151,9 @@ public class PanenFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DataPanen> call, Throwable t) {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
+
+                swipeRefresh.setRefreshing(false);
                 Toast.makeText(getContext(),
                         "Something went wrong...Please try later!",
                         Toast.LENGTH_SHORT).show();

@@ -71,7 +71,10 @@ public class DetailDataPanenActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(DetailDataPanenActivity.this,
+                        EditDataPanenActivity.class);
+                intent.putExtra("idSeq", idSeq);
+                startActivity(intent);
             }
         });
 
