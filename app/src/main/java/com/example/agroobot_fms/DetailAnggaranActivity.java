@@ -2,18 +2,23 @@ package com.example.agroobot_fms;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
+import com.example.agroobot_fms.model.delete_budget_detail.DeleteBudgetDetail;
+import com.example.agroobot_fms.model.delete_data_panen.DeleteDataPanen;
 import com.example.agroobot_fms.model.get_one_budget_detail.Datum;
 import com.example.agroobot_fms.model.get_one_budget_detail.GetOneBudgetDetail;
 import com.example.agroobot_fms.model.get_one_data_panen.Data;
@@ -65,8 +70,103 @@ public class DetailAnggaranActivity extends AppCompatActivity {
         txtTotalHarga = findViewById(R.id.txt_total_harga);
 
         btnEdit = findViewById(R.id.btn_edit);
+
         btnDelete = findViewById(R.id.btn_delete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(DetailAnggaranActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Hapus Detail Anggaran")
+                        .setMessage("Anda yakin menghapus data ini?")
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteDataPanen(idSeq);
+
+//                                finish();
+//                                Toast.makeText(DetailDataPanenActivity.this,
+//                                        "Activity closed",Toast.LENGTH_SHORT).show();
+                            }
+                        }).setNegativeButton("Tidak", null).show();
+            }
+        });
+
         imgDokumentasi = findViewById(R.id.img_dokumentasi);
+
+    }
+
+    private void deleteDataPanen(String idSeq) {
+
+        progressDialog = new ProgressDialog(DetailAnggaranActivity.this);
+        progressDialog.setMessage("Loading....");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        sh = getSharedPreferences("MySharedPref",
+                Context.MODE_PRIVATE);
+        String tokenLogin = sh.getString("tokenLogin", "");
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DeleteBudgetDetail> deleteBudgetDetailCall = service.deleteBudgetDetail(
+                Integer.parseInt(idSeq), tokenLogin);
+        deleteBudgetDetailCall.enqueue(new Callback<DeleteBudgetDetail>() {
+            @Override
+            public void onResponse(Call<DeleteBudgetDetail> call,
+                                   Response<DeleteBudgetDetail> response) {
+
+                progressDialog.dismiss();
+
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            finish();
+                            Toast.makeText(DetailAnggaranActivity.this,
+                                    "Silahkan refresh kembali table data anggaran!",
+                                    Toast.LENGTH_SHORT).show();
+
+                        } else {
+
+                            sh = getSharedPreferences(
+                                    "MySharedPref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("isUserLogin", false);
+                            editor.apply();
+
+                            Intent intent = new Intent(
+                                    DetailAnggaranActivity.this,
+                                    LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        String message = response.body().getMessage();
+//                        Toast.makeText(DetailDataPanenActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(DetailAnggaranActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(DetailAnggaranActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<DeleteBudgetDetail> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(DetailAnggaranActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
 
     }
 
