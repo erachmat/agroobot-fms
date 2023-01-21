@@ -49,7 +49,6 @@ public class DokumentasiAdapter extends RecyclerView.Adapter<DokumentasiAdapter.
                     .error(R.drawable.img_dokumentasi)
                     .into(holder.imgDokumentasi);
         }
-
     }
 
     @Override

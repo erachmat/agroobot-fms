@@ -124,7 +124,7 @@ public interface GetService {
     Call<DataPanen> getAllDataPanen(@Header("Authorization") String token);
 
     @GET(GET_ONE_DATA_PANEN_URL)
-    Call<DataPanen> getOneDataPanen(
+    Call<com.example.agroobot_fms.model.get_one_data_panen.DataPanen> getOneDataPanen(
             @Header("Authorization") String token,
             @Query("id_seq") int idSeq);
 

@@ -2,6 +2,7 @@ package com.example.agroobot_fms;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -32,6 +33,8 @@ public class AnggaranFragment extends Fragment {
     EditText etSearch;
     RecyclerView rvAnggaran;
     private ProgressDialog progressDialog;
+
+    SharedPreferences sh;
 
     public AnggaranFragment() {
         // Required empty public constructor
@@ -75,7 +78,7 @@ public class AnggaranFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref",
+        sh = getContext().getSharedPreferences("MySharedPref",
                 Context.MODE_PRIVATE);
         String tokenLogin = sh.getString("tokenLogin", "");
 
@@ -90,14 +93,25 @@ public class AnggaranFragment extends Fragment {
 
                 if(response.code() == 200) {
                     if (response.body() != null) {
-                        String message = response.body().getMessage();
-
                         if(response.body().getCode() == 0) {
                             AnggaranAdapter anggaranAdapter = new AnggaranAdapter(getContext(),
                                     response.body().getData());
                             rvAnggaran.setAdapter(anggaranAdapter);
+                        } else {
+
+                            sh = getContext().getSharedPreferences(
+                                    "MySharedPref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("isUserLogin", false);
+                            editor.apply();
+
+                            Intent intent = new Intent(getContext(),
+                                    LoginActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
                         }
 
+                        String message = response.body().getMessage();
                         Toast.makeText(getContext(), message,
                                 Toast.LENGTH_SHORT).show();
                     } else {

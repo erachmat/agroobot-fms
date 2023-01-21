@@ -36,6 +36,8 @@ public class PanenFragment extends Fragment {
     RecyclerView rvDataPanen;
     private ProgressDialog progressDialog;
 
+    SharedPreferences sh;
+
     public PanenFragment() {
         // Required empty public constructor
     }
@@ -89,7 +91,7 @@ public class PanenFragment extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref",
+        sh = getContext().getSharedPreferences("MySharedPref",
                 Context.MODE_PRIVATE);
         String tokenLogin = sh.getString("tokenLogin", "");
 
@@ -103,14 +105,25 @@ public class PanenFragment extends Fragment {
 
                 if(response.code() == 200) {
                     if (response.body() != null) {
-                        String message = response.body().getMessage();
-
                         if(response.body().getCode() == 0) {
                             DataPanenAdapter dataPanenAdapter = new DataPanenAdapter(getContext(),
                                     response.body().getData());
                             rvDataPanen.setAdapter(dataPanenAdapter);
+                        } else {
+
+                            sh = getContext().getSharedPreferences(
+                                    "MySharedPref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("isUserLogin", false);
+                            editor.apply();
+
+                            Intent intent = new Intent(getContext(),
+                                    LoginActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
                         }
 
+                        String message = response.body().getMessage();
                         Toast.makeText(getContext(), message,
                                 Toast.LENGTH_SHORT).show();
                     } else {
