@@ -70,6 +70,15 @@ public class DetailAnggaranActivity extends AppCompatActivity {
         txtTotalHarga = findViewById(R.id.txt_total_harga);
 
         btnEdit = findViewById(R.id.btn_edit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailAnggaranActivity.this,
+                        EditDetailAnggaranActivity.class);
+                intent.putExtra("idSeq", idSeq);
+                startActivity(intent);
+            }
+        });
 
         btnDelete = findViewById(R.id.btn_delete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +164,6 @@ public class DetailAnggaranActivity extends AppCompatActivity {
                             "Something went wrong...Please try later!",
                             Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override

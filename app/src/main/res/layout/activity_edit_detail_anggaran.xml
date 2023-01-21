@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context=".AddDataAnggaranActivty">
+    tools:context=".EditDetailAnggaranActivity">
 
     <!-- TOP BAR -->
     <RelativeLayout
@@ -27,7 +27,7 @@
             android:layout_centerInParent="true"
             android:layout_marginStart="@dimen/_5sdp"
             android:fontFamily="@font/worksans_medium"
-            android:text="Tambah Detail Anggaran"
+            android:text="Ubah Detail Anggaran"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp" />
 
@@ -213,15 +213,15 @@
 
                     </RelativeLayout>
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/et_satuan"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="@dimen/_50sdp"-->
-<!--                        android:background="@drawable/custom_border"-->
-<!--                        android:layout_marginTop="@dimen/_5sdp"-->
-<!--                        android:fontFamily="@font/worksans_regular"-->
-<!--                        android:textSize="@dimen/_12ssp"-->
-<!--                        android:textColor="@color/grey_dark_25" />-->
+                    <!--                    <EditText-->
+                    <!--                        android:id="@+id/et_satuan"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="@dimen/_50sdp"-->
+                    <!--                        android:background="@drawable/custom_border"-->
+                    <!--                        android:layout_marginTop="@dimen/_5sdp"-->
+                    <!--                        android:fontFamily="@font/worksans_regular"-->
+                    <!--                        android:textSize="@dimen/_12ssp"-->
+                    <!--                        android:textColor="@color/grey_dark_25" />-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -355,7 +355,7 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/btn_add"
+                android:id="@+id/btn_simpan"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:orientation="horizontal"
@@ -368,7 +368,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tambahkan"
+                    android:text="Simpan"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="@dimen/_12ssp" />

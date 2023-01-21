@@ -337,7 +337,8 @@ public interface GetService {
             @Part("quantity_var") RequestBody quantityVar,
             @Part("satuan_var") RequestBody satuanVar,
             @Part("price_var") RequestBody priceVar,
-            @Part("created_by_var") RequestBody createByVar);
+            @Part MultipartBody.Part images,
+            @Part("updated_by_var") RequestBody updateByVar);
 
     @DELETE(DELETE_BUDGET_DETAIL_URL)
     Call<DeleteBudgetDetail> deleteBudgetDetail(
