@@ -75,19 +75,16 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_kategori"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_floatingLabelColor="@color/white"
                             app:smsp_hint="- Pilih Kategori -"
@@ -105,9 +102,11 @@
                             android:layout_height="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -118,19 +117,16 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_kegiatan"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/_40sdp"
-                            android:layout_weight="3"
                             app:smsp_arrowSize="0dp"
                             app:smsp_floatingLabelColor="@color/white"
                             app:smsp_hint="- Pilih Kegiatan - "
@@ -148,9 +144,11 @@
                             android:layout_height="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/round_arrow_back_grey"/>
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -169,6 +167,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                     <TextView
@@ -180,15 +180,48 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_12ssp" />
 
-                    <EditText
-                        android:id="@+id/et_satuan"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/custom_border"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:fontFamily="@font/worksans_regular"
-                        android:textSize="@dimen/_12ssp"
-                        android:textColor="@color/grey_dark_25" />
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/sp_satuan"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            app:smsp_arrowSize="0dp"
+                            app:smsp_floatingLabelColor="@color/white"
+                            app:smsp_hint="- Pilih Satuan - "
+                            app:smsp_hintSize="@dimen/_12ssp"
+                            app:smsp_itemColor="@color/black"
+                            app:smsp_itemListColor="@color/black"
+                            app:smsp_itemListHintBackgroundColor="#808080"
+                            app:smsp_itemListHintColor="#FFFFFF"
+                            app:smsp_multilineError="false"
+                            app:smsp_selectedItemListColor="@color/green"
+                            app:smsp_underlineColor="@color/white" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/round_arrow_back_grey"/>
+
+                    </RelativeLayout>
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/et_satuan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/_50sdp"-->
+<!--                        android:background="@drawable/custom_border"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"-->
+<!--                        android:fontFamily="@font/worksans_regular"-->
+<!--                        android:textSize="@dimen/_12ssp"-->
+<!--                        android:textColor="@color/grey_dark_25" />-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -207,6 +240,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                     <TextView
@@ -226,6 +261,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                 </LinearLayout>
@@ -318,7 +355,7 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/btn_add_data_anggaran"
+                android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:orientation="horizontal"

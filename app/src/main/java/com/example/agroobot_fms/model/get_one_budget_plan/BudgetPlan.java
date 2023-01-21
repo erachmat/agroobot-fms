@@ -36,7 +36,7 @@ public class BudgetPlan {
     private String updatedOnDtm;
     @SerializedName("fullname_var")
     @Expose
-    private Object fullnameVar;
+    private String fullnameVar;
     @SerializedName("land_name_var")
     @Expose
     private String landNameVar;
@@ -121,11 +121,11 @@ public class BudgetPlan {
         this.updatedOnDtm = updatedOnDtm;
     }
 
-    public Object getFullnameVar() {
+    public String getFullnameVar() {
         return fullnameVar;
     }
 
-    public void setFullnameVar(Object fullnameVar) {
+    public void setFullnameVar(String fullnameVar) {
         this.fullnameVar = fullnameVar;
     }
 

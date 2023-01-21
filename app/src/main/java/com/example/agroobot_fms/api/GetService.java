@@ -322,6 +322,7 @@ public interface GetService {
             @Part("quantity_var") RequestBody quantityVar,
             @Part("satuan_var") RequestBody satuanVar,
             @Part("price_var") RequestBody priceVar,
+            @Part MultipartBody.Part images,
             @Part("created_by_var") RequestBody createByVar);
 
     @Multipart

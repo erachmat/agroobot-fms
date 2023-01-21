@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="top"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/txt_no"
+        android:text="No"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txt_kategori"
+        android:text="Kategori"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txt_kegiatan"
+        android:text="Kegiatan"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txt_luas"
+        android:text="Luas"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txt_jumlah"
+        android:text="Jumlah"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txt_satuan"
+        android:text="Satuan"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txt_harga"
+        android:text="Harga (Rp)"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txt_total"
+        android:text="Total (Rp)"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <TextView
+        android:id="@+id/txt_status"
+        android:text="Status"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/worksans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12ssp"/>
+
+    <RelativeLayout
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btn_action"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ice_eye"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txt_action"
+            android:text="Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/worksans_regular"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textSize="@dimen/_12ssp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

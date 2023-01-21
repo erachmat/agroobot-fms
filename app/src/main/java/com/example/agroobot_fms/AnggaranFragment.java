@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ public class AnggaranFragment extends Fragment {
     EditText etSearch;
     RecyclerView rvAnggaran;
     private ProgressDialog progressDialog;
+    SwipeRefreshLayout swipeRefresh;
 
     SharedPreferences sh;
 
@@ -52,7 +54,7 @@ public class AnggaranFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_anggaran, container, false);
 
         initView(view);
@@ -63,20 +65,26 @@ public class AnggaranFragment extends Fragment {
 
     private void initView(View view) {
 
+        swipeRefresh = view.findViewById(R.id.swipe_refresh);
         etSearch = view.findViewById(R.id.et_search);
-
         rvAnggaran = view.findViewById(R.id.rv_anggaran);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvAnggaran.setLayoutManager(layoutManager);
-
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initDataAnggaran();
+            }
+        });
     }
 
     private void initDataAnggaran() {
 
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading....");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(getContext());
+//        progressDialog.setMessage("Loading....");
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
 
         sh = getContext().getSharedPreferences("MySharedPref",
                 Context.MODE_PRIVATE);
@@ -89,7 +97,7 @@ public class AnggaranFragment extends Fragment {
             public void onResponse(Call<GetAllBudgetPlan> call,
                                    Response<GetAllBudgetPlan> response) {
 
-                progressDialog.dismiss();
+                swipeRefresh.setRefreshing(false);
 
                 if(response.code() == 200) {
                     if (response.body() != null) {
@@ -128,7 +136,10 @@ public class AnggaranFragment extends Fragment {
 
             @Override
             public void onFailure(Call<GetAllBudgetPlan> call, Throwable t) {
-                progressDialog.dismiss();
+
+                swipeRefresh.setRefreshing(false);
+
+//                progressDialog.dismiss();
                 Toast.makeText(getContext(),
                         "Something went wrong...Please try later!",
                         Toast.LENGTH_SHORT).show();

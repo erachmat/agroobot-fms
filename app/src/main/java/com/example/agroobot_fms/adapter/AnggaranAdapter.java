@@ -1,6 +1,7 @@
 package com.example.agroobot_fms.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.agroobot_fms.DetailAnggaranPetaniActivity;
+import com.example.agroobot_fms.DetailDataPanenActivity;
 import com.example.agroobot_fms.R;
 import com.example.agroobot_fms.model.get_all_budget_plan.Datum;
 
@@ -39,7 +42,6 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull AnggaranAdapter.ViewHolder holder, int position) {
 
-
         if(position == 0) {
             // Header Cells. Main Headings appear here
             holder.txtNo.setBackgroundResource(R.drawable.table_header_cell_bg);
@@ -62,7 +64,18 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.ViewHo
             holder.txtBudgetPlan.setBackgroundResource(R.drawable.table_content_cell_bg);
             holder.txtAction.setBackgroundResource(R.drawable.table_content_cell_bg);
             holder.txtAction.setTextColor(Color.parseColor("#508EF7"));
+            holder.txtAction.setText("Detail");
             holder.txtAction.setTypeface(null, Typeface.BOLD);
+
+            holder.txtAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,
+                            DetailAnggaranPetaniActivity.class);
+                    intent.putExtra("idSeq", dataItem.getIdSeq());
+                    context.startActivity(intent);
+                }
+            });
 
             holder.txtNo.setText(String.valueOf(position));
             holder.txtKomoditas.setText(dataItem.getCommodityNameVar());

@@ -11,7 +11,7 @@ public class Data {
     private List<BudgetPlan> budgetPlan = null;
     @SerializedName("budget_detail")
     @Expose
-    private List<Object> budgetDetail = null;
+    private List<BudgetDetail> budgetDetail = null;
 
     public List<BudgetPlan> getBudgetPlan() {
         return budgetPlan;
@@ -21,11 +21,11 @@ public class Data {
         this.budgetPlan = budgetPlan;
     }
 
-    public List<Object> getBudgetDetail() {
+    public List<BudgetDetail> getBudgetDetail() {
         return budgetDetail;
     }
 
-    public void setBudgetDetail(List<Object> budgetDetail) {
+    public void setBudgetDetail(List<BudgetDetail> budgetDetail) {
         this.budgetDetail = budgetDetail;
     }
 }
