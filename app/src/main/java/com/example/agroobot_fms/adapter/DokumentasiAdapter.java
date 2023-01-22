@@ -175,6 +175,15 @@ public class DokumentasiAdapter extends RecyclerView.Adapter<DokumentasiAdapter.
         return documentation.size();
     }
 
+    public void filterList(List<Documentation> filteredDokumentasi) {
+        // below line is to add our filtered
+        // list in our course array list.
+        documentation = filteredDokumentasi;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;

@@ -10,12 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,14 +34,18 @@ import com.example.agroobot_fms.api.GetService;
 import com.example.agroobot_fms.model.Event;
 import com.example.agroobot_fms.model.get_one.Activity;
 import com.example.agroobot_fms.model.get_one.Data;
+import com.example.agroobot_fms.model.get_one.Documentation;
 import com.example.agroobot_fms.model.get_one.GetOne;
 import com.example.agroobot_fms.model.get_one.GetOneBody;
+import com.example.agroobot_fms.model.get_one.Observation;
 import com.example.agroobot_fms.utils.CalendarUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -60,10 +67,17 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     TextView btnActivity, btnPengamatan, btnDokumentasi, btnCatatan;
     TextView txtTanggal, txtHari, txtBulan;
     SwipeRefreshLayout swipeRefresh;
+    LinearLayout lytTodayDate;
+
+    Data data;
 
     ActivityAdapter activityAdapter;
+    PengamatanAdapter pengamatanAdapter;
+    DokumentasiAdapter dokumentasiAdapter;
+
     private List<Activity> listActivity;
-    Data data;
+    private List<Observation> listPengamatan;
+    private List<Documentation> listDokumentasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +192,14 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         txtBulan = findViewById(R.id.txt_bulan);
         txtBulan.setText(bulan);
 
+        lytTodayDate = findViewById(R.id.lyt_today_date);
+        lytTodayDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCalendar();
+            }
+        });
+
         rvActivity = findViewById(R.id.rv_activity);
         rvPengamatan = findViewById(R.id.rv_pengamatan);
         rvDokumentasi = findViewById(R.id.rv_dokumentasi);
@@ -226,11 +248,14 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                                             tokenLogin, idPetani,
                                             idLahan, idPeriode);
 
-                                    setRvPengamatan(getApplicationContext(), data, tokenLogin, idPetani, idLahan, idPeriode);
+                                    setRvPengamatan(getApplicationContext(), data,
+                                            tokenLogin, idPetani, idLahan, idPeriode);
 
-                                    setRvCatatan(getApplicationContext(), data, tokenLogin, idPetani, idLahan, idPeriode);
+                                    setRvCatatan(getApplicationContext(), data,
+                                            tokenLogin, idPetani, idLahan, idPeriode);
 
-                                    setRvDokumentasi(getApplicationContext(), data, tokenLogin, idPetani, idLahan, idPeriode);
+                                    setRvDokumentasi(getApplicationContext(), data,
+                                            tokenLogin, idPetani, idLahan, idPeriode);
 
                                 } else {
 
@@ -276,6 +301,77 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
             }
         });
+    }
+
+    private void openCalendar() {
+        // on below line we are getting
+        // the instance of our calendar.
+        final Calendar c = Calendar.getInstance();
+
+        // on below line we are getting
+        // our day, month and year.
+        int yearNow = c.get(Calendar.YEAR);
+        int monthNow = c.get(Calendar.MONTH);
+        int dayNow = c.get(Calendar.DAY_OF_MONTH);
+
+        // on below line we are creating a variable for date picker dialog.
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                // on below line we are passing context.
+                JadwalActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        Calendar mCalendar = Calendar.getInstance();
+                        mCalendar.set(Calendar.YEAR, year);
+                        mCalendar.set(Calendar.MONTH, monthOfYear);
+                        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+//                        String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).
+//                                format(mCalendar.getTime());
+
+                        String date = year + "-" + String.format("%02d", (monthOfYear + 1))
+                                + "-" + String.format("%02d", (dayOfMonth));
+                        LocalDate localDate = LocalDate.parse(date);
+
+                        CalendarUtils.selectedDate = localDate;
+                        setWeekView();
+
+                        filter(date);
+
+//                        Toast.makeText(getApplicationContext(), String.valueOf(localDate),
+//                                Toast.LENGTH_SHORT).show();
+//
+////                        txtTglPenjemuran.setText(selectedDate);
+//
+////                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+////                        String tglPenjemuran = simpleDateFormat.format(mCalendar.getTime());
+//
+                        SimpleDateFormat sdfHari = new SimpleDateFormat("EEE");
+                        String hari = sdfHari.format(mCalendar.getTime());
+                        txtHari.setText(hari);
+
+                        SimpleDateFormat sdfTanggal = new SimpleDateFormat("dd");
+                        String tanggal = sdfTanggal.format(mCalendar.getTime());
+                        txtTanggal.setText(tanggal);
+
+                        SimpleDateFormat sdfBulan = new SimpleDateFormat("MMM yyyy");
+                        String bulan = sdfBulan.format(mCalendar.getTime());
+                        txtBulan.setText(bulan);
+
+
+                        // on below line we are setting date to our text view.
+//                        selectedDateTV.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                    }
+                },
+                // on below line we are passing year,
+                // month and day for selected date in our date picker.
+                yearNow, monthNow, dayNow);
+
+        // at last we are calling show to
+        // display our date picker dialog.
+        datePickerDialog.show();
     }
 
     private void setView(String opsi) {
@@ -337,8 +433,10 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
     private void setRvPengamatan(Context context, Data data, String tokenLogin,
                                  String idPetani, String idLahan, String idPeriode) {
-        PengamatanAdapter pengamatanAdapter = new PengamatanAdapter(context,
-                data.getObservation(), tokenLogin, idPetani, idLahan, idPeriode) ;
+
+        listPengamatan = data.getObservation();
+        pengamatanAdapter = new PengamatanAdapter(context,
+                data.getObservation(), tokenLogin, idPetani, idLahan, idPeriode);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         rvPengamatan.setLayoutManager(layoutManager);
         rvPengamatan.setAdapter(pengamatanAdapter);
@@ -346,7 +444,9 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
     private void setRvDokumentasi(Context context, Data data, String tokenLogin,
                                   String idPetani, String idLahan, String idPeriode) {
-        DokumentasiAdapter dokumentasiAdapter = new DokumentasiAdapter(context,
+
+        listDokumentasi = data.getDocumentation();
+        dokumentasiAdapter = new DokumentasiAdapter(context,
                 data.getDocumentation(), tokenLogin, idPetani, idLahan, idPeriode);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
         rvDokumentasi.setLayoutManager(layoutManager);
@@ -414,6 +514,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     }
 
     private void filter(String text) {
+
         // creating a new array list to filter our data.
         List<Activity> filteredlist = new ArrayList<>();
 
@@ -428,6 +529,36 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         }
 
         activityAdapter.filterList(filteredlist);
+
+        // creating a new array list to filter our data.
+        List<Observation> filteredPengamatan = new ArrayList<>();
+
+        // running a for loop to compare elements.
+        for (Observation item : listPengamatan) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getTimeCalenderDte().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredPengamatan.add(item);
+            }
+        }
+
+        pengamatanAdapter.filterList(filteredPengamatan);
+
+        // creating a new array list to filter our data.
+        List<Documentation> filteredDokumentasi = new ArrayList<>();
+
+        // running a for loop to compare elements.
+        for (Documentation item : listDokumentasi) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getTimeCalenderDte().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredDokumentasi.add(item);
+            }
+        }
+
+        dokumentasiAdapter.filterList(filteredDokumentasi);
 
 //        if (filteredlist.isEmpty()) {
 //            // if no item is added in filtered list we are

@@ -264,7 +264,7 @@ public class AddDataPanenActivity extends AppCompatActivity {
 
                         Calendar mCalendar = Calendar.getInstance();
                         mCalendar.set(Calendar.YEAR, year);
-                        mCalendar.set(Calendar.MONTH, month);
+                        mCalendar.set(Calendar.MONTH, monthOfYear);
                         mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                         String selectedDate = DateFormat.getDateInstance(DateFormat.DEFAULT).

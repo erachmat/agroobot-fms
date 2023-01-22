@@ -182,6 +182,15 @@ public class PengamatanAdapter extends RecyclerView.Adapter<PengamatanAdapter.Vi
         return observation.size();
     }
 
+    public void filterList(List<Observation> filteredPengamatan) {
+        // below line is to add our filtered
+        // list in our course array list.
+        observation = filteredPengamatan;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final View mView;
