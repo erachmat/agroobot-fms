@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,14 +23,12 @@ import android.widget.Toast;
 import com.example.agroobot_fms.adapter.ActivityAdapter;
 import com.example.agroobot_fms.adapter.CalendarAdapter;
 import com.example.agroobot_fms.adapter.CatatanAdapter;
-import com.example.agroobot_fms.adapter.DataPanenAdapter;
 import com.example.agroobot_fms.adapter.DokumentasiAdapter;
 import com.example.agroobot_fms.adapter.EventAdapter;
 import com.example.agroobot_fms.adapter.PengamatanAdapter;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
 import com.example.agroobot_fms.model.Event;
-import com.example.agroobot_fms.model.get_all_data_panen.DataPanen;
 import com.example.agroobot_fms.model.get_one.Activity;
 import com.example.agroobot_fms.model.get_one.Data;
 import com.example.agroobot_fms.model.get_one.GetOne;
@@ -84,7 +81,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
             String dataJson = getIntent().getStringExtra("dataJadwal");
 
-            if(dataJson != null){
+            if(dataJson != null) {
 
                 Gson gson = new Gson();
                 data = gson.fromJson(dataJson, Data.class);
@@ -95,7 +92,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 setRvActivity(getApplicationContext(), data, tokenLogin, idPetani,
                         idLahan, idPeriode);
 
-                setRvPengamatan(getApplicationContext(), data);
+                setRvPengamatan(getApplicationContext(), data, tokenLogin, idPetani,
+                        idLahan, idPeriode);
 
                 setRvCatatan(getApplicationContext(), data);
 
@@ -226,7 +224,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                                             tokenLogin, idPetani,
                                             idLahan, idPeriode);
 
-                                    setRvPengamatan(getApplicationContext(), data);
+                                    setRvPengamatan(getApplicationContext(), data, tokenLogin, idPetani, idLahan, idPeriode);
 
                                     setRvCatatan(getApplicationContext(), data);
 
@@ -335,9 +333,10 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         rvActivity.setAdapter(activityAdapter);
     }
 
-    private void setRvPengamatan(Context context, Data data) {
+    private void setRvPengamatan(Context context, Data data, String tokenLogin,
+                                 String idPetani, String idLahan, String idPeriode) {
         PengamatanAdapter pengamatanAdapter = new PengamatanAdapter(context,
-                data.getObservation());
+                data.getObservation(), tokenLogin, idPetani, idLahan, idPeriode) ;
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         rvPengamatan.setLayoutManager(layoutManager);
         rvPengamatan.setAdapter(pengamatanAdapter);
