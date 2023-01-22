@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.agroobot_fms.DetailDataPanenActivity;
+import com.example.agroobot_fms.EditAktivitasActivity;
 import com.example.agroobot_fms.FormAddActivity;
 import com.example.agroobot_fms.LoginActivity;
 import com.example.agroobot_fms.R;
@@ -25,6 +27,7 @@ import com.example.agroobot_fms.api.GetService;
 import com.example.agroobot_fms.model.delete_activity.DeleteActivityBody;
 import com.example.agroobot_fms.model.delete_activity.DeleteActivityResponse;
 import com.example.agroobot_fms.model.get_one.Activity;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -80,9 +83,17 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkFormActivity()) {
 
-                }
+                String dataJson = new Gson().toJson(dataItem);
+
+                Intent intent = new Intent(context,
+                        EditAktivitasActivity.class);
+                intent.putExtra("dataJson", dataJson);
+                intent.putExtra("idPetani", idPetani);
+                intent.putExtra("idLahan", idLahan);
+                intent.putExtra("idPeriode", idPeriode);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
 

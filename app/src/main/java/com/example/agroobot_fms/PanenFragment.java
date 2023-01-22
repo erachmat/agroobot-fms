@@ -190,9 +190,9 @@ public class PanenFragment extends Fragment {
                             getActivity().finish();
                         }
 
-                        String message = response.body().getMessage();
-                        Toast.makeText(getContext(), message,
-                                Toast.LENGTH_SHORT).show();
+//                        String message = response.body().getMessage();
+//                        Toast.makeText(getContext(), message,
+//                                Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(),
                                 "Something went wrong...Please try later!",
