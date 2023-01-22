@@ -287,7 +287,10 @@ public class FormAddActivity extends AppCompatActivity {
                                     String message = response.body().getMessage();
 
                                     if(response.body().getCode() == 0) {
-
+                                        finish();
+                                        Toast.makeText(FormAddActivity.this,
+                                                "Silahkan refresh list activity!",
+                                                Toast.LENGTH_SHORT).show();
                                     }
 
                                     Toast.makeText(FormAddActivity.this, message,

@@ -113,6 +113,7 @@ public class EditAktivitasActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<UpdateActivityResponse> call,
                                                Response<UpdateActivityResponse> response) {
+
                             progressDialog.dismiss();
 
                             if(response.code() == 200) {

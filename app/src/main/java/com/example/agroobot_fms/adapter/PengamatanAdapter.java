@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.agroobot_fms.EditAktivitasActivity;
+import com.example.agroobot_fms.EditPengamatanActivity;
 import com.example.agroobot_fms.R;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
 import com.example.agroobot_fms.model.delete_observation.DeleteObservationBody;
 import com.example.agroobot_fms.model.delete_observation.DeleteObservationResponse;
 import com.example.agroobot_fms.model.get_one.Observation;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -79,6 +83,23 @@ public class PengamatanAdapter extends RecyclerView.Adapter<PengamatanAdapter.Vi
         holder.txtSeranganHama.setText(kondisiHama);
         holder.txtCatatan.setText(catatan);
 
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String dataJson = new Gson().toJson(dataItem);
+
+                Intent intent = new Intent(context,
+                        EditPengamatanActivity.class);
+                intent.putExtra("dataJson", dataJson);
+                intent.putExtra("idPetani", idPetani);
+                intent.putExtra("idLahan", idLahan);
+                intent.putExtra("idPeriode", idPeriode);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +133,7 @@ public class PengamatanAdapter extends RecyclerView.Adapter<PengamatanAdapter.Vi
                                     @Override
                                     public void onResponse(Call<DeleteObservationResponse> call,
                                                            Response<DeleteObservationResponse> response) {
-                                        
+
                                         progressDialog.dismiss();
 
                                         if(response.code() == 200) {
