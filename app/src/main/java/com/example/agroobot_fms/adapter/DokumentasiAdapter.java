@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.agroobot_fms.EditAktivitasActivity;
+import com.example.agroobot_fms.EditDokumentasiActivity;
 import com.example.agroobot_fms.R;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
@@ -22,6 +25,7 @@ import com.example.agroobot_fms.model.delete_activity.DeleteActivityResponse;
 import com.example.agroobot_fms.model.delete_documentation.DeleteDocumentation;
 import com.example.agroobot_fms.model.delete_documentation.DeleteDocumentationBody;
 import com.example.agroobot_fms.model.get_one.Documentation;
+import com.google.gson.Gson;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
@@ -73,6 +77,23 @@ public class DokumentasiAdapter extends RecyclerView.Adapter<DokumentasiAdapter.
                     .error(R.drawable.img_dokumentasi)
                     .into(holder.imgDokumentasi);
         }
+
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String dataJson = new Gson().toJson(dataItem);
+
+                Intent intent = new Intent(context,
+                        EditDokumentasiActivity.class);
+                intent.putExtra("dataJson", dataJson);
+                intent.putExtra("idPetani", idPetani);
+                intent.putExtra("idLahan", idLahan);
+                intent.putExtra("idPeriode", idPeriode);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -227,7 +227,8 @@ public interface GetService {
             @Part("land_code_var") RequestBody landCodeVar,
             @Part("period_plant_txt") RequestBody periodPlantText,
             @Part("time_calender_dte") RequestBody timeCalendarDte,
-            @Part("created_by_var") RequestBody createdByVar);
+            @Part MultipartBody.Part images,
+            @Part("updated_by_var") RequestBody updateByVar);
 
     @PATCH(UPDATE_RATING_URL)
     Call<UpdateRatingResponse> updateRating(
