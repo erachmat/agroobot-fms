@@ -204,6 +204,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -222,6 +224,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:textColor="@color/black" />
 
                     <TextView

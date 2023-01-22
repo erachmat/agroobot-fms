@@ -191,14 +191,30 @@ public class FormAddActivity extends AppCompatActivity {
 
                             if(response.code() == 200) {
                                 if (response.body() != null) {
-                                    String message = response.body().getMessage();
-
                                     if(response.body().getCode() == 0) {
 
+                                        finish();
+                                        Toast.makeText(FormAddActivity.this,
+                                                "Silahkan refresh list activity!",
+                                                Toast.LENGTH_SHORT).show();
+
+                                    } else {
+
+                                        sh = getSharedPreferences(
+                                                "MySharedPref", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sh.edit();
+                                        editor.putBoolean("isUserLogin", false);
+                                        editor.apply();
+
+                                        Intent intent = new Intent(FormAddActivity.this,
+                                                LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
                                     }
 
-                                    Toast.makeText(FormAddActivity.this, message,
-                                            Toast.LENGTH_SHORT).show();
+//                                    String message = response.body().getMessage();
+//                                    Toast.makeText(FormAddActivity.this, message,
+//                                            Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(FormAddActivity.this,
                                             "Something went wrong...Please try later!",

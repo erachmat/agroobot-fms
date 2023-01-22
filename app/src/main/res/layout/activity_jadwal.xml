@@ -33,397 +33,418 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:id="@+id/sp_petani"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:paddingStart="@dimen/_10sdp"
-            android:background="@drawable/custom_border_no_radius"
-            app:smsp_arrowSize="0dp"
-            app:smsp_hint="Pilih Petani"
-            app:smsp_itemColor="@color/black"
-            app:smsp_itemListColor="@color/black"
-            app:smsp_itemListHintBackgroundColor="#808080"
-            app:smsp_itemListHintColor="#FFFFFF"
-            app:smsp_floatingLabelColor="@color/white"
-            app:smsp_multilineError="false"
-            app:smsp_isSearchable="true"
-            app:smsp_underlineColor="@color/white"
-            app:smsp_hintSize="@dimen/_10ssp"
-            app:smsp_selectedItemListColor="@color/green" />
-
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:paddingStart="@dimen/_10sdp"
-            android:background="@drawable/custom_border_no_radius"
-            app:smsp_hint="Pilih Lahan"
-            app:smsp_itemColor="@color/black"
-            app:smsp_itemListColor="@color/black"
-            app:smsp_itemListHintBackgroundColor="#808080"
-            app:smsp_itemListHintColor="#FFFFFF"
-            app:smsp_floatingLabelColor="@color/white"
-            app:smsp_multilineError="false"
-            app:smsp_isSearchable="true"
-            app:smsp_underlineColor="@color/white"
-            app:smsp_arrowSize="0dp"
-            app:smsp_hintSize="@dimen/_10ssp"
-            app:smsp_selectedItemListColor="@color/green" />
-
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            app:smsp_arrowSize="0dp"
-            android:paddingStart="@dimen/_10sdp"
-            android:background="@drawable/custom_border_no_radius"
-            app:smsp_hint="Pilih Periode"
-            app:smsp_itemColor="@color/black"
-            app:smsp_itemListColor="@color/black"
-            app:smsp_itemListHintBackgroundColor="#808080"
-            app:smsp_itemListHintColor="#FFFFFF"
-            app:smsp_floatingLabelColor="@color/white"
-            app:smsp_multilineError="false"
-            app:smsp_isSearchable="true"
-            app:smsp_hintSize="@dimen/_10ssp"
-            app:smsp_underlineColor="@color/white"
-            app:smsp_selectedItemListColor="@color/green" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/_10sdp"
-        android:gravity="center_vertical"
-        android:background="@color/white"
-        android:baselineAligned="false">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txt_tanggal"
-                android:text="29"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/worksans_semibold"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_24ssp"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="@dimen/_5sdp">
-
-                <TextView
-                    android:id="@+id/txt_hari"
-                    android:text="Kamis"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/worksans_medium"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp"/>
-
-                <TextView
-                    android:id="@+id/txt_bulan"
-                    android:text="Des 2022"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/worksans_medium"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="@dimen/_10sdp"
-                android:layout_height="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:src="@drawable/round_arrow_back_grey"/>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hari ini"
-                android:textColor="@color/blue"
-                android:fontFamily="@font/worksans_regular"
-                android:textSize="@dimen/_12ssp"
-                android:background="@drawable/custom_border"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/btn_add"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:src="@drawable/ic_plus_box"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:visibility="gone">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="prev"
-            android:textColor="@color/blue"
-            android:background="@null"
-            android:textStyle="bold"
-            android:onClick="previousWeekAction"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/monthYearTV"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:text="Feb 2021"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:textColor="@color/black"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="next"
-            android:textColor="@color/blue"
-            android:background="@null"
-            android:textStyle="bold"
-            android:onClick="nextWeekAction"
-            android:textSize="20sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white">
-
-        <TextView
-            android:text="M"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/worksans_regular"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="@dimen/_12ssp"/>
-
-        <TextView
-            android:text="S"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/worksans_regular"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="@dimen/_12ssp"/>
-
-        <TextView
-            android:text="S"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/worksans_regular"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="@dimen/_12ssp"/>
-
-        <TextView
-            android:text="R"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/worksans_regular"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="@dimen/_12ssp"/>
-
-        <TextView
-            android:text="K"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/worksans_regular"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="@dimen/_12ssp"/>
-
-        <TextView
-            android:text="J"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/worksans_regular"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="@dimen/_12ssp"/>
-
-        <TextView
-            android:text="S"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/worksans_regular"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="@dimen/_12ssp"/>
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/calendarRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:background="@color/white"/>
-
-    <HorizontalScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp"
-            android:background="@color/grey">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/btn_activity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_border_grey"
-                android:fontFamily="@font/worksans_medium"
-                android:text="Aktivitas"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_10ssp" />
-
-            <TextView
-                android:id="@+id/btn_pengamatan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/worksans_medium"
-                android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:background="@drawable/custom_border_grey"
-                android:text="Pengamatan" />
-
-            <TextView
-                android:id="@+id/btn_dokumentasi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/worksans_medium"
-                android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:background="@drawable/custom_border_grey"
-                android:text="Dokumentasi" />
-
-            <TextView
-                android:id="@+id/btn_catatan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/worksans_medium"
-                android:textSize="@dimen/_10ssp"
-                android:textColor="@color/white"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:background="@drawable/custom_border_grey"
-                android:text="Catatan/Saran" />
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_activity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_10sdp"
-        android:paddingEnd="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
-        android:visibility="visible"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_pengamatan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_10sdp"
-        android:paddingEnd="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
-        android:visibility="gone"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/lyt_rv_dokumentasi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_8sdp"
-        android:background="@color/white"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:visibility="gone">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_dokumentasi"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
-    </androidx.cardview.widget.CardView>
+                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                        android:id="@+id/sp_petani"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:background="@drawable/custom_border_no_radius"
+                        app:smsp_arrowSize="0dp"
+                        app:smsp_hint="Pilih Petani"
+                        app:smsp_itemColor="@color/black"
+                        app:smsp_itemListColor="@color/black"
+                        app:smsp_itemListHintBackgroundColor="#808080"
+                        app:smsp_itemListHintColor="#FFFFFF"
+                        app:smsp_floatingLabelColor="@color/white"
+                        app:smsp_multilineError="false"
+                        app:smsp_isSearchable="true"
+                        app:smsp_underlineColor="@color/white"
+                        app:smsp_hintSize="@dimen/_10ssp"
+                        app:smsp_selectedItemListColor="@color/green" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_catatan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_10sdp"
-        android:paddingEnd="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
-        android:visibility="gone"/>
+                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:background="@drawable/custom_border_no_radius"
+                        app:smsp_hint="Pilih Lahan"
+                        app:smsp_itemColor="@color/black"
+                        app:smsp_itemListColor="@color/black"
+                        app:smsp_itemListHintBackgroundColor="#808080"
+                        app:smsp_itemListHintColor="#FFFFFF"
+                        app:smsp_floatingLabelColor="@color/white"
+                        app:smsp_multilineError="false"
+                        app:smsp_isSearchable="true"
+                        app:smsp_underlineColor="@color/white"
+                        app:smsp_arrowSize="0dp"
+                        app:smsp_hintSize="@dimen/_10ssp"
+                        app:smsp_selectedItemListColor="@color/green" />
+
+                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        app:smsp_arrowSize="0dp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:background="@drawable/custom_border_no_radius"
+                        app:smsp_hint="Pilih Periode"
+                        app:smsp_itemColor="@color/black"
+                        app:smsp_itemListColor="@color/black"
+                        app:smsp_itemListHintBackgroundColor="#808080"
+                        app:smsp_itemListHintColor="#FFFFFF"
+                        app:smsp_floatingLabelColor="@color/white"
+                        app:smsp_multilineError="false"
+                        app:smsp_isSearchable="true"
+                        app:smsp_hintSize="@dimen/_10ssp"
+                        app:smsp_underlineColor="@color/white"
+                        app:smsp_selectedItemListColor="@color/green" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+                    android:baselineAligned="false">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_tanggal"
+                            android:text="29"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans_semibold"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_24ssp"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/_5sdp">
+
+                            <TextView
+                                android:id="@+id/txt_hari"
+                                android:text="Kamis"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/worksans_medium"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10ssp"/>
+
+                            <TextView
+                                android:id="@+id/txt_bulan"
+                                android:text="Des 2022"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/worksans_medium"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10ssp"/>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:src="@drawable/round_arrow_back_grey"/>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hari ini"
+                            android:textColor="@color/blue"
+                            android:fontFamily="@font/worksans_regular"
+                            android:textSize="@dimen/_12ssp"
+                            android:background="@drawable/custom_border"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/btn_add"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:src="@drawable/ic_plus_box"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="prev"
+                        android:textColor="@color/blue"
+                        android:background="@null"
+                        android:textStyle="bold"
+                        android:onClick="previousWeekAction"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/monthYearTV"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="Feb 2021"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="next"
+                        android:textColor="@color/blue"
+                        android:background="@null"
+                        android:textStyle="bold"
+                        android:onClick="nextWeekAction"
+                        android:textSize="20sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:text="M"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_12ssp"/>
+
+                    <TextView
+                        android:text="S"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_12ssp"/>
+
+                    <TextView
+                        android:text="S"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_12ssp"/>
+
+                    <TextView
+                        android:text="R"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_12ssp"/>
+
+                    <TextView
+                        android:text="K"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_12ssp"/>
+
+                    <TextView
+                        android:text="J"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_12ssp"/>
+
+                    <TextView
+                        android:text="S"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/worksans_regular"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_12ssp"/>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/calendarRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@color/white"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp"
+                        android:background="@color/grey">
+
+                        <TextView
+                            android:id="@+id/btn_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/custom_border_grey"
+                            android:fontFamily="@font/worksans_medium"
+                            android:text="Aktivitas"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10ssp" />
+
+                        <TextView
+                            android:id="@+id/btn_pengamatan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans_medium"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/white"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:background="@drawable/custom_border_grey"
+                            android:text="Pengamatan" />
+
+                        <TextView
+                            android:id="@+id/btn_dokumentasi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans_medium"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/white"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:background="@drawable/custom_border_grey"
+                            android:text="Dokumentasi" />
+
+                        <TextView
+                            android:id="@+id/btn_catatan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans_medium"
+                            android:textSize="@dimen/_10ssp"
+                            android:textColor="@color/white"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:background="@drawable/custom_border_grey"
+                            android:text="Catatan/Saran" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:visibility="visible"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_pengamatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:visibility="gone"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/lyt_rv_dokumentasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    android:background="@color/white"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_dokumentasi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_catatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>
