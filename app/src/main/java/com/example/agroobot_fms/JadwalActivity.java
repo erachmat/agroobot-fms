@@ -95,9 +95,11 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 setRvPengamatan(getApplicationContext(), data, tokenLogin, idPetani,
                         idLahan, idPeriode);
 
-                setRvCatatan(getApplicationContext(), data);
+                setRvCatatan(getApplicationContext(), data, tokenLogin, idPetani,
+                        idLahan, idPeriode);
 
-                setRvDokumentasi(getApplicationContext(), data);
+                setRvDokumentasi(getApplicationContext(), data, tokenLogin, idPetani,
+                        idLahan, idPeriode);
 
 //                Toast.makeText(this, data.getActivity().get(0).getActivityTxt(),
 //                        Toast.LENGTH_SHORT).show();
@@ -226,9 +228,9 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
                                     setRvPengamatan(getApplicationContext(), data, tokenLogin, idPetani, idLahan, idPeriode);
 
-                                    setRvCatatan(getApplicationContext(), data);
+                                    setRvCatatan(getApplicationContext(), data, tokenLogin, idPetani, idLahan, idPeriode);
 
-                                    setRvDokumentasi(getApplicationContext(), data);
+                                    setRvDokumentasi(getApplicationContext(), data, tokenLogin, idPetani, idLahan, idPeriode);
 
                                 } else {
 
@@ -342,15 +344,17 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         rvPengamatan.setAdapter(pengamatanAdapter);
     }
 
-    private void setRvDokumentasi(Context context, Data data) {
+    private void setRvDokumentasi(Context context, Data data, String tokenLogin,
+                                  String idPetani, String idLahan, String idPeriode) {
         DokumentasiAdapter dokumentasiAdapter = new DokumentasiAdapter(context,
-                data.getDocumentation());
+                data.getDocumentation(), tokenLogin, idPetani, idLahan, idPeriode);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
         rvDokumentasi.setLayoutManager(layoutManager);
         rvDokumentasi.setAdapter(dokumentasiAdapter);
     }
 
-    private void setRvCatatan(Context context, Data data) {
+    private void setRvCatatan(Context context, Data data, String tokenLogin,
+                              String idPetani, String idLahan, String idPeriode) {
         CatatanAdapter catatanAdapter = new CatatanAdapter(context, data.getRating());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         rvCatatan.setLayoutManager(layoutManager);
