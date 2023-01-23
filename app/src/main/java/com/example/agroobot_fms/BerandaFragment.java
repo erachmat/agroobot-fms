@@ -1,6 +1,7 @@
 package com.example.agroobot_fms;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,14 +11,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
 public class BerandaFragment extends Fragment {
 
-      public BerandaFragment() {
+    RelativeLayout btnLogout;
+    RoundedImageView imgProfile;
+
+    int counterClick;
+
+    public BerandaFragment() {
         // Required empty public constructor
     }
 
@@ -90,6 +99,40 @@ public class BerandaFragment extends Fragment {
         chartTotalLahan.startAnimation();
         chartTotalLuasan.startAnimation();
         chartPendanaan.startAnimation();
+
+        counterClick = 0;
+
+        imgProfile = view.findViewById(R.id.img_profile);
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                counterClick ++;
+
+                if(counterClick % 2 == 0) {
+                    btnLogout.setVisibility(View.GONE);
+                } else {
+                    btnLogout.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
+        btnLogout = view.findViewById(R.id.btn_logout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                SharedPreferences settings = getContext().getSharedPreferences("PreferencesName",
+                        Context.MODE_PRIVATE);
+                settings.edit().clear().apply();
+
+                Intent intent = new Intent(getContext(),
+                        LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
 
         return view;
     }
