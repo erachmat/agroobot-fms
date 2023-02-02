@@ -721,12 +721,12 @@ public class EditDataPanenActivity extends AppCompatActivity {
             return false;
         }
 
-        if(imgDokumentasi == null) {
-            Toast.makeText(EditDataPanenActivity.this,
-                    "Masukkan gambar dokumentasi terlebih dahulu",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if(imgDokumentasi == null) {
+//            Toast.makeText(EditDataPanenActivity.this,
+//                    "Masukkan gambar dokumentasi terlebih dahulu",
+//                    Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         return true;
     }
