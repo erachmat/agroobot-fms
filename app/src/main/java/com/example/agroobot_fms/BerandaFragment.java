@@ -122,8 +122,8 @@ public class BerandaFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-                SharedPreferences settings = getContext().getSharedPreferences("PreferencesName",
+
+                SharedPreferences settings = getContext().getSharedPreferences("MySharedPref",
                         Context.MODE_PRIVATE);
                 settings.edit().clear().apply();
 

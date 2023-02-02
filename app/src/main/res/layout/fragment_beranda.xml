@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo_agroobot"
+            android:src="@mipmap/ic_launcher_pai"
             android:layout_centerVertical="true"/>
 
         <TextView
@@ -1043,7 +1043,7 @@
                                         android:id="@+id/txt_rf"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="89"
+                                        android:text="11"
                                         android:fontFamily="@font/worksans_medium"
                                         android:layout_marginStart="@dimen/_5sdp"
                                         android:textSize="@dimen/_14ssp" />

@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -106,7 +107,8 @@ public class FormAddActivity extends AppCompatActivity {
     EditText etNamaAktivitas, etNamaBahan, etDosis, etJumlahHst, etSatuanHst, etCatatan;
     private ProgressDialog progressDialog;
     TextView txtBrowsePhoto;
-    ImageView imgBrowsePhoto;
+    ImageView imgBrowsePhoto, btnBack;
+    Spinner spDaun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +138,14 @@ public class FormAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 pickImg();
+            }
+        });
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -289,7 +299,7 @@ public class FormAddActivity extends AppCompatActivity {
                                     if(response.body().getCode() == 0) {
                                         finish();
                                         Toast.makeText(FormAddActivity.this,
-                                                "Silahkan refresh list activity!",
+                                                "Silahkan refresh list pengamatan!",
                                                 Toast.LENGTH_SHORT).show();
                                     }
 
@@ -370,7 +380,10 @@ public class FormAddActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     String message = response.body().getMessage();
                                     if(response.body().getCode() == 0) {
-
+                                        finish();
+                                        Toast.makeText(FormAddActivity.this,
+                                                "Silahkan refresh list dokumentasi!",
+                                                Toast.LENGTH_SHORT).show();
                                     }
 
                                     Toast.makeText(FormAddActivity.this, message,
@@ -502,6 +515,7 @@ public class FormAddActivity extends AppCompatActivity {
         spKondisiBulir = findViewById(R.id.sp_kondisi_bulir);
         spKondisiAnakan = findViewById(R.id.sp_kondisi_anakan);
         spHama = findViewById(R.id.sp_hama);
+        spDaun = findViewById(R.id.sp_daun);
 
         activityList = new ArrayList<>();
         activityList.add("Aktivitas");
@@ -514,6 +528,18 @@ public class FormAddActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 activity = activityList.get(i);
                 setView(activity);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spDaun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                kondisiDaun = kondisiDaunList.get(i);
             }
 
             @Override
@@ -863,6 +889,10 @@ public class FormAddActivity extends AppCompatActivity {
                                 kondisiDaunList.add(listData.get(i).getLeafConditionVar());
                             }
 
+                            CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),
+                                    listData);
+                            spDaun.setAdapter(customAdapter);
+
                             spKondisiDaun.setItem(kondisiDaunList);
                         }
 
@@ -925,7 +955,6 @@ public class FormAddActivity extends AppCompatActivity {
             @Override
             public void onChooseGallerySelected() {
                 launchGalleryIntent();
-
             }
         });
 

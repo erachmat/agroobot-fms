@@ -32,6 +32,12 @@ public class HomeActivity extends AppCompatActivity {
                 Context.MODE_PRIVATE);
         boolean isUserLogin = preferences.getBoolean("isUserLogin", false);
 
+        int position = 0;
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            position = extras.getInt("viewpager_position");
+        }
+
         if (!isUserLogin) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -44,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         viewPager.setAdapter(new ViewPagerAdapter(this));
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setItemIconTintList(null);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -63,6 +70,9 @@ public class HomeActivity extends AppCompatActivity {
                 super.onPageScrollStateChanged(state);
             }
         });
+
+        viewPager.setCurrentItem(position);
+        bottomNav.getMenu().getItem(position).setChecked(true);
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {

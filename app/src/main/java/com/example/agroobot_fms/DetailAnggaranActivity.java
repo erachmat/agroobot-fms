@@ -40,7 +40,7 @@ public class DetailAnggaranActivity extends AppCompatActivity {
 
     TextView txtKategori, txtKegiatan, txtLuas, txtSatuan, txtJumlah;
     TextView txtTotalHarga, txtHarga;
-    ImageView btnEdit, btnDelete, imgDokumentasi;
+    ImageView btnEdit, btnDelete, imgDokumentasi, btnBack;
     private ProgressDialog progressDialog;
 
     private SharedPreferences sh;
@@ -68,6 +68,14 @@ public class DetailAnggaranActivity extends AppCompatActivity {
         txtJumlah = findViewById(R.id.txt_jumlah);
         txtHarga = findViewById(R.id.txt_harga);
         txtTotalHarga = findViewById(R.id.txt_total_harga);
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnEdit = findViewById(R.id.btn_edit);
         btnEdit.setOnClickListener(new View.OnClickListener() {

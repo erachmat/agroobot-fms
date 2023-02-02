@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/beranda"
-        android:icon="@drawable/home_simple"
+        android:icon="@drawable/beranda_selector"
         android:title="Beranda" />
 
     <item
         android:id="@+id/jadwal"
-        android:icon="@drawable/calender_grey"
+        android:icon="@drawable/jadwal_selector"
         android:title="Jadwal" />
 
     <item
         android:id="@+id/panen"
-        android:icon="@drawable/seed_plus"
+        android:icon="@drawable/panen_selector"
         android:title="Panen" />
 
     <item
         android:id="@+id/anggaran"
-        android:icon="@drawable/chart_pie"
+        android:icon="@drawable/anggaran_selector"
         android:title="Anggaran" />
 </menu>

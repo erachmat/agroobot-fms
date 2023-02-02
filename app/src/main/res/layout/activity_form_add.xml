@@ -16,6 +16,7 @@
         android:padding="@dimen/_10sdp">
 
         <ImageView
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -204,8 +205,6 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
-                        android:inputType="number"
-                        android:maxLines="1"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -224,8 +223,6 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
-                        android:inputType="number"
-                        android:maxLines="1"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -314,6 +311,30 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/custom_border"
                         android:layout_marginTop="@dimen/_5sdp">
+
+                        <Spinner
+                            android:id="@+id/sp_daun"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@android:color/transparent" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/round_arrow_back_grey"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_border"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:visibility="gone">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/sp_kondisi_daun"
@@ -569,6 +590,7 @@
                         android:maxLines="5"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
+                        android:textAlignment="viewStart"
                         android:textColor="@color/black" />
 
                 </LinearLayout>

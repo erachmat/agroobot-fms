@@ -81,7 +81,7 @@ public class AddDataPanenActivity extends AppCompatActivity {
     EditText etHasilPenggilingan;
     EditText etHasilPenjemuran;
 
-    ImageView imgBrowsePhoto;
+    ImageView imgBrowsePhoto, btnBack;
 
     private ProgressDialog progressDialog;
 
@@ -109,6 +109,14 @@ public class AddDataPanenActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         lytTglPanen = findViewById(R.id.lyt_tgl_panen);
         lytTglPanen.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +212,14 @@ public class AddDataPanenActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     String message = response.body().getMessage();
                                     if(response.body().getCode() == 0) {
+                                        Intent intent = new Intent(
+                                                AddDataPanenActivity.this,
+                                                HomeActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.putExtra("viewpager_position", 2);
+                                        startActivity(intent);
 
+                                        finish();
                                     }
 
                                     Toast.makeText(AddDataPanenActivity.this, message,

@@ -66,6 +66,7 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
     TextView btnBrowsePhoto;
     private ProgressDialog progressDialog;
     LinearLayout btnAdd;
+    ImageView btnBack;
 
     String tokenLogin;
     SharedPreferences sh;
@@ -101,6 +102,14 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
         etJumlah = findViewById(R.id.et_jumlah);
         etHarga = findViewById(R.id.et_harga);
         imgBrowsePhoto = findViewById(R.id.img_browse_photo);
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnBrowsePhoto = findViewById(R.id.txt_browse_photo);
         btnBrowsePhoto.setOnClickListener(new View.OnClickListener() {
@@ -145,12 +154,12 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
                             areaVar, quantityVar, satuanVar, priceVar, images, createdByVar);
                     createBudgetDetailCall.enqueue(new Callback<CreateBudgetDetail>() {
                         @Override
-                        public void onResponse(Call<CreateBudgetDetail> call,
-                                               Response<CreateBudgetDetail> response) {
 
-                            progressDialog.dismiss();
+                            public void onResponse(Call<CreateBudgetDetail> call,
+                                    Response<CreateBudgetDetail> response) {
 
-                            if(response.code() == 200) {
+                                progressDialog.dismiss();
+                                if(response.code() == 200) {
                                 if (response.body() != null) {
                                     if(response.body().getCode() == 0) {
                                         finish();
@@ -294,9 +303,9 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
 //                                    Toast.LENGTH_SHORT).show();
                         }
 
-                        String message = response.body().getMessage();
-                        Toast.makeText(AddDataAnggaranActivty.this, message,
-                                Toast.LENGTH_SHORT).show();
+//                        String message = response.body().getMessage();
+//                        Toast.makeText(AddDataAnggaranActivty.this, message,
+//                                Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(AddDataAnggaranActivty.this,
                                 "Something went wrong...Please try later!",
@@ -346,9 +355,9 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
 //                                    Toast.LENGTH_SHORT).show();
                         }
 
-                        String message = response.body().getMessage();
-                        Toast.makeText(AddDataAnggaranActivty.this, message,
-                                Toast.LENGTH_SHORT).show();
+//                        String message = response.body().getMessage();
+//                        Toast.makeText(AddDataAnggaranActivty.this, message,
+//                                Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(AddDataAnggaranActivty.this,
                                 "Something went wrong...Please try later!",

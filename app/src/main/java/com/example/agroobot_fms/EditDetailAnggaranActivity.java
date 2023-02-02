@@ -67,7 +67,7 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
     private SmartMaterialSpinner<String> spSatuan;
 
     EditText etLuas, etJumlah, etHarga;
-    ImageView imgBrowsePhoto;
+    ImageView imgBrowsePhoto, btnBack;
     TextView btnBrowsePhoto;
     private ProgressDialog progressDialog;
     LinearLayout btnSimpan;
@@ -243,9 +243,9 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
 //                                    Toast.LENGTH_SHORT).show();
                         }
 
-                        String message = response.body().getMessage();
-                        Toast.makeText(EditDetailAnggaranActivity.this, message,
-                                Toast.LENGTH_SHORT).show();
+//                        String message = response.body().getMessage();
+//                        Toast.makeText(EditDetailAnggaranActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditDetailAnggaranActivity.this,
                                 "Something went wrong...Please try later!",
@@ -275,6 +275,14 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
         etJumlah = findViewById(R.id.et_jumlah);
         etHarga = findViewById(R.id.et_harga);
         imgBrowsePhoto = findViewById(R.id.img_browse_photo);
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnBrowsePhoto = findViewById(R.id.txt_browse_photo);
         btnBrowsePhoto.setOnClickListener(new View.OnClickListener() {
@@ -454,9 +462,9 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
                             finish();
                         }
 
-                        String message = response.body().getMessage();
-                        Toast.makeText(EditDetailAnggaranActivity.this, message,
-                                Toast.LENGTH_SHORT).show();
+//                        String message = response.body().getMessage();
+//                        Toast.makeText(EditDetailAnggaranActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditDetailAnggaranActivity.this,
                                 "Something went wrong...Please try later!",

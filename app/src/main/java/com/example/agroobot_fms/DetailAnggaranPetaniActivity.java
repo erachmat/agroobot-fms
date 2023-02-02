@@ -36,7 +36,7 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefresh;
     EditText etSearch;
     RecyclerView rvAnggaran;
-    ImageView btnAdd;
+    ImageView btnAdd, btnBack;
     TextView txtNamaPetani, txtKodeLahan, txtTotalBudget;
 
     private SharedPreferences sh;
@@ -64,6 +64,14 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
         txtNamaPetani = findViewById(R.id.txt_nama_petani);
         txtKodeLahan = findViewById(R.id.txt_kode_lahan);
         txtTotalBudget = findViewById(R.id.txt_total_budget);
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvAnggaran.setLayoutManager(layoutManager);

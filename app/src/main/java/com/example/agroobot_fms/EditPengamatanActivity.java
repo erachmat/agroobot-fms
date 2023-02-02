@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class EditPengamatanActivity extends AppCompatActivity {
 
     EditText etCatatan;
     LinearLayout btnSimpan;
+    ImageView btnBack;
 
     private Calendar calendar;
     private SimpleDateFormat simpleDateFormat;
@@ -200,6 +202,14 @@ public class EditPengamatanActivity extends AppCompatActivity {
 
         etCatatan = findViewById(R.id.et_catatan);
         etCatatan.setText(data.getExampleObservationTxt());
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnSimpan = findViewById(R.id.btn_simpan);
         btnSimpan.setOnClickListener(new View.OnClickListener() {

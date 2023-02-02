@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,6 +69,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     TextView txtTanggal, txtHari, txtBulan;
     SwipeRefreshLayout swipeRefresh;
     LinearLayout lytTodayDate;
+    ImageView btnBack;
 
     Data data;
 
@@ -130,6 +132,14 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
         swipeRefresh = findViewById(R.id.swipe_refresh);
 
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         btnAdd = findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +181,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 setView("catatan");
             }
         });
+
+        btnActivity.setBackgroundResource(R.drawable.border_blue);
+
+        btnPengamatan.setBackgroundResource(R.drawable.custom_border_grey);
+        btnDokumentasi.setBackgroundResource(R.drawable.custom_border_grey);
+        btnCatatan.setBackgroundResource(R.drawable.custom_border_grey);
 
         Calendar calendar = Calendar.getInstance();;
 
@@ -386,6 +402,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 rvDokumentasi.setVisibility(View.GONE);
                 rvCatatan.setVisibility(View.GONE);
 
+                btnActivity.setBackgroundResource(R.drawable.border_blue);
+
+                btnPengamatan.setBackgroundResource(R.drawable.custom_border_grey);
+                btnDokumentasi.setBackgroundResource(R.drawable.custom_border_grey);
+                btnCatatan.setBackgroundResource(R.drawable.custom_border_grey);
+
                 break;
             case "pengamatan":
 
@@ -395,6 +417,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 lytRvDokumentasi.setVisibility(View.GONE);
                 rvDokumentasi.setVisibility(View.GONE);
                 rvCatatan.setVisibility(View.GONE);
+
+                btnPengamatan.setBackgroundResource(R.drawable.border_blue);
+
+                btnActivity.setBackgroundResource(R.drawable.custom_border_grey);
+                btnDokumentasi.setBackgroundResource(R.drawable.custom_border_grey);
+                btnCatatan.setBackgroundResource(R.drawable.custom_border_grey);
 
                 break;
             case "dokumentasi":
@@ -406,6 +434,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 rvActivity.setVisibility(View.GONE);
                 rvCatatan.setVisibility(View.GONE);
 
+                btnDokumentasi.setBackgroundResource(R.drawable.border_blue);
+
+                btnActivity.setBackgroundResource(R.drawable.custom_border_grey);
+                btnPengamatan.setBackgroundResource(R.drawable.custom_border_grey);
+                btnCatatan.setBackgroundResource(R.drawable.custom_border_grey);
+
                 break;
             case "catatan":
 
@@ -415,6 +449,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 rvPengamatan.setVisibility(View.GONE);
                 rvActivity.setVisibility(View.GONE);
                 lytRvDokumentasi.setVisibility(View.GONE);
+
+                btnCatatan.setBackgroundResource(R.drawable.border_blue);
+
+                btnActivity.setBackgroundResource(R.drawable.custom_border_grey);
+                btnDokumentasi.setBackgroundResource(R.drawable.custom_border_grey);
+                btnPengamatan.setBackgroundResource(R.drawable.custom_border_grey);
 
                 break;
         }

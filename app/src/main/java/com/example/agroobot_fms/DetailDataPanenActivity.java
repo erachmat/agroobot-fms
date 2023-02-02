@@ -34,7 +34,7 @@ public class DetailDataPanenActivity extends AppCompatActivity {
     TextView txtTglPanen, txtTglPenjemuran, txtHasilPenjemuran;
     TextView txtTglPenggilingan, txtHasilPenggilingan;
     RoundedImageView imgDokumentasi;
-    ImageView btnEdit, btnDelete;
+    ImageView btnEdit, btnDelete, btnBack;
     private ProgressDialog progressDialog;
 
     SharedPreferences sh;
@@ -66,6 +66,14 @@ public class DetailDataPanenActivity extends AppCompatActivity {
         txtHasilPenggilingan = findViewById(R.id.txt_hasil_penggilingan);
 
         imgDokumentasi = findViewById(R.id.img_dokumentasi);
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnEdit = findViewById(R.id.btn_edit);
         btnEdit.setOnClickListener(new View.OnClickListener() {

@@ -16,6 +16,7 @@
         android:padding="@dimen/_10sdp">
 
         <ImageView
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -167,8 +168,6 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
-                        android:inputType="number"
-                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                     <TextView
@@ -240,8 +239,6 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
-                        android:inputType="number"
-                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                     <TextView
@@ -261,8 +258,6 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
-                        android:inputType="number"
-                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                 </LinearLayout>

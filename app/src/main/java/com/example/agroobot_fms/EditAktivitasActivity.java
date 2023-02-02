@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import retrofit2.Response;
 public class EditAktivitasActivity extends AppCompatActivity {
 
     EditText etNamaAktivitas, etNamaBahan, etDosis, etJumlahHst, etSatuanHst;
+    ImageView btnBack;
     LinearLayout btnSimpan;
 
     @Override
@@ -75,6 +77,14 @@ public class EditAktivitasActivity extends AppCompatActivity {
         etDosis.setText(data.getDoseTxt());
         etJumlahHst.setText(String.valueOf(data.getJumlahTxt()));
         etSatuanHst.setText(data.getSatuanTxt());
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnSimpan = findViewById(R.id.btn_simpan);
         btnSimpan.setOnClickListener(new View.OnClickListener() {

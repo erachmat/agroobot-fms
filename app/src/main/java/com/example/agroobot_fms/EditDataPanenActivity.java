@@ -84,7 +84,7 @@ public class EditDataPanenActivity extends AppCompatActivity {
     EditText etHasilPenggilingan;
     EditText etHasilPenjemuran;
 
-    ImageView imgBrowsePhoto;
+    ImageView imgBrowsePhoto, btnBack;
 
     private ProgressDialog progressDialog;
 
@@ -204,9 +204,9 @@ public class EditDataPanenActivity extends AppCompatActivity {
                             finish();
                         }
 
-                        String message = response.body().getMessage();
-                        Toast.makeText(EditDataPanenActivity.this, message,
-                                Toast.LENGTH_SHORT).show();
+//                        String message = response.body().getMessage();
+//                        Toast.makeText(EditDataPanenActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditDataPanenActivity.this,
                                 "Something went wrong...Please try later!",
@@ -231,6 +231,14 @@ public class EditDataPanenActivity extends AppCompatActivity {
     }
 
     private void initView(String idSeq) {
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         lytTglPanen = findViewById(R.id.lyt_tgl_panen);
         lytTglPanen.setOnClickListener(new View.OnClickListener() {
@@ -331,6 +339,7 @@ public class EditDataPanenActivity extends AppCompatActivity {
                                                 EditDataPanenActivity.this,
                                                 HomeActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.putExtra("viewpager_position", 2);
                                         startActivity(intent);
 
                                         finish();

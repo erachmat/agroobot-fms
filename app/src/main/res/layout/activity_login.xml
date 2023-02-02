@@ -60,7 +60,6 @@
                     android:backgroundTint="@color/white"
                     android:hint="Enter username"
                     android:fontFamily="@font/worksans_regular"
-                    android:inputType="phone"
                     android:padding="@dimen/_10sdp" />
 
             </RelativeLayout>

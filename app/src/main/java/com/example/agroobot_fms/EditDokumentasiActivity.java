@@ -65,7 +65,7 @@ public class EditDokumentasiActivity extends AppCompatActivity {
     Calendar calendar;
 
     TextView txtBrowsePhoto;
-    ImageView imgBrowsePhoto;
+    ImageView imgBrowsePhoto, btnBack;
     LinearLayout btnSimpan;
 
     @Override
@@ -124,6 +124,14 @@ public class EditDokumentasiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 pickImg();
+            }
+        });
+
+        btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
