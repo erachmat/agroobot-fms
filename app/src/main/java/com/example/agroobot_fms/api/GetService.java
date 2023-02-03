@@ -327,6 +327,19 @@ public interface GetService {
             @Part("created_by_var") RequestBody createByVar);
 
     @Multipart
+    @POST(CREATE_BUDGET_DETAIL_URL)
+    Call<CreateBudgetDetail> createBudgetDetailWithoutImage(
+            @Header("Authorization") String token,
+            @Part("budget_id_int") RequestBody budgetIdInt,
+            @Part("activity_txt") RequestBody activityTxt,
+            @Part("category_var") RequestBody categoryVar,
+            @Part("area_var") RequestBody areaVar,
+            @Part("quantity_var") RequestBody quantityVar,
+            @Part("satuan_var") RequestBody satuanVar,
+            @Part("price_var") RequestBody priceVar,
+            @Part("created_by_var") RequestBody createByVar);
+
+    @Multipart
     @PATCH(UPDATE_BUDGET_DETAIL_URL)
     Call<UpdateBudgetDetail> updateBudgetDetail(
             @Path("id") int id,
@@ -339,6 +352,20 @@ public interface GetService {
             @Part("satuan_var") RequestBody satuanVar,
             @Part("price_var") RequestBody priceVar,
             @Part MultipartBody.Part images,
+            @Part("updated_by_var") RequestBody updateByVar);
+
+    @Multipart
+    @PATCH(UPDATE_BUDGET_DETAIL_URL)
+    Call<UpdateBudgetDetail> updateBudgetDetailWithoutImage(
+            @Path("id") int id,
+            @Header("Authorization") String token,
+            @Part("budget_id_int") RequestBody budgetIdInt,
+            @Part("activity_txt") RequestBody activityTxt,
+            @Part("category_var") RequestBody categoryVar,
+            @Part("area_var") RequestBody areaVar,
+            @Part("quantity_var") RequestBody quantityVar,
+            @Part("satuan_var") RequestBody satuanVar,
+            @Part("price_var") RequestBody priceVar,
             @Part("updated_by_var") RequestBody updateByVar);
 
     @DELETE(DELETE_BUDGET_DETAIL_URL)

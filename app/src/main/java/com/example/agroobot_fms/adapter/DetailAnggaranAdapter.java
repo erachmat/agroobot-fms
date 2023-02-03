@@ -6,8 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.agroobot_fms.DetailAnggaranActivity;
-import com.example.agroobot_fms.DetailAnggaranPetaniActivity;
-import com.example.agroobot_fms.DetailDataPanenActivity;
 import com.example.agroobot_fms.EditDetailAnggaranActivity;
 import com.example.agroobot_fms.LoginActivity;
 import com.example.agroobot_fms.R;
@@ -31,11 +26,8 @@ import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
 import com.example.agroobot_fms.model.delete_budget_detail.DeleteBudgetDetail;
 import com.example.agroobot_fms.model.get_one_budget_plan.BudgetDetail;
-import com.example.agroobot_fms.model.get_one_budget_plan.Data;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -49,10 +41,12 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
 
     Context context;
     List<BudgetDetail> budgetDetail;
+    String idAnggaran;
 
-    public DetailAnggaranAdapter(Context context, List<BudgetDetail> budgetDetail) {
+    public DetailAnggaranAdapter(Context context, List<BudgetDetail> budgetDetail, String idAnggaran) {
        this.context = context;
        this.budgetDetail = budgetDetail;
+       this.idAnggaran = idAnggaran;
     }
 
     @NonNull
@@ -137,6 +131,7 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
                         Intent intent = new Intent(view.getContext(),
                                 EditDetailAnggaranActivity.class);
                         intent.putExtra("idSeq", dataItem.getIdSeq());
+                        intent.putExtra("idAnggaran", idAnggaran);
                         view.getContext().startActivity(intent);
                     }
                 });

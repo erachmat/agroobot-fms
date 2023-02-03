@@ -52,7 +52,7 @@ public class BerandaFragment extends Fragment {
         String fullnameVar = sh.getString("fullnameVar", "");
 
         TextView txtUsername = view.findViewById(R.id.txt_username);
-        String username = "Hallo " + fullnameVar + ",";
+        String username = "Halo " + fullnameVar + ",";
         txtUsername.setText(username);
 
         PieChart chartTotalLahan = view.findViewById(R.id.chart_total_lahan);

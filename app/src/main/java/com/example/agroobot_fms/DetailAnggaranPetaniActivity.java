@@ -106,11 +106,14 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<GetOneBudgetPlan> call,
                                    Response<GetOneBudgetPlan> response) {
+
                 swipeRefresh.setRefreshing(false);
 
                 if(response.code() == 200) {
                     if (response.body() != null) {
                         if(response.body().getCode() == 0) {
+
+                            Log.e("TEST OUTPUT", response.body().toString());
 
                             Data dataItem = response.body().getData();
 
@@ -129,7 +132,8 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
 
                             DetailAnggaranAdapter anggaranAdapter = new DetailAnggaranAdapter(
                                     getApplicationContext(),
-                                    dataItem.getBudgetDetail());
+                                    dataItem.getBudgetDetail(),
+                                    idSeq);
                             rvAnggaran.setAdapter(anggaranAdapter);
                         } else {
 

@@ -77,6 +77,8 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
     private ArrayList<String> kegiatanList;
     private String idSatuan, idKategori, idKegiatan;
 
+    Call<CreateBudgetDetail> createBudgetDetailCall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,19 +141,28 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
                     RequestBody quantityVar = createPartFromString(etJumlah.getText().toString());
                     RequestBody priceVar = createPartFromString(etHarga.getText().toString());
 
-                    // convert gambar jadi File terlebih dahulu dengan
-                    // memanggil createTempFile yang di atas tadi.
-                    File file = createTempFile(imgDokumentasi);
-                    RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-                    MultipartBody.Part images = MultipartBody.Part.createFormData("images",
-                            file.getName(), reqFile);
-
                     RequestBody createdByVar = createPartFromString(fullnameVar);
 
-                    GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
-                    Call<CreateBudgetDetail> createBudgetDetailCall = service.createBudgetDetail(
-                            tokenLogin, budgetIdInt, activityTxt, categoryVar,
-                            areaVar, quantityVar, satuanVar, priceVar, images, createdByVar);
+                    if(imgDokumentasi != null) {
+                        // convert gambar jadi File terlebih dahulu dengan
+                        // memanggil createTempFile yang di atas tadi.
+                        File file = createTempFile(imgDokumentasi);
+                        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part images = MultipartBody.Part.createFormData("images",
+                                file.getName(), reqFile);
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        createBudgetDetailCall = service.createBudgetDetail(
+                                tokenLogin, budgetIdInt, activityTxt, categoryVar,
+                                areaVar, quantityVar, satuanVar, priceVar, images, createdByVar);
+                    } else {
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        createBudgetDetailCall = service.createBudgetDetailWithoutImage(
+                                tokenLogin, budgetIdInt, activityTxt, categoryVar,
+                                areaVar, quantityVar, satuanVar, priceVar, createdByVar);
+                    }
+
                     createBudgetDetailCall.enqueue(new Callback<CreateBudgetDetail>() {
                         @Override
 
@@ -159,9 +170,11 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
                                     Response<CreateBudgetDetail> response) {
 
                                 progressDialog.dismiss();
+
                                 if(response.code() == 200) {
                                 if (response.body() != null) {
                                     if(response.body().getCode() == 0) {
+
                                         Intent intent = new Intent(
                                                 AddDataAnggaranActivty.this,
                                                 DetailAnggaranPetaniActivity.class);

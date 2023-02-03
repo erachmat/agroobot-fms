@@ -31,7 +31,6 @@ import android.widget.Toast;
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
-import com.example.agroobot_fms.model.create_budget_detail.CreateBudgetDetail;
 import com.example.agroobot_fms.model.dropdown_activity.DropdownActivity;
 import com.example.agroobot_fms.model.dropdown_category.Datum;
 import com.example.agroobot_fms.model.dropdown_category.DropdownCategory;
@@ -81,6 +80,8 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
     private String idSatuan, idKategori, idKegiatan;
     private Integer idInt;
 
+    Call<UpdateBudgetDetail> updateBudgetDetailCall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +95,9 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
 
             String idSeq = getIntent().getStringExtra("idSeq");
+            String idAnggaran = getIntent().getStringExtra("idAnggaran");
 
-            initView(idSeq);
+            initView(idSeq, idAnggaran);
             initSpinner(idSeq);
             initData(idSeq);
         }
@@ -269,7 +271,7 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
 
     }
 
-    private void initView(String idSeq) {
+    private void initView(String idSeq, String idAnggaran) {
 
         etLuas = findViewById(R.id.et_luas);
         etJumlah = findViewById(R.id.et_jumlah);
@@ -312,35 +314,56 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
                     RequestBody quantityVar = createPartFromString(etJumlah.getText().toString());
                     RequestBody priceVar = createPartFromString(etHarga.getText().toString());
 
-                    // convert gambar jadi File terlebih dahulu dengan
-                    // memanggil createTempFile yang di atas tadi.
-                    File file = createTempFile(imgDokumentasi);
-                    RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-                    MultipartBody.Part images = MultipartBody.Part.createFormData("images",
-                            file.getName(), reqFile);
-
                     RequestBody updateByVar = createPartFromString(fullnameVar);
 
-                    GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
-                    Call<UpdateBudgetDetail> updateBudgetDetailCall = service.updateBudgetDetail(
-                            Integer.parseInt(idSeq), tokenLogin, budgetIdInt, activityTxt, categoryVar,
-                            areaVar, quantityVar, satuanVar, priceVar, images, updateByVar);
+                    if(imgDokumentasi != null) {
+                        // convert gambar jadi File terlebih dahulu dengan
+                        // memanggil createTempFile yang di atas tadi.
+                        File file = createTempFile(imgDokumentasi);
+                        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part images = MultipartBody.Part.createFormData("images",
+                                file.getName(), reqFile);
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        updateBudgetDetailCall = service.updateBudgetDetail(
+                                Integer.parseInt(idSeq), tokenLogin, budgetIdInt, activityTxt, categoryVar,
+                                areaVar, quantityVar, satuanVar, priceVar, images, updateByVar);
+
+
+                    } else {
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        updateBudgetDetailCall = service.updateBudgetDetailWithoutImage(
+                                Integer.parseInt(idSeq), tokenLogin, budgetIdInt, activityTxt, categoryVar,
+                                areaVar, quantityVar, satuanVar, priceVar, updateByVar);
+
+                    }
+
                     updateBudgetDetailCall.enqueue(new Callback<UpdateBudgetDetail>() {
                         @Override
                         public void onResponse(Call<UpdateBudgetDetail> call,
                                                Response<UpdateBudgetDetail> response) {
+
                             progressDialog.dismiss();
 
                             if(response.code() == 200) {
                                 if (response.body() != null) {
                                     if(response.body().getCode() == 0) {
 
+//                                        Intent intent = new Intent(
+//                                                EditDetailAnggaranActivity.this,
+//                                                HomeActivity.class);
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                        startActivity(intent);
+//
+//                                        finish();
+
                                         Intent intent = new Intent(
                                                 EditDetailAnggaranActivity.this,
-                                                HomeActivity.class);
+                                                DetailAnggaranPetaniActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.putExtra("idSeq", idAnggaran);
                                         startActivity(intent);
-
                                         finish();
 
                                     } else {
@@ -361,7 +384,8 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
                                     String message = response.body().getMessage();
                                     Toast.makeText(EditDetailAnggaranActivity.this, message,
                                             Toast.LENGTH_SHORT).show();
-                                    Log.e("EDIT_BUDGET_DETAIL", String.valueOf(response.body().getCode()));
+                                    Log.e("EDIT_BUDGET_DETAIL", String.valueOf(
+                                            response.body().getCode()));
                                 } else {
                                     Toast.makeText(EditDetailAnggaranActivity.this,
                                             "Something went wrong...Please try later!",
@@ -383,7 +407,6 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
                             Log.e("Failure", t.toString());
                         }
                     });
-
                 }
             }
         });
@@ -711,12 +734,12 @@ public class EditDetailAnggaranActivity extends AppCompatActivity {
             return false;
         }
 
-        if(imgDokumentasi == null) {
-            Toast.makeText(EditDetailAnggaranActivity.this,
-                    "Masukkan gambar dokumentasi terlebih dahulu",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if(imgDokumentasi == null) {
+//            Toast.makeText(EditDetailAnggaranActivity.this,
+//                    "Masukkan gambar dokumentasi terlebih dahulu",
+//                    Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         return true;
     }
