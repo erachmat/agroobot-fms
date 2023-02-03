@@ -145,6 +145,21 @@ public interface GetService {
             @Part("created_by_var") RequestBody createdByVar);
 
     @Multipart
+    @POST(CREATE_DATA_PANEN_URL)
+    Call<CreateDataPanen> createDataPanenWithoutImage(
+            @Header("Authorization") String token,
+            @Part("commodity_name_var") RequestBody commodityNameVar,
+            @Part("land_code_var") RequestBody landCodeVar,
+            @Part("period_plant_txt") RequestBody periodPlantText,
+            @Part("harvest_flo") RequestBody harvestFlo,
+            @Part("harvest_on_dte") RequestBody harvestOnDte,
+            @Part("harvest_drying_flo") RequestBody harvestDryingflo,
+            @Part("harvest_drying_dte") RequestBody harvestDryingDte,
+            @Part("harvest_milling_flo") RequestBody harvestMillingFlo,
+            @Part("harvest_milling_dte") RequestBody harvestMilingDte,
+            @Part("created_by_var") RequestBody createdByVar);
+
+    @Multipart
     @PATCH(UPDATE_DATA_PANEN_URL)
     Call<UpdateDataPanen> updateDataPanen(
             @Path("id") int id,
@@ -159,6 +174,22 @@ public interface GetService {
             @Part("harvest_milling_flo") RequestBody harvestMillingFlo,
             @Part("harvest_milling_dte") RequestBody harvestMilingDte,
             @Part MultipartBody.Part images,
+            @Part("updated_by_var") RequestBody updatedByVar);
+
+    @Multipart
+    @PATCH(UPDATE_DATA_PANEN_URL)
+    Call<UpdateDataPanen> updateDataPanenWithoutImage(
+            @Path("id") int id,
+            @Header("Authorization") String token,
+            @Part("commodity_name_var") RequestBody commodityNameVar,
+            @Part("land_code_var") RequestBody landCodeVar,
+            @Part("period_plant_txt") RequestBody periodPlantText,
+            @Part("harvest_flo") RequestBody harvestFlo,
+            @Part("harvest_on_dte") RequestBody harvestOnDte,
+            @Part("harvest_drying_flo") RequestBody harvestDryingflo,
+            @Part("harvest_drying_dte") RequestBody harvestDryingDte,
+            @Part("harvest_milling_flo") RequestBody harvestMillingFlo,
+            @Part("harvest_milling_dte") RequestBody harvestMilingDte,
             @Part("updated_by_var") RequestBody updatedByVar);
 
 

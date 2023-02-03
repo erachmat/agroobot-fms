@@ -23,7 +23,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/worksans_medium"
-                    android:text="Informasi Anggaran"
+                    android:text="Informasi Panen"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14ssp"
                     android:layout_centerVertical="true"/>
@@ -58,17 +58,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_regular"
-                    android:text="Kategori"
+                    android:text="Komoditas"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
                 <TextView
-                    android:id="@+id/txt_kategori"
+                    android:id="@+id/txt_komoditas"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_semibold"
-                    android:text="Kategori"
+                    android:text="Padi"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -85,17 +85,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_regular"
-                    android:text="Kegiatan"
+                    android:text="Lahan"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
                 <TextView
-                    android:id="@+id/txt_kegiatan"
+                    android:id="@+id/txt_lahan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_semibold"
-                    android:text="Kegiatan"
+                    android:text="[01001]"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -112,17 +112,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_regular"
-                    android:text="Luas"
+                    android:text="Periode Tanam"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
                 <TextView
-                    android:id="@+id/txt_luas"
+                    android:id="@+id/txt_periode_tanam"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_semibold"
-                    android:text="Luas"
+                    android:text="Periode 3"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -139,17 +139,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_regular"
-                    android:text="Jumlah"
+                    android:text="Hasil Panen (Kg)"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
                 <TextView
-                    android:id="@+id/txt_jumlah"
+                    android:id="@+id/txt_hasil_panen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_semibold"
-                    android:text="Jumlah"
+                    android:text="100"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -166,71 +166,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_regular"
-                    android:text="Satuan"
+                    android:text="Tanggal Panen"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
                 <TextView
-                    android:id="@+id/txt_satuan"
+                    android:id="@+id/txt_tgl_panen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/worksans_semibold"
-                    android:text="Satuan"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_2sdp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/worksans_regular"
-                    android:text="Harga"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <TextView
-                    android:id="@+id/txt_harga"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/worksans_semibold"
-                    android:text="Harga"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_2sdp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/worksans_regular"
-                    android:text="Total Harga"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-
-                <TextView
-                    android:id="@+id/txt_total_harga"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/worksans_semibold"
-                    android:text="Total Harga"
+                    android:text="10/04/2022"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 
@@ -240,7 +186,133 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/worksans_medium"
-                android:text="Dokumentasi"
+                android:text="Hasil Panen Penjemuran"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/worksans_regular"
+                    android:text="Tanggal penjemuran"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <TextView
+                    android:id="@+id/txt_tgl_penjemuran"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/worksans_semibold"
+                    android:text="01/05/2022"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_2sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/worksans_regular"
+                    android:text="Hasil Penjemuran (Kg)"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <TextView
+                    android:id="@+id/txt_hasil_penjemuran"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/worksans_semibold"
+                    android:text="80"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/worksans_medium"
+                android:text="Hasil Panen Penggilingan"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/worksans_regular"
+                    android:text="Tanggal penggilingan"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <TextView
+                    android:id="@+id/txt_tgl_penggilingan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/worksans_semibold"
+                    android:text="01/05/2022"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_2sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/worksans_regular"
+                    android:text="Hasil Penggilingan (Kg)"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <TextView
+                    android:id="@+id/txt_hasil_penggilingan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/worksans_semibold"
+                    android:text="80"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/worksans_regular"
+                android:text="Dokumentasi Panen"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp" />

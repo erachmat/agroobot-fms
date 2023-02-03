@@ -178,6 +178,7 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
                                             Intent intent = new Intent(
                                                     view.getContext(),
                                                     LoginActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             view.getContext().startActivity(intent);
                                         }
 

@@ -97,6 +97,8 @@ public class EditDataPanenActivity extends AppCompatActivity {
     String tglPanen, tglPenggilingan, tglPenjemuran;
     String fullnameVar;
 
+    Call<UpdateDataPanen> updateDataPanenCall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -308,22 +310,33 @@ public class EditDataPanenActivity extends AppCompatActivity {
                             getText().toString());
                     RequestBody harvestMilingDte = createPartFromString(tglPenggilingan);
 
-                    // convert gambar jadi File terlebih dahulu dengan
-                    // memanggil createTempFile yang di atas tadi.
-                    File file = createTempFile(imgDokumentasi);
-                    RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-                    MultipartBody.Part images = MultipartBody.Part.createFormData("images",
-                            file.getName(), reqFile);
-
                     RequestBody createdByVar = createPartFromString(fullnameVar);
 
-                    GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
-                    Call<UpdateDataPanen> updateDataPanenCall =
-                            service.updateDataPanen(Integer.parseInt(idSeq), tokenLogin,
-                                    commodityNameVar, landCodeVar,
-                                    periodPlantText, harvestFlo, harvestOnDte, harvestDryingflo,
-                                    harvestDryingDte, harvestMillingFlo, harvestMilingDte,
-                                    images, createdByVar);
+                    if(imgDokumentasi != null) {
+                        // convert gambar jadi File terlebih dahulu dengan
+                        // memanggil createTempFile yang di atas tadi.
+                        File file = createTempFile(imgDokumentasi);
+                        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part images = MultipartBody.Part.createFormData("images",
+                                file.getName(), reqFile);
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        updateDataPanenCall = service.updateDataPanen(Integer.parseInt(idSeq), tokenLogin,
+                                commodityNameVar, landCodeVar,
+                                periodPlantText, harvestFlo, harvestOnDte, harvestDryingflo,
+                                harvestDryingDte, harvestMillingFlo, harvestMilingDte,
+                                images, createdByVar);
+
+                    } else {
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        updateDataPanenCall = service.updateDataPanenWithoutImage(Integer.parseInt(idSeq), tokenLogin,
+                                commodityNameVar, landCodeVar,
+                                periodPlantText, harvestFlo, harvestOnDte, harvestDryingflo,
+                                harvestDryingDte, harvestMillingFlo,
+                                harvestMilingDte, createdByVar);
+                    }
+
                     updateDataPanenCall.enqueue(new Callback<UpdateDataPanen>() {
                         @Override
                         public void onResponse(Call<UpdateDataPanen> call,

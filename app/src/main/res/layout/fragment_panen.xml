@@ -87,22 +87,39 @@
 
                </LinearLayout>
 
-               <!-- Table View-->
-               <HorizontalScrollView
+<!--               &lt;!&ndash; Table View&ndash;&gt;-->
+<!--               <HorizontalScrollView-->
+<!--                   android:layout_width="match_parent"-->
+<!--                   android:layout_height="wrap_content"-->
+<!--                   android:layout_marginTop="@dimen/_10sdp"-->
+<!--                   android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                   android:background="@color/white">-->
+
+<!--                   <androidx.recyclerview.widget.RecyclerView-->
+<!--                       android:id="@+id/rv_data_panen"-->
+<!--                       android:layout_width="wrap_content"-->
+<!--                       android:layout_height="wrap_content"-->
+<!--                       android:background="@color/white"-->
+<!--                       android:nestedScrollingEnabled="false"/>-->
+
+<!--               </HorizontalScrollView>-->
+
+               <RelativeLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="@dimen/_10sdp"
-                   android:layout_marginBottom="@dimen/_10sdp"
-                   android:background="@color/white">
+                   android:background="@color/white"
+                   android:layout_marginTop="@dimen/_10sdp">
 
                    <androidx.recyclerview.widget.RecyclerView
                        android:id="@+id/rv_data_panen"
-                       android:layout_width="wrap_content"
+                       android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:background="@color/white"
-                       android:nestedScrollingEnabled="false"/>
+                       android:layout_marginStart="@dimen/_10sdp"
+                       android:layout_marginEnd="@dimen/_10sdp"
+                       android:background="@color/grey"
+                       android:nestedScrollingEnabled="false" />
 
-               </HorizontalScrollView>
+               </RelativeLayout>
 
            </LinearLayout>
 
