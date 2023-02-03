@@ -43,761 +43,914 @@
 
     </RelativeLayout>
 
-    <ScrollView
-        android:id="@+id/scroll_view"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/top_bar"
-        android:visibility="visible">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_bar">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/_10sdp"
-            android:background="@color/grey">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_10sdp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txt_username"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/worksans_semibold"
-                    android:text="Halo Danilla,"
-                    android:textSize="@dimen/_18ssp"
-                    android:textColor="@color/black" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/_10sdp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/txt_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans_semibold"
+                        android:text="Halo Danilla,"
+                        android:textSize="@dimen/_18ssp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans_regular"
+                        android:text="Selamat datang kembali!"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/worksans_regular"
-                    android:text="Selamat datang kembali!"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:textSize="@dimen/_12ssp"
-                    android:textColor="@color/black" />
+                    android:weightSum="10"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="10"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardBackgroundColor="@color/white"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    app:cardPreventCornerOverlap="true">
-
-                    <!--
-                    In the above cardview widget
-                    cardelevation property will give elevation to your card view
-                    card corner radius will provide radius to your card view
-                    card background color will give background color to your card view
-                    card max elevation will give the cardview maximum elevation
-                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
-                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
-                    below are the two widgets imageview and text view we are displaying inside our card view.
-                    -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
+                        android:layout_weight="5"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        app:cardPreventCornerOverlap="true">
+
+                        <!--
+                        In the above cardview widget
+                        cardelevation property will give elevation to your card view
+                        card corner radius will provide radius to your card view
+                        card background color will give background color to your card view
+                        card max elevation will give the cardview maximum elevation
+                        card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
+                        card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
+                        below are the two widgets imageview and text view we are displaying inside our card view.
+                        -->
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_10sdp">
 
-                            <ImageView
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:src="@drawable/total_project" />
-
-                            <TextView
-                                android:id="@+id/txt_total_projects"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:fontFamily="@font/worksans_semibold"
-                                android:text="6"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:src="@drawable/total_project" />
+
+                                <TextView
+                                    android:id="@+id/txt_total_projects"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:fontFamily="@font/worksans_semibold"
+                                    android:text="6"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_16ssp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/worksans_medium"
+                                android:text="Total Proyek"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_20ssp"
-                                android:textStyle="bold" />
+                                android:textSize="@dimen/_12ssp" />
 
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:fontFamily="@font/worksans_medium"
-                            android:text="Total Proyek"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12ssp" />
+                    </androidx.cardview.widget.CardView>
 
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardPreventCornerOverlap="true">
-
-                    <!--
-                    In the above cardview widget
-                    cardelevation property will give elevation to your card view
-                    card corner radius will provide radius to your card view
-                    card background color will give background color to your card view
-                    card max elevation will give the cardview maximum elevation
-                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
-                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
-                    below are the two widgets imageview and text view we are displaying inside our card view.
-                    -->
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_10sdp">
+                        android:layout_weight="5"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardPreventCornerOverlap="true">
+
+                        <!--
+                        In the above cardview widget
+                        cardelevation property will give elevation to your card view
+                        card corner radius will provide radius to your card view
+                        card background color will give background color to your card view
+                        card max elevation will give the cardview maximum elevation
+                        card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
+                        card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
+                        below are the two widgets imageview and text view we are displaying inside our card view.
+                        -->
 
                         <RelativeLayout
-                            android:id="@+id/lyt_temperature"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true">
+                            android:padding="@dimen/_10sdp">
 
-                            <ImageView
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:src="@drawable/weather_sunny" />
+                            <RelativeLayout
+                                android:id="@+id/lyt_temperature"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:src="@drawable/weather_sunny" />
+
+                                <TextView
+                                    android:id="@+id/txt_temperature"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:fontFamily="@font/worksans_semibold"
+                                    android:text="32 C"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_16ssp" />
+
+                                <TextView
+                                    android:id="@+id/txt_city"
+                                    android:layout_below="@+id/txt_temperature"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:fontFamily="@font/worksans_regular"
+                                    android:text="Jakarta"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_10ssp" />
+
+                            </RelativeLayout>
 
                             <TextView
-                                android:id="@+id/txt_temperature"
+                                android:layout_below="@+id/lyt_temperature"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="Kamis, 29 Des 2022"
                                 android:layout_alignParentEnd="true"
-                                android:fontFamily="@font/worksans_semibold"
-                                android:text="32 C"
+                                android:textSize="@dimen/_10ssp"
+                                android:layout_marginTop="@dimen/_5sdp"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_20ssp" />
-
-                            <TextView
-                                android:id="@+id/txt_city"
-                                android:layout_below="@+id/txt_temperature"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:fontFamily="@font/worksans_regular"
-                                android:text="Jakarta"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_10ssp" />
+                                android:fontFamily="@font/worksans_regular" />
 
                         </RelativeLayout>
 
-                        <TextView
-                            android:layout_below="@+id/lyt_temperature"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Kamis, 29 Des 2022"
-                            android:layout_alignParentEnd="true"
-                            android:textSize="@dimen/_10ssp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_regular" />
+                    </androidx.cardview.widget.CardView>
 
-                    </RelativeLayout>
+                </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="10"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardBackgroundColor="@color/white"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    app:cardPreventCornerOverlap="true">
-
-                    <!--
-                    In the above cardview widget
-                    cardelevation property will give elevation to your card view
-                    card corner radius will provide radius to your card view
-                    card background color will give background color to your card view
-                    card max elevation will give the cardview maximum elevation
-                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
-                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
-                    below are the two widgets imageview and text view we are displaying inside our card view.
-                    -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_10sdp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:src="@drawable/total_fa" />
-
-                            <TextView
-                                android:id="@+id/txt_total_fa"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="10"
-                                android:textSize="@dimen/_20ssp"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/worksans_semibold"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total FA"
-                            android:textSize="@dimen/_12ssp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_medium" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardPreventCornerOverlap="true">
+                    android:weightSum="10"
+                    android:orientation="horizontal">
 
-                    <!--
-                    In the above cardview widget
-                    cardelevation property will give elevation to your card view
-                    card corner radius will provide radius to your card view
-                    card background color will give background color to your card view
-                    card max elevation will give the cardview maximum elevation
-                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
-                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
-                    below are the two widgets imageview and text view we are displaying inside our card view.
-                    -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:padding="@dimen/_10sdp"
-                        android:orientation="vertical">
+                        android:layout_weight="5"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:cardPreventCornerOverlap="true">
+
+                        <!--
+                        In the above cardview widget
+                        cardelevation property will give elevation to your card view
+                        card corner radius will provide radius to your card view
+                        card background color will give background color to your card view
+                        card max elevation will give the cardview maximum elevation
+                        card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
+                        card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
+                        below are the two widgets imageview and text view we are displaying inside our card view.
+                        -->
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_10sdp"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:src="@drawable/total_petani" />
-
-                            <TextView
-                                android:id="@+id/txt_total_petani"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10"
-                                android:textSize="@dimen/_20ssp"
-                                android:layout_marginStart="@dimen/_10sdp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:src="@drawable/total_fa" />
+
+                                <TextView
+                                    android:id="@+id/txt_total_fa"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10"
+                                    android:textSize="@dimen/_16ssp"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/worksans_semibold"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total FA"
+                                android:textSize="@dimen/_12ssp"
+                                android:layout_marginTop="@dimen/_5sdp"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/worksans_semibold"
-                                android:textStyle="bold" />
+                                android:fontFamily="@font/worksans_medium" />
 
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Petani"
-                            android:textSize="@dimen/_12ssp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_medium" />
+                    </androidx.cardview.widget.CardView>
 
-                    </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardPreventCornerOverlap="true">
 
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="10"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardBackgroundColor="@color/white"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    app:cardPreventCornerOverlap="true">
-
-                    <!--
-                    In the above cardview widget
-                    cardelevation property will give elevation to your card view
-                    card corner radius will provide radius to your card view
-                    card background color will give background color to your card view
-                    card max elevation will give the cardview maximum elevation
-                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
-                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
-                    below are the two widgets imageview and text view we are displaying inside our card view.
-                    -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_10sdp"
-                        android:orientation="vertical">
+                        <!--
+                        In the above cardview widget
+                        cardelevation property will give elevation to your card view
+                        card corner radius will provide radius to your card view
+                        card background color will give background color to your card view
+                        card max elevation will give the cardview maximum elevation
+                        card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
+                        card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
+                        below are the two widgets imageview and text view we are displaying inside our card view.
+                        -->
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_10sdp"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:src="@drawable/total_panen" />
-
-                            <TextView
-                                android:id="@+id/txt_total_panen"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1000 Kg"
-                                android:textSize="@dimen/_20ssp"
-                                android:layout_marginStart="@dimen/_10sdp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:src="@drawable/total_petani" />
+
+                                <TextView
+                                    android:id="@+id/txt_total_petani"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10"
+                                    android:textSize="@dimen/_16ssp"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/worksans_semibold"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Petani"
+                                android:textSize="@dimen/_12ssp"
+                                android:layout_marginTop="@dimen/_5sdp"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/worksans_semibold"
-                                android:textStyle="bold" />
+                                android:fontFamily="@font/worksans_medium" />
 
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Panen"
-                            android:textSize="@dimen/_12ssp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_medium" />
+                    </androidx.cardview.widget.CardView>
 
-                    </LinearLayout>
+                </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardPreventCornerOverlap="true">
+                    android:weightSum="10"
+                    android:orientation="horizontal">
 
-                    <!--
-                    In the above cardview widget
-                    cardelevation property will give elevation to your card view
-                    card corner radius will provide radius to your card view
-                    card background color will give background color to your card view
-                    card max elevation will give the cardview maximum elevation
-                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
-                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
-                    below are the two widgets imageview and text view we are displaying inside our card view.
-                    -->
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:padding="@dimen/_10sdp"
-                        android:orientation="vertical">
+                        android:layout_weight="5"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:cardPreventCornerOverlap="true">
+
+                        <!--
+                        In the above cardview widget
+                        cardelevation property will give elevation to your card view
+                        card corner radius will provide radius to your card view
+                        card background color will give background color to your card view
+                        card max elevation will give the cardview maximum elevation
+                        card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
+                        card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
+                        below are the two widgets imageview and text view we are displaying inside our card view.
+                        -->
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_10sdp"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                android:src="@drawable/total_stok_beras" />
-
-                            <TextView
-                                android:id="@+id/txt_total_stock_beras"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10 Kg"
-                                android:textSize="@dimen/_20ssp"
-                                android:layout_marginStart="@dimen/_10sdp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:src="@drawable/total_panen" />
+
+                                <TextView
+                                    android:id="@+id/txt_total_panen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1000 Kg"
+                                    android:textSize="@dimen/_16ssp"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/worksans_semibold"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Panen"
+                                android:textSize="@dimen/_12ssp"
+                                android:layout_marginTop="@dimen/_5sdp"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/worksans_semibold"
-                                android:textStyle="bold" />
+                                android:fontFamily="@font/worksans_medium" />
 
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardPreventCornerOverlap="true">
+
+                        <!--
+                        In the above cardview widget
+                        cardelevation property will give elevation to your card view
+                        card corner radius will provide radius to your card view
+                        card background color will give background color to your card view
+                        card max elevation will give the cardview maximum elevation
+                        card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.
+                        card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.
+                        below are the two widgets imageview and text view we are displaying inside our card view.
+                        -->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_10sdp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:src="@drawable/total_stok_beras" />
+
+                                <TextView
+                                    android:id="@+id/txt_total_stock_beras"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10 Kg"
+                                    android:textSize="@dimen/_16ssp"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/worksans_semibold"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Stok Beras"
+                                android:textSize="@dimen/_12ssp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/worksans_medium" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/worksans_semibold"
+                    android:text="Data Lahan"
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="10"
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <!-- Card view for displaying the -->
+                    <!-- Pie chart and details of pie chart -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+
+                        <!--Linear layout to display pie chart -->
+                        <!-- and details of pie chart-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Total Stok Beras"
-                            android:textSize="@dimen/_12ssp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_medium" />
+                            android:padding="@dimen/_10sdp"
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/worksans_semibold"
+                                android:text="Lahan"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp" />
 
-                </androidx.cardview.widget.CardView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Lahan"
+                                android:textSize="@dimen/_10ssp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/worksans_regular" />
 
-            </LinearLayout>
+                            <TextView
+                                android:id="@+id/txt_total_lahan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5"
+                                android:textSize="@dimen/_16ssp"
+                                android:textColor="@color/black"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:fontFamily="@font/worksans_medium"
+                                android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/worksans_semibold"
-                android:text="Data Lahan"
-                android:textSize="@dimen/_14ssp"
-                android:textColor="@color/black" />
+                            <!--Pie chart to display the data-->
+                            <org.eazegraph.lib.charts.PieChart
+                                android:id="@+id/chart_total_lahan"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_100sdp"
+                                android:padding="@dimen/_5sdp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="10"
-                android:padding="@dimen/_10sdp"
-                android:orientation="horizontal">
+                            <!--Creating another linear layout -->
+                            <!-- to display pie chart details -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center_vertical">
 
-                <!-- Card view for displaying the -->
-                <!-- Pie chart and details of pie chart -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    app:cardCornerRadius="@dimen/_8sdp">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_15sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+
+                                    <!--View to display the yellow color icon-->
+                                    <!--                                <View-->
+                                    <!--                                    android:layout_width="@dimen/_10sdp"-->
+                                    <!--                                    android:layout_height="match_parent"-->
+                                    <!--                                    android:background="@color/active"/>-->
+
+                                    <ImageView
+                                        android:layout_width="@dimen/_8sdp"
+                                        android:layout_height="@dimen/_8sdp"
+                                        android:src="@drawable/active_blue" />
+
+                                    <!--Text view to display R -->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Lahan Aktif"
+                                        android:fontFamily="@font/worksans_regular"
+                                        android:layout_marginStart="@dimen/_5sdp"
+                                        android:textSize="@dimen/_10ssp" />
+
+                                </LinearLayout>
+
+                                <!--Linear layout to display Python-->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_15sdp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginTop="@dimen/_5sdp">
+
+                                    <!--View to display the green color icon-->
+                                    <!--                                <View-->
+                                    <!--                                    android:layout_width="@dimen/_10sdp"-->
+                                    <!--                                    android:layout_height="match_parent"-->
+                                    <!--                                    android:background="@color/non_active"/>-->
+
+                                    <ImageView
+                                        android:layout_width="@dimen/_8sdp"
+                                        android:layout_height="@dimen/_8sdp"
+                                        android:src="@drawable/non_active_grey" />
+
+                                    <!--Text view to display python text -->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Lahan Non-Aktif"
+                                        android:fontFamily="@font/worksans_regular"
+                                        android:textSize="@dimen/_10ssp"
+                                        android:layout_marginStart="@dimen/_5sdp"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="@dimen/_8sdp">
 
 
-                    <!--Linear layout to display pie chart -->
-                    <!-- and details of pie chart-->
-                    <LinearLayout
+                        <!--Linear layout to display pie chart -->
+                        <!-- and details of pie chart-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Luasan"
+                                android:textSize="@dimen/_12ssp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/worksans_semibold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Luasan"
+                                android:textSize="@dimen/_10ssp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/worksans_regular" />
+
+                            <TextView
+                                android:id="@+id/txt_total_luasan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5000 m2"
+                                android:textSize="@dimen/_16ssp"
+                                android:textColor="@color/black"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:fontFamily="@font/worksans_medium"
+                                android:textStyle="bold" />
+
+                            <!--Pie chart to display the data-->
+                            <org.eazegraph.lib.charts.PieChart
+                                android:id="@+id/chart_total_luasan"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_100sdp"
+                                android:padding="@dimen/_5sdp"/>
+
+                            <!--Creating another linear layout -->
+                            <!-- to display pie chart details -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center_vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_15sdp"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:gravity="center_vertical">
+
+                                    <!--View to display the yellow color icon-->
+                                    <!--                                <View-->
+                                    <!--                                    android:layout_width="@dimen/_10sdp"-->
+                                    <!--                                    android:layout_height="match_parent"-->
+                                    <!--                                    android:background="@color/active"/>-->
+
+                                    <ImageView
+                                        android:layout_width="@dimen/_8sdp"
+                                        android:layout_height="@dimen/_8sdp"
+                                        android:src="@drawable/active_blue" />
+
+                                    <!--Text view to display R -->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Lahan Aktif"
+                                        android:fontFamily="@font/worksans_regular"
+                                        android:layout_marginStart="@dimen/_5sdp"
+                                        android:textSize="@dimen/_10ssp" />
+
+                                </LinearLayout>
+
+                                <!--Linear layout to display Python-->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_15sdp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginTop="@dimen/_5sdp">
+
+                                    <!--View to display the green color icon-->
+                                    <!--                                <View-->
+                                    <!--                                    android:layout_width="@dimen/_10sdp"-->
+                                    <!--                                    android:layout_height="match_parent"-->
+                                    <!--                                    android:background="@color/non_active"/>-->
+
+                                    <ImageView
+                                        android:layout_width="@dimen/_8sdp"
+                                        android:layout_height="@dimen/_8sdp"
+                                        android:src="@drawable/non_active_grey" />
+
+                                    <!--Text view to display python text -->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Lahan Non-Aktif"
+                                        android:textSize="@dimen/_10ssp"
+                                        android:fontFamily="@font/worksans_regular"
+                                        android:layout_marginStart="@dimen/_5sdp"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:fontFamily="@font/worksans_semibold"
+                    android:text="Pendapatan"
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp">
+
+                    <!-- Card view for displaying the -->
+                    <!-- Pie chart and details of pie chart -->
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_10sdp"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        app:cardCornerRadius="@dimen/_8sdp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/worksans_semibold"
-                            android:text="Lahan"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12ssp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Lahan"
-                            android:textSize="@dimen/_10ssp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_regular" />
-
-                        <TextView
-                            android:id="@+id/txt_total_lahan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5"
-                            android:textSize="@dimen/_20ssp"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:fontFamily="@font/worksans_medium"
-                            android:textStyle="bold" />
-
-                        <!--Pie chart to display the data-->
-                        <org.eazegraph.lib.charts.PieChart
-                            android:id="@+id/chart_total_lahan"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_100sdp"
-                            android:padding="@dimen/_5sdp"/>
-
-                        <!--Creating another linear layout -->
-                        <!-- to display pie chart details -->
+                        <!--Linear layout to display pie chart -->
+                        <!-- and details of pie chart-->
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center_vertical">
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Pendapatan"
+                                android:textSize="@dimen/_12ssp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/worksans_medium" />
+
+                            <TextView
+                                android:id="@+id/txt_total_pendapatan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="IDR 5,000,000,000"
+                                android:textSize="@dimen/_14ssp"
+                                android:textColor="@color/black"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:fontFamily="@font/worksans_semibold" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/grey_line"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Detail Pendapatan"
+                                android:textSize="@dimen/_10ssp"
+                                android:textColor="@color/black"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:fontFamily="@font/worksans_regular" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_15sdp"
-                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:gravity="center_vertical">
+                                android:weightSum="10">
 
-                                <!--View to display the yellow color icon-->
-<!--                                <View-->
-<!--                                    android:layout_width="@dimen/_10sdp"-->
-<!--                                    android:layout_height="match_parent"-->
-<!--                                    android:background="@color/active"/>-->
-
-                                <ImageView
-                                    android:layout_width="@dimen/_8sdp"
-                                    android:layout_height="@dimen/_8sdp"
-                                    android:src="@drawable/active_blue" />
-
-                                <!--Text view to display R -->
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="5"
                                     android:layout_height="wrap_content"
-                                    android:text="Lahan Aktif"
-                                    android:fontFamily="@font/worksans_regular"
-                                    android:layout_marginStart="@dimen/_5sdp"
-                                    android:textSize="@dimen/_10ssp" />
+                                    android:text="Beras Campuran"
+                                    android:textSize="@dimen/_12ssp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:fontFamily="@font/worksans_medium" />
+
+                                <TextView
+                                    android:id="@+id/txt_beras_campuran"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="5"
+                                    android:layout_height="wrap_content"
+                                    android:text="IDR 2,500,000,000.00"
+                                    android:textSize="@dimen/_12ssp"
+                                    android:textColor="@color/black"
+                                    android:textAlignment="viewEnd"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:fontFamily="@font/worksans_medium" />
 
                             </LinearLayout>
 
-                            <!--Linear layout to display Python-->
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_15sdp"
-                                android:gravity="center_vertical"
-                                android:layout_marginTop="@dimen/_5sdp">
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="10">
 
-                                <!--View to display the green color icon-->
-<!--                                <View-->
-<!--                                    android:layout_width="@dimen/_10sdp"-->
-<!--                                    android:layout_height="match_parent"-->
-<!--                                    android:background="@color/non_active"/>-->
-
-                                <ImageView
-                                    android:layout_width="@dimen/_8sdp"
-                                    android:layout_height="@dimen/_8sdp"
-                                    android:src="@drawable/non_active_grey" />
-
-                                <!--Text view to display python text -->
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="5"
                                     android:layout_height="wrap_content"
-                                    android:text="Lahan Non-Aktif"
-                                    android:fontFamily="@font/worksans_regular"
-                                    android:textSize="@dimen/_10ssp"
-                                    android:layout_marginStart="@dimen/_5sdp"/>
+                                    android:text="Beras"
+                                    android:textSize="@dimen/_12ssp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:fontFamily="@font/worksans_medium" />
+
+                                <TextView
+                                    android:id="@+id/txt_beras"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="5"
+                                    android:layout_height="wrap_content"
+                                    android:text="IDR 1,500,000,000.00"
+                                    android:textSize="@dimen/_12ssp"
+                                    android:textColor="@color/black"
+                                    android:textAlignment="viewEnd"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:fontFamily="@font/worksans_medium" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="10">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="5"
+                                    android:layout_height="wrap_content"
+                                    android:text="Saprodi"
+                                    android:textSize="@dimen/_12ssp"
+                                    android:textColor="@color/black"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:fontFamily="@font/worksans_medium" />
+
+                                <TextView
+                                    android:id="@+id/txt_saprodi"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="5"
+                                    android:layout_height="wrap_content"
+                                    android:text="IDR 1,000,000,000.00"
+                                    android:textSize="@dimen/_12ssp"
+                                    android:textColor="@color/black"
+                                    android:textAlignment="viewEnd"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:fontFamily="@font/worksans_medium" />
 
                             </LinearLayout>
 
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="@dimen/_8sdp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:fontFamily="@font/worksans_semibold"
+                    android:text="Pendanaan"
+                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/black" />
 
-
-                    <!--Linear layout to display pie chart -->
-                    <!-- and details of pie chart-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_10sdp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Luasan"
-                            android:textSize="@dimen/_12ssp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_semibold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Luasan"
-                            android:textSize="@dimen/_10ssp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_regular" />
-
-                        <TextView
-                            android:id="@+id/txt_total_luasan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5000 m2"
-                            android:textSize="@dimen/_20ssp"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:fontFamily="@font/worksans_medium"
-                            android:textStyle="bold" />
-
-                        <!--Pie chart to display the data-->
-                        <org.eazegraph.lib.charts.PieChart
-                            android:id="@+id/chart_total_luasan"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_100sdp"
-                            android:padding="@dimen/_5sdp"/>
-
-                        <!--Creating another linear layout -->
-                        <!-- to display pie chart details -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center_vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_15sdp"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:gravity="center_vertical">
-
-                                <!--View to display the yellow color icon-->
-<!--                                <View-->
-<!--                                    android:layout_width="@dimen/_10sdp"-->
-<!--                                    android:layout_height="match_parent"-->
-<!--                                    android:background="@color/active"/>-->
-
-                                <ImageView
-                                    android:layout_width="@dimen/_8sdp"
-                                    android:layout_height="@dimen/_8sdp"
-                                    android:src="@drawable/active_blue" />
-
-                                <!--Text view to display R -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Lahan Aktif"
-                                    android:fontFamily="@font/worksans_regular"
-                                    android:layout_marginStart="@dimen/_5sdp"
-                                    android:textSize="@dimen/_10ssp" />
-
-                            </LinearLayout>
-
-                            <!--Linear layout to display Python-->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_15sdp"
-                                android:gravity="center_vertical"
-                                android:layout_marginTop="@dimen/_5sdp">
-
-                                <!--View to display the green color icon-->
-<!--                                <View-->
-<!--                                    android:layout_width="@dimen/_10sdp"-->
-<!--                                    android:layout_height="match_parent"-->
-<!--                                    android:background="@color/non_active"/>-->
-
-                                <ImageView
-                                    android:layout_width="@dimen/_8sdp"
-                                    android:layout_height="@dimen/_8sdp"
-                                    android:src="@drawable/non_active_grey" />
-
-                                <!--Text view to display python text -->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Lahan Non-Aktif"
-                                    android:textSize="@dimen/_10ssp"
-                                    android:fontFamily="@font/worksans_regular"
-                                    android:layout_marginStart="@dimen/_5sdp"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:fontFamily="@font/worksans_semibold"
-                android:text="Pendapatan"
-                android:textSize="@dimen/_14ssp"
-                android:textColor="@color/black" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_10sdp">
-
-                <!-- Card view for displaying the -->
-                <!-- Pie chart and details of pie chart -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_margin="@dimen/_10sdp"
                     app:cardCornerRadius="@dimen/_8sdp">
-
 
                     <!--Linear layout to display pie chart -->
                     <!-- and details of pie chart-->
@@ -810,33 +963,196 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Pendapatan"
-                            android:textSize="@dimen/_12ssp"
+                            android:fontFamily="@font/worksans_medium"
+                            android:text="Sumber Dana"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/worksans_medium" />
+                            android:textSize="@dimen/_14ssp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="IDR 5,000,000,000"
+                            android:text="Total Dana"
+                            android:textSize="@dimen/_10ssp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/worksans_light" />
+
+                        <TextView
+                            android:id="@+id/txt_pengguna"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="16 Pengguna"
                             android:textSize="@dimen/_14ssp"
                             android:textColor="@color/black"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:fontFamily="@font/worksans_semibold" />
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:fontFamily="@font/worksans_medium" />
 
-                        <View
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/grey_line"/>
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="10">
+
+                            <!--Pie chart to display the data-->
+                            <org.eazegraph.lib.charts.PieChart
+                                android:id="@+id/chart_pendanaan"
+                                android:layout_width="0dp"
+                                android:layout_weight="6"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_height="@dimen/_100sdp"
+                                android:padding="@dimen/_5sdp"/>
+
+                            <!--Creating another linear layout -->
+                            <!-- to display pie chart details -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="4"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:gravity="center_vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="top">
+
+                                    <!--View to display the yellow color icon-->
+                                    <!--                                <View-->
+                                    <!--                                    android:layout_width="@dimen/_10sdp"-->
+                                    <!--                                    android:layout_height="match_parent"-->
+                                    <!--                                    android:background="@color/active"/>-->
+
+                                    <ImageView
+                                        android:layout_width="@dimen/_8sdp"
+                                        android:layout_height="@dimen/_8sdp"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:src="@drawable/active_blue" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <!--Text view to display R -->
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="RF"
+                                            android:fontFamily="@font/worksans_regular"
+                                            android:layout_marginStart="@dimen/_5sdp"
+                                            android:textSize="@dimen/_12ssp" />
+
+                                        <!--Text view to display R -->
+                                        <TextView
+                                            android:id="@+id/txt_rf"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="11"
+                                            android:fontFamily="@font/worksans_medium"
+                                            android:layout_marginStart="@dimen/_5sdp"
+                                            android:textSize="@dimen/_14ssp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="top">
+
+                                    <!--View to display the yellow color icon-->
+                                    <!--                                <View-->
+                                    <!--                                    android:layout_width="@dimen/_10sdp"-->
+                                    <!--                                    android:layout_height="match_parent"-->
+                                    <!--                                    android:background="@color/active"/>-->
+
+                                    <ImageView
+                                        android:layout_width="@dimen/_8sdp"
+                                        android:layout_height="@dimen/_8sdp"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:src="@drawable/non_active_grey" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <!--Text view to display R -->
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Non RF"
+                                            android:fontFamily="@font/worksans_regular"
+                                            android:layout_marginStart="@dimen/_5sdp"
+                                            android:textSize="@dimen/_12ssp" />
+
+                                        <!--Text view to display R -->
+                                        <TextView
+                                            android:id="@+id/txt_non_rf"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="5"
+                                            android:fontFamily="@font/worksans_medium"
+                                            android:layout_marginStart="@dimen/_5sdp"
+                                            android:textSize="@dimen/_14ssp" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Card view for displaying the -->
+                <!-- Pie chart and details of pie chart -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_8sdp">
+
+                    <!--Linear layout to display pie chart -->
+                    <!-- and details of pie chart-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Detail Pendapatan"
+                            android:text="Realisasi Pendanaan"
+                            android:textSize="@dimen/_14ssp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/worksans_medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sisa Dana"
                             android:textSize="@dimen/_10ssp"
                             android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:fontFamily="@font/worksans_regular" />
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/worksans_light" />
+
+                        <TextView
+                            android:id="@+id/txt_sisa_dana"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="IDR 89,000,000.00"
+                            android:textSize="@dimen/_14ssp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/worksans_medium" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -848,22 +1164,23 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="5"
                                 android:layout_height="wrap_content"
-                                android:text="Beras Campuran"
-                                android:textSize="@dimen/_12ssp"
+                                android:text="Total Pendanaan"
+                                android:textSize="@dimen/_11ssp"
                                 android:textColor="@color/black"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:fontFamily="@font/worksans_medium" />
+                                android:fontFamily="@font/worksans_regular" />
 
                             <TextView
+                                android:id="@+id/txt_total_pendanaan"
                                 android:layout_width="0dp"
                                 android:layout_weight="5"
                                 android:layout_height="wrap_content"
-                                android:text="IDR 2,500,000,000.00"
-                                android:textSize="@dimen/_12ssp"
+                                android:text="IDR 90,000,000.00"
+                                android:textSize="@dimen/_11ssp"
                                 android:textColor="@color/black"
                                 android:textAlignment="viewEnd"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:fontFamily="@font/worksans_medium" />
+                                android:fontFamily="@font/worksans_regular" />
 
                         </LinearLayout>
 
@@ -877,51 +1194,23 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="5"
                                 android:layout_height="wrap_content"
-                                android:text="Beras"
-                                android:textSize="@dimen/_12ssp"
+                                android:text="Realisasi Pendanaan"
+                                android:textSize="@dimen/_11ssp"
                                 android:textColor="@color/black"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:fontFamily="@font/worksans_medium" />
+                                android:fontFamily="@font/worksans_regular" />
 
                             <TextView
+                                android:id="@+id/txt_realisasi_pendanaan"
                                 android:layout_width="0dp"
                                 android:layout_weight="5"
                                 android:layout_height="wrap_content"
-                                android:text="IDR 1,500,000,000.00"
-                                android:textSize="@dimen/_12ssp"
+                                android:text="IDR 600,000.00"
+                                android:textSize="@dimen/_11ssp"
                                 android:textColor="@color/black"
                                 android:textAlignment="viewEnd"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:fontFamily="@font/worksans_medium" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="10">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="5"
-                                android:layout_height="wrap_content"
-                                android:text="Saprodi"
-                                android:textSize="@dimen/_12ssp"
-                                android:textColor="@color/black"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:fontFamily="@font/worksans_medium" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="5"
-                                android:layout_height="wrap_content"
-                                android:text="IDR 1,000,000,000.00"
-                                android:textSize="@dimen/_12ssp"
-                                android:textColor="@color/black"
-                                android:textAlignment="viewEnd"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:fontFamily="@font/worksans_medium" />
+                                android:fontFamily="@font/worksans_regular" />
 
                         </LinearLayout>
 
@@ -931,290 +1220,1186 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:fontFamily="@font/worksans_semibold"
-                android:text="Pendanaan"
-                android:textSize="@dimen/_14ssp"
-                android:textColor="@color/black" />
+        </androidx.core.widget.NestedScrollView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                app:cardCornerRadius="@dimen/_8sdp">
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                <!--Linear layout to display pie chart -->
-                <!-- and details of pie chart-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_10sdp"
-                    android:orientation="vertical">
+<!--    <ScrollView-->
+<!--        android:id="@+id/scroll_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@+id/top_bar"-->
+<!--        android:visibility="visible">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/worksans_medium"
-                        android:text="Sumber Dana"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14ssp" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:paddingBottom="@dimen/_10sdp"-->
+<!--            android:background="@color/grey">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Dana"
-                        android:textSize="@dimen/_10ssp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/worksans_light" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="@dimen/_10sdp">-->
 
-                    <TextView
-                        android:id="@+id/txt_pendanaan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="16 Pengguna"
-                        android:textSize="@dimen/_14ssp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        android:fontFamily="@font/worksans_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/txt_username"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/worksans_semibold"-->
+<!--                    android:text="Halo Danilla,"-->
+<!--                    android:textSize="@dimen/_18ssp"-->
+<!--                    android:textColor="@color/black" />-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/worksans_regular"-->
+<!--                    android:text="Selamat datang kembali!"-->
+<!--                    android:layout_marginTop="@dimen/_2sdp"-->
+<!--                    android:textSize="@dimen/_12ssp"-->
+<!--                    android:textColor="@color/black" />-->
 
-                        <!--Pie chart to display the data-->
-                        <org.eazegraph.lib.charts.PieChart
-                            android:id="@+id/chart_pendanaan"
-                            android:layout_width="0dp"
-                            android:layout_weight="6"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_height="@dimen/_100sdp"
-                            android:padding="@dimen/_5sdp"/>
+<!--            </LinearLayout>-->
 
-                        <!--Creating another linear layout -->
-                        <!-- to display pie chart details -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="4"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center_vertical">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:weightSum="10"-->
+<!--                android:orientation="horizontal">-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="top">
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="5"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp"-->
+<!--                    app:cardBackgroundColor="@color/white"-->
+<!--                    android:layout_marginTop="@dimen/_5sdp"-->
+<!--                    android:layout_marginStart="@dimen/_10sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                    app:cardPreventCornerOverlap="true">-->
 
-                                <!--View to display the yellow color icon-->
-                                <!--                                <View-->
-                                <!--                                    android:layout_width="@dimen/_10sdp"-->
-                                <!--                                    android:layout_height="match_parent"-->
-                                <!--                                    android:background="@color/active"/>-->
+<!--                    &lt;!&ndash;-->
+<!--                    In the above cardview widget-->
+<!--                    cardelevation property will give elevation to your card view-->
+<!--                    card corner radius will provide radius to your card view-->
+<!--                    card background color will give background color to your card view-->
+<!--                    card max elevation will give the cardview maximum elevation-->
+<!--                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.-->
+<!--                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.-->
+<!--                    below are the two widgets imageview and text view we are displaying inside our card view.-->
+<!--                    &ndash;&gt;-->
 
-                                <ImageView
-                                    android:layout_width="@dimen/_8sdp"
-                                    android:layout_height="@dimen/_8sdp"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:src="@drawable/active_blue" />
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:padding="@dimen/_10sdp">-->
 
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal">-->
 
-                                    <!--Text view to display R -->
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="RF"
-                                        android:fontFamily="@font/worksans_regular"
-                                        android:layout_marginStart="@dimen/_5sdp"
-                                        android:textSize="@dimen/_12ssp" />
+<!--                            <ImageView-->
+<!--                                android:layout_width="@dimen/_30sdp"-->
+<!--                                android:layout_height="@dimen/_30sdp"-->
+<!--                                android:src="@drawable/total_project" />-->
 
-                                    <!--Text view to display R -->
-                                    <TextView
-                                        android:id="@+id/txt_rf"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="11"
-                                        android:fontFamily="@font/worksans_medium"
-                                        android:layout_marginStart="@dimen/_5sdp"
-                                        android:textSize="@dimen/_14ssp" />
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_total_projects"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                                android:fontFamily="@font/worksans_semibold"-->
+<!--                                android:text="6"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="@dimen/_20ssp"-->
+<!--                                android:textStyle="bold" />-->
 
-                                </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                            </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:fontFamily="@font/worksans_medium"-->
+<!--                            android:text="Total Proyek"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="@dimen/_12ssp" />-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="top">
+<!--                    </LinearLayout>-->
 
-                                <!--View to display the yellow color icon-->
-                                <!--                                <View-->
-                                <!--                                    android:layout_width="@dimen/_10sdp"-->
-                                <!--                                    android:layout_height="match_parent"-->
-                                <!--                                    android:background="@color/active"/>-->
+<!--                </androidx.cardview.widget.CardView>-->
 
-                                <ImageView
-                                    android:layout_width="@dimen/_8sdp"
-                                    android:layout_height="@dimen/_8sdp"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:src="@drawable/non_active_grey" />
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="5"-->
+<!--                    android:layout_marginTop="@dimen/_5sdp"-->
+<!--                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp"-->
+<!--                    app:cardBackgroundColor="@color/white"-->
+<!--                    app:cardPreventCornerOverlap="true">-->
 
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
+<!--                    &lt;!&ndash;-->
+<!--                    In the above cardview widget-->
+<!--                    cardelevation property will give elevation to your card view-->
+<!--                    card corner radius will provide radius to your card view-->
+<!--                    card background color will give background color to your card view-->
+<!--                    card max elevation will give the cardview maximum elevation-->
+<!--                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.-->
+<!--                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.-->
+<!--                    below are the two widgets imageview and text view we are displaying inside our card view.-->
+<!--                    &ndash;&gt;-->
 
-                                    <!--Text view to display R -->
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Non RF"
-                                        android:fontFamily="@font/worksans_regular"
-                                        android:layout_marginStart="@dimen/_5sdp"
-                                        android:textSize="@dimen/_12ssp" />
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:padding="@dimen/_10sdp">-->
 
-                                    <!--Text view to display R -->
-                                    <TextView
-                                        android:id="@+id/txt_non_rf"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="5"
-                                        android:fontFamily="@font/worksans_medium"
-                                        android:layout_marginStart="@dimen/_5sdp"
-                                        android:textSize="@dimen/_14ssp" />
+<!--                        <RelativeLayout-->
+<!--                            android:id="@+id/lyt_temperature"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_alignParentEnd="true">-->
 
-                                </LinearLayout>
+<!--                            <ImageView-->
+<!--                                android:layout_width="@dimen/_30sdp"-->
+<!--                                android:layout_height="@dimen/_30sdp"-->
+<!--                                android:src="@drawable/weather_sunny" />-->
 
-                            </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_temperature"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_alignParentEnd="true"-->
+<!--                                android:fontFamily="@font/worksans_semibold"-->
+<!--                                android:text="32 C"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="@dimen/_20ssp" />-->
 
-                        </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_city"-->
+<!--                                android:layout_below="@+id/txt_temperature"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_alignParentEnd="true"-->
+<!--                                android:fontFamily="@font/worksans_regular"-->
+<!--                                android:text="Jakarta"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textSize="@dimen/_10ssp" />-->
 
-                    </LinearLayout>
+<!--                        </RelativeLayout>-->
 
-                </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_below="@+id/lyt_temperature"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Kamis, 29 Des 2022"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:textSize="@dimen/_10ssp"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_regular" />-->
 
-            </androidx.cardview.widget.CardView>
+<!--                    </RelativeLayout>-->
 
-            <!-- Card view for displaying the -->
-            <!-- Pie chart and details of pie chart -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                app:cardCornerRadius="@dimen/_8sdp">
+<!--                </androidx.cardview.widget.CardView>-->
 
-                <!--Linear layout to display pie chart -->
-                <!-- and details of pie chart-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_10sdp"
-                    android:orientation="vertical">
+<!--            </LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Realisasi Pendanaan"
-                        android:textSize="@dimen/_14ssp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/worksans_medium" />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:weightSum="10"-->
+<!--                android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sisa Dana"
-                        android:textSize="@dimen/_10ssp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:fontFamily="@font/worksans_light" />
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="5"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp"-->
+<!--                    app:cardBackgroundColor="@color/white"-->
+<!--                    android:layout_marginTop="@dimen/_5sdp"-->
+<!--                    android:layout_marginStart="@dimen/_10sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    app:cardPreventCornerOverlap="true">-->
 
-                    <TextView
-                        android:id="@+id/txt_sisa_dana"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="IDR 89,000,000.00"
-                        android:textSize="@dimen/_14ssp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/worksans_medium" />
+<!--                    &lt;!&ndash;-->
+<!--                    In the above cardview widget-->
+<!--                    cardelevation property will give elevation to your card view-->
+<!--                    card corner radius will provide radius to your card view-->
+<!--                    card background color will give background color to your card view-->
+<!--                    card max elevation will give the cardview maximum elevation-->
+<!--                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.-->
+<!--                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.-->
+<!--                    below are the two widgets imageview and text view we are displaying inside our card view.-->
+<!--                    &ndash;&gt;-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:padding="@dimen/_10sdp"-->
+<!--                        android:orientation="vertical">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="5"
-                            android:layout_height="wrap_content"
-                            android:text="Total Pendanaan"
-                            android:textSize="@dimen/_11ssp"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:fontFamily="@font/worksans_regular" />
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal">-->
 
-                        <TextView
-                            android:id="@+id/txt_total_pendanaan"
-                            android:layout_width="0dp"
-                            android:layout_weight="5"
-                            android:layout_height="wrap_content"
-                            android:text="IDR 90,000,000.00"
-                            android:textSize="@dimen/_11ssp"
-                            android:textColor="@color/black"
-                            android:textAlignment="viewEnd"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:fontFamily="@font/worksans_regular" />
+<!--                            <ImageView-->
+<!--                                android:layout_width="@dimen/_30sdp"-->
+<!--                                android:layout_height="@dimen/_30sdp"-->
+<!--                                android:src="@drawable/total_fa" />-->
 
-                    </LinearLayout>
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_total_fa"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="10"-->
+<!--                                android:textSize="@dimen/_20ssp"-->
+<!--                                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:fontFamily="@font/worksans_semibold"-->
+<!--                                android:textStyle="bold" />-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
+<!--                        </LinearLayout>-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="5"
-                            android:layout_height="wrap_content"
-                            android:text="Realisasi Pendanaan"
-                            android:textSize="@dimen/_11ssp"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:fontFamily="@font/worksans_regular" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Total FA"-->
+<!--                            android:textSize="@dimen/_12ssp"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_medium" />-->
 
-                        <TextView
-                            android:id="@+id/txt_realisasi_pendanaan"
-                            android:layout_width="0dp"
-                            android:layout_weight="5"
-                            android:layout_height="wrap_content"
-                            android:text="IDR 600,000.00"
-                            android:textSize="@dimen/_11ssp"
-                            android:textColor="@color/black"
-                            android:textAlignment="viewEnd"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:fontFamily="@font/worksans_regular" />
+<!--                    </LinearLayout>-->
 
-                    </LinearLayout>
+<!--                </androidx.cardview.widget.CardView>-->
 
-                </LinearLayout>
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="5"-->
+<!--                    android:layout_marginTop="@dimen/_5sdp"-->
+<!--                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp"-->
+<!--                    app:cardBackgroundColor="@color/white"-->
+<!--                    app:cardPreventCornerOverlap="true">-->
 
-            </androidx.cardview.widget.CardView>
+<!--                    &lt;!&ndash;-->
+<!--                    In the above cardview widget-->
+<!--                    cardelevation property will give elevation to your card view-->
+<!--                    card corner radius will provide radius to your card view-->
+<!--                    card background color will give background color to your card view-->
+<!--                    card max elevation will give the cardview maximum elevation-->
+<!--                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.-->
+<!--                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.-->
+<!--                    below are the two widgets imageview and text view we are displaying inside our card view.-->
+<!--                    &ndash;&gt;-->
 
-        </LinearLayout>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:padding="@dimen/_10sdp"-->
+<!--                        android:orientation="vertical">-->
 
-    </ScrollView>
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <ImageView-->
+<!--                                android:layout_width="@dimen/_30sdp"-->
+<!--                                android:layout_height="@dimen/_30sdp"-->
+<!--                                android:src="@drawable/total_petani" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_total_petani"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="10"-->
+<!--                                android:textSize="@dimen/_20ssp"-->
+<!--                                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:fontFamily="@font/worksans_semibold"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Total Petani"-->
+<!--                            android:textSize="@dimen/_12ssp"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_medium" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:weightSum="10"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="5"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp"-->
+<!--                    app:cardBackgroundColor="@color/white"-->
+<!--                    android:layout_marginTop="@dimen/_5sdp"-->
+<!--                    android:layout_marginStart="@dimen/_10sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    app:cardPreventCornerOverlap="true">-->
+
+<!--                    &lt;!&ndash;-->
+<!--                    In the above cardview widget-->
+<!--                    cardelevation property will give elevation to your card view-->
+<!--                    card corner radius will provide radius to your card view-->
+<!--                    card background color will give background color to your card view-->
+<!--                    card max elevation will give the cardview maximum elevation-->
+<!--                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.-->
+<!--                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.-->
+<!--                    below are the two widgets imageview and text view we are displaying inside our card view.-->
+<!--                    &ndash;&gt;-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:padding="@dimen/_10sdp"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <ImageView-->
+<!--                                android:layout_width="@dimen/_30sdp"-->
+<!--                                android:layout_height="@dimen/_30sdp"-->
+<!--                                android:src="@drawable/total_panen" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_total_panen"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="1000 Kg"-->
+<!--                                android:textSize="@dimen/_20ssp"-->
+<!--                                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:fontFamily="@font/worksans_semibold"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Total Panen"-->
+<!--                            android:textSize="@dimen/_12ssp"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_medium" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="5"-->
+<!--                    android:layout_marginTop="@dimen/_5sdp"-->
+<!--                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp"-->
+<!--                    app:cardBackgroundColor="@color/white"-->
+<!--                    app:cardPreventCornerOverlap="true">-->
+
+<!--                    &lt;!&ndash;-->
+<!--                    In the above cardview widget-->
+<!--                    cardelevation property will give elevation to your card view-->
+<!--                    card corner radius will provide radius to your card view-->
+<!--                    card background color will give background color to your card view-->
+<!--                    card max elevation will give the cardview maximum elevation-->
+<!--                    card prevent corner overlap will add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners.-->
+<!--                    card use compact padding will add padding in API v21+ as well to have the same measurements with previous versions.-->
+<!--                    below are the two widgets imageview and text view we are displaying inside our card view.-->
+<!--                    &ndash;&gt;-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:padding="@dimen/_10sdp"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal">-->
+
+<!--                            <ImageView-->
+<!--                                android:layout_width="@dimen/_30sdp"-->
+<!--                                android:layout_height="@dimen/_30sdp"-->
+<!--                                android:src="@drawable/total_stok_beras" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_total_stock_beras"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="10 Kg"-->
+<!--                                android:textSize="@dimen/_20ssp"-->
+<!--                                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:fontFamily="@font/worksans_semibold"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Total Stok Beras"-->
+<!--                            android:textSize="@dimen/_12ssp"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_medium" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                android:fontFamily="@font/worksans_semibold"-->
+<!--                android:text="Data Lahan"-->
+<!--                android:textSize="@dimen/_14ssp"-->
+<!--                android:textColor="@color/black" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:weightSum="10"-->
+<!--                android:padding="@dimen/_10sdp"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                &lt;!&ndash; Card view for displaying the &ndash;&gt;-->
+<!--                &lt;!&ndash; Pie chart and details of pie chart &ndash;&gt;-->
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="5"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp">-->
+
+
+<!--                    &lt;!&ndash;Linear layout to display pie chart &ndash;&gt;-->
+<!--                    &lt;!&ndash; and details of pie chart&ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:padding="@dimen/_10sdp"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/worksans_semibold"-->
+<!--                            android:text="Lahan"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="@dimen/_12ssp" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Total Lahan"-->
+<!--                            android:textSize="@dimen/_10ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_regular" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/txt_total_lahan"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="5"-->
+<!--                            android:textSize="@dimen/_20ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:layout_marginTop="@dimen/_2sdp"-->
+<!--                            android:fontFamily="@font/worksans_medium"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        &lt;!&ndash;Pie chart to display the data&ndash;&gt;-->
+<!--                        <org.eazegraph.lib.charts.PieChart-->
+<!--                            android:id="@+id/chart_total_lahan"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/_100sdp"-->
+<!--                            android:padding="@dimen/_5sdp"/>-->
+
+<!--                        &lt;!&ndash;Creating another linear layout &ndash;&gt;-->
+<!--                        &lt;!&ndash; to display pie chart details &ndash;&gt;-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:gravity="center_vertical">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/_15sdp"-->
+<!--                                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                                android:orientation="horizontal"-->
+<!--                                android:gravity="center_vertical">-->
+
+<!--                                &lt;!&ndash;View to display the yellow color icon&ndash;&gt;-->
+<!--&lt;!&ndash;                                <View&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:layout_width="@dimen/_10sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:background="@color/active"/>&ndash;&gt;-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="@dimen/_8sdp"-->
+<!--                                    android:layout_height="@dimen/_8sdp"-->
+<!--                                    android:src="@drawable/active_blue" />-->
+
+<!--                                &lt;!&ndash;Text view to display R &ndash;&gt;-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Lahan Aktif"-->
+<!--                                    android:fontFamily="@font/worksans_regular"-->
+<!--                                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                                    android:textSize="@dimen/_10ssp" />-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            &lt;!&ndash;Linear layout to display Python&ndash;&gt;-->
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/_15sdp"-->
+<!--                                android:gravity="center_vertical"-->
+<!--                                android:layout_marginTop="@dimen/_5sdp">-->
+
+<!--                                &lt;!&ndash;View to display the green color icon&ndash;&gt;-->
+<!--&lt;!&ndash;                                <View&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:layout_width="@dimen/_10sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:background="@color/non_active"/>&ndash;&gt;-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="@dimen/_8sdp"-->
+<!--                                    android:layout_height="@dimen/_8sdp"-->
+<!--                                    android:src="@drawable/non_active_grey" />-->
+
+<!--                                &lt;!&ndash;Text view to display python text &ndash;&gt;-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Lahan Non-Aktif"-->
+<!--                                    android:fontFamily="@font/worksans_regular"-->
+<!--                                    android:textSize="@dimen/_10ssp"-->
+<!--                                    android:layout_marginStart="@dimen/_5sdp"/>-->
+
+<!--                            </LinearLayout>-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="5"-->
+<!--                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp">-->
+
+
+<!--                    &lt;!&ndash;Linear layout to display pie chart &ndash;&gt;-->
+<!--                    &lt;!&ndash; and details of pie chart&ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:padding="@dimen/_10sdp"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Luasan"-->
+<!--                            android:textSize="@dimen/_12ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_semibold" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Total Luasan"-->
+<!--                            android:textSize="@dimen/_10ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_regular" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/txt_total_luasan"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="5000 m2"-->
+<!--                            android:textSize="@dimen/_20ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:layout_marginTop="@dimen/_2sdp"-->
+<!--                            android:fontFamily="@font/worksans_medium"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        &lt;!&ndash;Pie chart to display the data&ndash;&gt;-->
+<!--                        <org.eazegraph.lib.charts.PieChart-->
+<!--                            android:id="@+id/chart_total_luasan"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/_100sdp"-->
+<!--                            android:padding="@dimen/_5sdp"/>-->
+
+<!--                        &lt;!&ndash;Creating another linear layout &ndash;&gt;-->
+<!--                        &lt;!&ndash; to display pie chart details &ndash;&gt;-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:gravity="center_vertical">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/_15sdp"-->
+<!--                                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                                android:gravity="center_vertical">-->
+
+<!--                                &lt;!&ndash;View to display the yellow color icon&ndash;&gt;-->
+<!--&lt;!&ndash;                                <View&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:layout_width="@dimen/_10sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:background="@color/active"/>&ndash;&gt;-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="@dimen/_8sdp"-->
+<!--                                    android:layout_height="@dimen/_8sdp"-->
+<!--                                    android:src="@drawable/active_blue" />-->
+
+<!--                                &lt;!&ndash;Text view to display R &ndash;&gt;-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Lahan Aktif"-->
+<!--                                    android:fontFamily="@font/worksans_regular"-->
+<!--                                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                                    android:textSize="@dimen/_10ssp" />-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            &lt;!&ndash;Linear layout to display Python&ndash;&gt;-->
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="@dimen/_15sdp"-->
+<!--                                android:gravity="center_vertical"-->
+<!--                                android:layout_marginTop="@dimen/_5sdp">-->
+
+<!--                                &lt;!&ndash;View to display the green color icon&ndash;&gt;-->
+<!--&lt;!&ndash;                                <View&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:layout_width="@dimen/_10sdp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    android:background="@color/non_active"/>&ndash;&gt;-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="@dimen/_8sdp"-->
+<!--                                    android:layout_height="@dimen/_8sdp"-->
+<!--                                    android:src="@drawable/non_active_grey" />-->
+
+<!--                                &lt;!&ndash;Text view to display python text &ndash;&gt;-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Lahan Non-Aktif"-->
+<!--                                    android:textSize="@dimen/_10ssp"-->
+<!--                                    android:fontFamily="@font/worksans_regular"-->
+<!--                                    android:layout_marginStart="@dimen/_5sdp"/>-->
+
+<!--                            </LinearLayout>-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                android:fontFamily="@font/worksans_semibold"-->
+<!--                android:text="Pendapatan"-->
+<!--                android:textSize="@dimen/_14ssp"-->
+<!--                android:textColor="@color/black" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="@dimen/_10sdp">-->
+
+<!--                &lt;!&ndash; Card view for displaying the &ndash;&gt;-->
+<!--                &lt;!&ndash; Pie chart and details of pie chart &ndash;&gt;-->
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+<!--                    app:cardCornerRadius="@dimen/_8sdp">-->
+
+
+<!--                    &lt;!&ndash;Linear layout to display pie chart &ndash;&gt;-->
+<!--                    &lt;!&ndash; and details of pie chart&ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:padding="@dimen/_10sdp"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Total Pendapatan"-->
+<!--                            android:textSize="@dimen/_12ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/worksans_medium" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/txt_total_pendapatan"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="IDR 5,000,000,000"-->
+<!--                            android:textSize="@dimen/_14ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                            android:fontFamily="@font/worksans_semibold" />-->
+
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:background="@drawable/grey_line"/>-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Detail Pendapatan"-->
+<!--                            android:textSize="@dimen/_10ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:layout_marginTop="@dimen/_10sdp"-->
+<!--                            android:fontFamily="@font/worksans_regular" />-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:weightSum="10">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="5"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Beras Campuran"-->
+<!--                                android:textSize="@dimen/_12ssp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:layout_marginTop="@dimen/_5sdp"-->
+<!--                                android:fontFamily="@font/worksans_medium" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_beras_campuran"-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="5"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="IDR 2,500,000,000.00"-->
+<!--                                android:textSize="@dimen/_12ssp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textAlignment="viewEnd"-->
+<!--                                android:layout_marginTop="@dimen/_5sdp"-->
+<!--                                android:fontFamily="@font/worksans_medium" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:weightSum="10">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="5"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Beras"-->
+<!--                                android:textSize="@dimen/_12ssp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:layout_marginTop="@dimen/_5sdp"-->
+<!--                                android:fontFamily="@font/worksans_medium" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_beras"-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="5"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="IDR 1,500,000,000.00"-->
+<!--                                android:textSize="@dimen/_12ssp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textAlignment="viewEnd"-->
+<!--                                android:layout_marginTop="@dimen/_5sdp"-->
+<!--                                android:fontFamily="@font/worksans_medium" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:weightSum="10">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="5"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Saprodi"-->
+<!--                                android:textSize="@dimen/_12ssp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:layout_marginTop="@dimen/_5sdp"-->
+<!--                                android:fontFamily="@font/worksans_medium" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_saprodi"-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="5"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="IDR 1,000,000,000.00"-->
+<!--                                android:textSize="@dimen/_12ssp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:textAlignment="viewEnd"-->
+<!--                                android:layout_marginTop="@dimen/_5sdp"-->
+<!--                                android:fontFamily="@font/worksans_medium" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+<!--            </LinearLayout>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                android:fontFamily="@font/worksans_semibold"-->
+<!--                android:text="Pendanaan"-->
+<!--                android:textSize="@dimen/_14ssp"-->
+<!--                android:textColor="@color/black" />-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/_10sdp"-->
+<!--                app:cardCornerRadius="@dimen/_8sdp">-->
+
+<!--                &lt;!&ndash;Linear layout to display pie chart &ndash;&gt;-->
+<!--                &lt;!&ndash; and details of pie chart&ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="@dimen/_10sdp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/worksans_medium"-->
+<!--                        android:text="Sumber Dana"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="@dimen/_14ssp" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Total Dana"-->
+<!--                        android:textSize="@dimen/_10ssp"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:fontFamily="@font/worksans_light" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/txt_pendanaan"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="16 Pengguna"-->
+<!--                        android:textSize="@dimen/_14ssp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:layout_marginTop="@dimen/_2sdp"-->
+<!--                        android:fontFamily="@font/worksans_medium" />-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:weightSum="10">-->
+
+<!--                        &lt;!&ndash;Pie chart to display the data&ndash;&gt;-->
+<!--                        <org.eazegraph.lib.charts.PieChart-->
+<!--                            android:id="@+id/chart_pendanaan"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="6"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:layout_height="@dimen/_100sdp"-->
+<!--                            android:padding="@dimen/_5sdp"/>-->
+
+<!--                        &lt;!&ndash;Creating another linear layout &ndash;&gt;-->
+<!--                        &lt;!&ndash; to display pie chart details &ndash;&gt;-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="4"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:gravity="center_vertical">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="horizontal"-->
+<!--                                android:gravity="top">-->
+
+<!--                                &lt;!&ndash;View to display the yellow color icon&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                <View&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    android:layout_width="@dimen/_10sdp"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    android:background="@color/active"/>&ndash;&gt;-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="@dimen/_8sdp"-->
+<!--                                    android:layout_height="@dimen/_8sdp"-->
+<!--                                    android:layout_marginTop="@dimen/_5sdp"-->
+<!--                                    android:src="@drawable/active_blue" />-->
+
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:orientation="vertical">-->
+
+<!--                                    &lt;!&ndash;Text view to display R &ndash;&gt;-->
+<!--                                    <TextView-->
+<!--                                        android:layout_width="wrap_content"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:text="RF"-->
+<!--                                        android:fontFamily="@font/worksans_regular"-->
+<!--                                        android:layout_marginStart="@dimen/_5sdp"-->
+<!--                                        android:textSize="@dimen/_12ssp" />-->
+
+<!--                                    &lt;!&ndash;Text view to display R &ndash;&gt;-->
+<!--                                    <TextView-->
+<!--                                        android:id="@+id/txt_rf"-->
+<!--                                        android:layout_width="wrap_content"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:text="11"-->
+<!--                                        android:fontFamily="@font/worksans_medium"-->
+<!--                                        android:layout_marginStart="@dimen/_5sdp"-->
+<!--                                        android:textSize="@dimen/_14ssp" />-->
+
+<!--                                </LinearLayout>-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="horizontal"-->
+<!--                                android:gravity="top">-->
+
+<!--                                &lt;!&ndash;View to display the yellow color icon&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                <View&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    android:layout_width="@dimen/_10sdp"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    android:background="@color/active"/>&ndash;&gt;-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="@dimen/_8sdp"-->
+<!--                                    android:layout_height="@dimen/_8sdp"-->
+<!--                                    android:layout_marginTop="@dimen/_5sdp"-->
+<!--                                    android:src="@drawable/non_active_grey" />-->
+
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:orientation="vertical">-->
+
+<!--                                    &lt;!&ndash;Text view to display R &ndash;&gt;-->
+<!--                                    <TextView-->
+<!--                                        android:layout_width="wrap_content"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:text="Non RF"-->
+<!--                                        android:fontFamily="@font/worksans_regular"-->
+<!--                                        android:layout_marginStart="@dimen/_5sdp"-->
+<!--                                        android:textSize="@dimen/_12ssp" />-->
+
+<!--                                    &lt;!&ndash;Text view to display R &ndash;&gt;-->
+<!--                                    <TextView-->
+<!--                                        android:id="@+id/txt_non_rf"-->
+<!--                                        android:layout_width="wrap_content"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:text="5"-->
+<!--                                        android:fontFamily="@font/worksans_medium"-->
+<!--                                        android:layout_marginStart="@dimen/_5sdp"-->
+<!--                                        android:textSize="@dimen/_14ssp" />-->
+
+<!--                                </LinearLayout>-->
+
+<!--                            </LinearLayout>-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            &lt;!&ndash; Card view for displaying the &ndash;&gt;-->
+<!--            &lt;!&ndash; Pie chart and details of pie chart &ndash;&gt;-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/_10sdp"-->
+<!--                app:cardCornerRadius="@dimen/_8sdp">-->
+
+<!--                &lt;!&ndash;Linear layout to display pie chart &ndash;&gt;-->
+<!--                &lt;!&ndash; and details of pie chart&ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="@dimen/_10sdp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Realisasi Pendanaan"-->
+<!--                        android:textSize="@dimen/_14ssp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:fontFamily="@font/worksans_medium" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Sisa Dana"-->
+<!--                        android:textSize="@dimen/_10ssp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"-->
+<!--                        android:fontFamily="@font/worksans_light" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/txt_sisa_dana"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="IDR 89,000,000.00"-->
+<!--                        android:textSize="@dimen/_14ssp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:fontFamily="@font/worksans_medium" />-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:weightSum="10">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="5"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Total Pendanaan"-->
+<!--                            android:textSize="@dimen/_11ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:fontFamily="@font/worksans_regular" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/txt_total_pendanaan"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="5"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="IDR 90,000,000.00"-->
+<!--                            android:textSize="@dimen/_11ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textAlignment="viewEnd"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:fontFamily="@font/worksans_regular" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:weightSum="10">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="5"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Realisasi Pendanaan"-->
+<!--                            android:textSize="@dimen/_11ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:fontFamily="@font/worksans_regular" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/txt_realisasi_pendanaan"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="5"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="IDR 600,000.00"-->
+<!--                            android:textSize="@dimen/_11ssp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textAlignment="viewEnd"-->
+<!--                            android:layout_marginTop="@dimen/_5sdp"-->
+<!--                            android:fontFamily="@font/worksans_regular" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </ScrollView>-->
 
     <RelativeLayout
         android:id="@+id/btn_logout"

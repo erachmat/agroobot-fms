@@ -25,6 +25,7 @@ import static com.example.agroobot_fms.utils.Constants.DROPDOWN_KONDISI_LAHAN_UR
 import static com.example.agroobot_fms.utils.Constants.GET_ALL_BUDGET_DETAIL_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ALL_BUDGET_PLAN_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ALL_DATA_PANEN_URL;
+import static com.example.agroobot_fms.utils.Constants.GET_DATA_DASHBOARD_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ONE_BUDGET_DETAIL_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ONE_BUDGET_PLAN_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ONE_CULTIVATION_TASK_URL;
@@ -51,6 +52,7 @@ import com.example.agroobot_fms.model.create_observation.CreateObservation;
 import com.example.agroobot_fms.model.create_observation.CreateObservationBody;
 import com.example.agroobot_fms.model.create_rating.CreateRatingBody;
 import com.example.agroobot_fms.model.create_rating.CreateRatingResponse;
+import com.example.agroobot_fms.model.data_dashboard.DataDashboard;
 import com.example.agroobot_fms.model.delete_activity.DeleteActivityBody;
 import com.example.agroobot_fms.model.delete_activity.DeleteActivityResponse;
 import com.example.agroobot_fms.model.delete_budget_detail.DeleteBudgetDetail;
@@ -113,6 +115,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface GetService {
+
+    @GET(GET_DATA_DASHBOARD_URL)
+    Call<DataDashboard> getDataDashboard(@Header("Authorization") String token);
 
     @POST(LOGIN_URL)
     Call<LoginResponse> loginAccount(@Body LoginBody loginBody);
