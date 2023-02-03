@@ -46,6 +46,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/grey"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -90,7 +91,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/_8sdp"
-                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/custom_border"
                     android:visibility="visible">
 
@@ -165,21 +168,38 @@
                 </androidx.cardview.widget.CardView>
 
                 <!-- Table View-->
-                <HorizontalScrollView
+<!--                <HorizontalScrollView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_10sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                    android:background="@color/white">-->
+
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/rv_anggaran"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:nestedScrollingEnabled="false" />-->
+
+<!--                </HorizontalScrollView>-->
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:layout_marginTop="@dimen/_10sdp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_anggaran"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@color/grey"
                         android:nestedScrollingEnabled="false" />
 
-                </HorizontalScrollView>
+                </RelativeLayout>
 
             </LinearLayout>
 

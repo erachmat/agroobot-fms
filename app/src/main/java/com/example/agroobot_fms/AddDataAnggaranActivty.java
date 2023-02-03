@@ -162,10 +162,16 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
                                 if(response.code() == 200) {
                                 if (response.body() != null) {
                                     if(response.body().getCode() == 0) {
+                                        Intent intent = new Intent(
+                                                AddDataAnggaranActivty.this,
+                                                DetailAnggaranPetaniActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.putExtra("idSeq", idSeq);
+                                        startActivity(intent);
                                         finish();
-                                        Toast.makeText(AddDataAnggaranActivty.this,
-                                                "Silahkan refresh kembali table anggaran!",
-                                                Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(AddDataAnggaranActivty.this,
+//                                                "Silahkan refresh kembali table anggaran!",
+//                                                Toast.LENGTH_SHORT).show();
 
                                     } else {
 
@@ -564,12 +570,12 @@ public class AddDataAnggaranActivty extends AppCompatActivity {
             return false;
         }
 
-        if(imgDokumentasi == null) {
-            Toast.makeText(AddDataAnggaranActivty.this,
-                    "Masukkan gambar dokumentasi terlebih dahulu",
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if(imgDokumentasi == null) {
+//            Toast.makeText(AddDataAnggaranActivty.this,
+//                    "Masukkan gambar dokumentasi terlebih dahulu",
+//                    Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         return true;
     }

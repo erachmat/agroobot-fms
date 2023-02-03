@@ -146,9 +146,9 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
                             finish();
                         }
 
-                        String message = response.body().getMessage();
-                        Toast.makeText(DetailAnggaranPetaniActivity.this, message,
-                                Toast.LENGTH_SHORT).show();
+//                        String message = response.body().getMessage();
+//                        Toast.makeText(DetailAnggaranPetaniActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(DetailAnggaranPetaniActivity.this,
                                 "Something went wrong...Please try later!",
