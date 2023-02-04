@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -20,14 +19,15 @@ import android.widget.Toast;
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
+import com.example.agroobot_fms.model.dropdown_farmer.Datum;
+import com.example.agroobot_fms.model.dropdown_farmer.DropdownFarmer;
+import com.example.agroobot_fms.model.dropdown_filter_lahan.DropdownFilterLahan;
+import com.example.agroobot_fms.model.dropdown_filter_periode.DropdownFilterPeriode;
 import com.example.agroobot_fms.model.get_one.Data;
 import com.example.agroobot_fms.model.get_one.GetOne;
 import com.example.agroobot_fms.model.get_one.GetOneBody;
-import com.example.agroobot_fms.model.login.LoginResponse;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,11 +44,19 @@ public class JadwalFragment extends Fragment {
     LinearLayout btnCari;
 
     private List<String> petaniList;
+    private List<Integer> idPetaniList;
+
     private List<String> lahanList;
+    private List<String> idLahanList;
+
     private List<String> periodeList;
 
-    String idPetani;
+    private Integer idPetani;
+    private String namaPetani;
+
     private String idLahan;
+    private String namaLahan;
+
     private String idPeriode;
     SharedPreferences preferences;
 
@@ -74,7 +82,11 @@ public class JadwalFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_jadwal, container,
                 false);
 
-        initSpinner(view);
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref",
+                Context.MODE_PRIVATE);
+        String tokenLogin = sh.getString("tokenLogin", "");
+
+        initSpinner(view, tokenLogin);
 
         btnCari = view.findViewById(R.id.btn_cari_jadwal);
         btnCari.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +100,7 @@ public class JadwalFragment extends Fragment {
                     progressDialog.show();
 
                     GetOneBody getOneBody = new GetOneBody();
-                    getOneBody.setUserIdInt(idPetani);
+                    getOneBody.setUserIdInt(String.valueOf(idPetani));
                     getOneBody.setLandCodeVar(idLahan);
                     getOneBody.setPeriodPlantTxt(idPeriode);
 
@@ -113,7 +125,7 @@ public class JadwalFragment extends Fragment {
                                         preferences = getContext().getSharedPreferences(
                                         "MySharedPref", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = preferences.edit();
-                                        editor.putString("idPetani", idPetani);
+                                        editor.putString("idPetani", String.valueOf(idPetani));
                                         editor.putString("idLahan", idLahan);
                                         editor.putString("idPeriode", idPeriode);
                                         editor.apply();
@@ -195,31 +207,22 @@ public class JadwalFragment extends Fragment {
         return true;
     }
 
-    private void initSpinner(View view) {
+    private void initSpinner(View view, String tokenLogin) {
 
         spPetani = view.findViewById(R.id.sp_petani);
         spLahan = view.findViewById(R.id.sp_lahan);
         spPeriode = view.findViewById(R.id.sp_periode);
 
-        petaniList = new ArrayList<>();
-        petaniList.add("10");
-
-        lahanList = new ArrayList<>();
-        lahanList.add("01001");
-
-        periodeList = new ArrayList<>();
-        periodeList.add("2201");
-
-        spPetani.setItem(petaniList);
-        spLahan.setItem(lahanList);
-        spPeriode.setItem(periodeList);
+        setSpinnerPetani(tokenLogin);
 
         spPetani.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view,
                                        int position, long id) {
 
-                idPetani = petaniList.get(position);
+                idPetani = idPetaniList.get(position);
+
+                setSpinnerLahan(tokenLogin, idPetani);
 
 //                Toast.makeText(getActivity(), idPetani,
 //                        Toast.LENGTH_SHORT).show();
@@ -235,7 +238,8 @@ public class JadwalFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view,
                                        int i, long l) {
 
-                idLahan = lahanList.get(i);
+                idLahan = idLahanList.get(i);
+                setSpinnerPeriode(tokenLogin, idLahan);
 
 //                Toast.makeText(getActivity(), idLahan,
 //                        Toast.LENGTH_SHORT).show();
@@ -261,5 +265,177 @@ public class JadwalFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+    }
+
+    private void setSpinnerPeriode(String tokenLogin, String idLahan) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFilterPeriode> dropdownFilterPeriodeCall = service.dropdownFilterPeriode(tokenLogin,
+                idLahan);
+        dropdownFilterPeriodeCall.enqueue(new Callback<DropdownFilterPeriode>() {
+            @Override
+            public void onResponse(Call<DropdownFilterPeriode> call,
+                                   Response<DropdownFilterPeriode> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_filter_periode.Datum>
+                                    listData = response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            periodeList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                periodeList.add(listData.get(i).getPeriodPlantTxt());
+                            }
+
+                            spPeriode.setItem(periodeList);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_LAHAN", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(),
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(),
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFilterPeriode> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private void setSpinnerLahan(String tokenLogin, Integer idPetani) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFilterLahan> dropdownFilterLahanCall = service.dropdownFilterLahan(tokenLogin,
+                idPetani);
+        dropdownFilterLahanCall.enqueue(new Callback<DropdownFilterLahan>() {
+            @Override
+            public void onResponse(Call<DropdownFilterLahan> call,
+                                   Response<DropdownFilterLahan> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_filter_lahan.Datum> listData =
+                                    response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            lahanList = new ArrayList<>();
+                            idLahanList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                lahanList.add(listData.get(i).getLandNameVar());
+                                idLahanList.add(listData.get(i).getLandCodeVar());
+                            }
+
+                            spLahan.setItem(lahanList);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_LAHAN", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(),
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(),
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFilterLahan> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private void setSpinnerPetani(String tokenLogin) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFarmer> dropdownFarmerCall = service.dropdownFarmer(tokenLogin);
+        dropdownFarmerCall.enqueue(new Callback<DropdownFarmer>() {
+            @Override
+            public void onResponse(Call<DropdownFarmer> call,
+                                   Response<DropdownFarmer> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+                            List<Datum> listData = response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            petaniList = new ArrayList<>();
+                            idPetaniList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                petaniList.add(listData.get(i).getFullnameVar());
+                                idPetaniList.add(listData.get(i).getIdSeq());
+                            }
+
+                            spPetani.setItem(petaniList);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_PETANI", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(),
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(),
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFarmer> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
     }
 }

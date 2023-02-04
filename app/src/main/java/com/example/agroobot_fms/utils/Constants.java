@@ -39,6 +39,9 @@ public final class Constants {
     public static final String DELETE_RATING_URL = "/api/cultivation-task/delete-rating/{id}";
     public static final String DELETE_ACTIVITY_URL = "/api/cultivation-task/delete-activity/{id}";
     public static final String DELETE_OBSERVATION_URL = "/api/cultivation-task/delete-observation/{id}";
+    public static final String DROPDOWN_FARMER_URL = "/api/land-commodity/dropdownFarmer";
+    public static final String DROPDOWN_FILTER_LAHAN_URL = "/api/land-area/get-list-user";
+    public static final String DROPDOWN_FILTER_PERIODE_URL = "/api/cultivation-task/dropdownPeriod";
 
     public static final String GET_ALL_BUDGET_PLAN_URL = "/api/budget-plan/get-all";
     public static final String CREATE_BUDGET_PLAN_URL = "/api/budget-plan/create";

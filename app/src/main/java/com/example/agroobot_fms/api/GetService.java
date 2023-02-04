@@ -20,6 +20,9 @@ import static com.example.agroobot_fms.utils.Constants.DELETE_PANEN_URL;
 import static com.example.agroobot_fms.utils.Constants.DELETE_RATING_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_ACTIVITY_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_CATEGORY_URL;
+import static com.example.agroobot_fms.utils.Constants.DROPDOWN_FARMER_URL;
+import static com.example.agroobot_fms.utils.Constants.DROPDOWN_FILTER_LAHAN_URL;
+import static com.example.agroobot_fms.utils.Constants.DROPDOWN_FILTER_PERIODE_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_FILTER_PERIOD_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_KONDISI_AIR_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_KONDISI_ANAKAN_URL;
@@ -77,7 +80,10 @@ import com.example.agroobot_fms.model.delete_rating.DeleteRatingBody;
 import com.example.agroobot_fms.model.delete_rating.DeleteRatingResponse;
 import com.example.agroobot_fms.model.dropdown_activity.DropdownActivity;
 import com.example.agroobot_fms.model.dropdown_category.DropdownCategory;
+import com.example.agroobot_fms.model.dropdown_farmer.DropdownFarmer;
+import com.example.agroobot_fms.model.dropdown_filter_lahan.DropdownFilterLahan;
 import com.example.agroobot_fms.model.dropdown_filter_period.FilterPeriod;
+import com.example.agroobot_fms.model.dropdown_filter_periode.DropdownFilterPeriode;
 import com.example.agroobot_fms.model.dropdown_kondisi_air.KondisiAir;
 import com.example.agroobot_fms.model.dropdown_kondisi_anakan.KondisiAnakan;
 import com.example.agroobot_fms.model.dropdown_kondisi_butir.KondisiButir;
@@ -372,6 +378,17 @@ public interface GetService {
     @GET(DROPDOWN_CATEGORY_URL)
     Call<DropdownCategory> dropdownCategory(@Header("Authorization") String token);
 
+    @GET(DROPDOWN_FARMER_URL)
+    Call<DropdownFarmer> dropdownFarmer(@Header("Authorization") String token);
+
+    @GET(DROPDOWN_FILTER_LAHAN_URL)
+    Call<DropdownFilterLahan> dropdownFilterLahan(@Header("Authorization") String token,
+                                                  @Query("user_id_int") int userIdInt);
+
+    @GET(DROPDOWN_FILTER_PERIODE_URL)
+    Call<DropdownFilterPeriode> dropdownFilterPeriode(@Header("Authorization") String token,
+                                                      @Query("land_code_var") String landCodeVar);
+
     @Multipart
     @POST(CREATE_BUDGET_DETAIL_URL)
     Call<CreateBudgetDetail> createBudgetDetail(
@@ -444,4 +461,6 @@ public interface GetService {
             @Path("id") int id,
             @Header("Authorization") String token,
             @Body BatalAjukanBudgetDetailBody batalAjukanBudgetDetailBody);
+
+
 }
