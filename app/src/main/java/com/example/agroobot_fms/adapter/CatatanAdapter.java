@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.agroobot_fms.EditAktivitasActivity;
+import com.example.agroobot_fms.EditSaranActivity;
 import com.example.agroobot_fms.R;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
@@ -24,6 +27,7 @@ import com.example.agroobot_fms.model.delete_activity.DeleteActivityResponse;
 import com.example.agroobot_fms.model.delete_rating.DeleteRatingBody;
 import com.example.agroobot_fms.model.delete_rating.DeleteRatingResponse;
 import com.example.agroobot_fms.model.get_one.Rating;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -71,6 +75,27 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.ViewHold
         holder.txtIdSaran.setText(idRating);
         holder.txtSaran.setText(saran);
         holder.txtPenilaian.setText(penilaian);
+
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String dataJson = new Gson().toJson(dataItem);
+
+                Intent intent = new Intent(context,
+                        EditSaranActivity.class);
+                intent.putExtra("dataJson", dataJson);
+                intent.putExtra("idPetani", idPetani);
+                intent.putExtra("idLahan", idLahan);
+                intent.putExtra("idPeriode", idPeriode);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+
+//                Log.e("idPetani", String.valueOf(idPetani));
+//                Log.e("idLahan", String.valueOf(idLahan));
+//                Log.e("idPeriode", String.valueOf(idPeriode));
+            }
+        });
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override

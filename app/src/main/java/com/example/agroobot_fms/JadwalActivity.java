@@ -44,10 +44,8 @@ import com.example.agroobot_fms.utils.CalendarUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -96,15 +94,15 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
         if (getIntent().getExtras() != null) {
 
+            initWidgets(tokenLogin, idPetani,
+                    idLahan, idPeriode);
+
             String dataJson = getIntent().getStringExtra("dataJadwal");
 
             if(dataJson != null) {
 
                 Gson gson = new Gson();
                 data = gson.fromJson(dataJson, Data.class);
-
-                initWidgets(tokenLogin, idPetani,
-                        idLahan, idPeriode);
 
                 setRvActivity(getApplicationContext(), data, tokenLogin, idPetani,
                         idLahan, idPeriode);
@@ -122,12 +120,107 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 //                        Toast.LENGTH_SHORT).show();
             }
         }
+        else {
+            initWidgets(tokenLogin, idPetani,
+                    idLahan, idPeriode);
+            refreshData(tokenLogin, idPetani, idLahan, idPeriode);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CalendarUtils.selectedDate = LocalDate.now();
         }
 
         setWeekView();
+    }
+
+    private void refreshData(String tokenLogin, String idPetani,
+                             String idLahan, String idPeriode) {
+
+        GetOneBody getOneBody = new GetOneBody();
+        getOneBody.setUserIdInt(idPetani);
+        getOneBody.setLandCodeVar(idLahan);
+        getOneBody.setPeriodPlantTxt(idPeriode);
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<GetOne> getOneCall = service.getOneCultivation(tokenLogin, getOneBody);
+        getOneCall.enqueue(new Callback<GetOne>() {
+            @Override
+            public void onResponse(Call<GetOne> call, Response<GetOne> response) {
+
+                swipeRefresh.setRefreshing(false);
+
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+
+                        SharedPreferences preferences;
+
+                        if(response.body().getCode() == 0) {
+
+                            preferences = getSharedPreferences(
+                                    "MySharedPref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("idPetani", idPetani);
+                            editor.putString("idLahan", idLahan);
+                            editor.putString("idPeriode", idPeriode);
+                            editor.apply();
+
+                            data = response.body().getData();
+
+                            setRvActivity(getApplicationContext(), data,
+                                    tokenLogin, idPetani,
+                                    idLahan, idPeriode);
+
+                            setRvPengamatan(getApplicationContext(), data,
+                                    tokenLogin, idPetani, idLahan, idPeriode);
+
+                            setRvCatatan(getApplicationContext(), data,
+                                    tokenLogin, idPetani, idLahan, idPeriode);
+
+                            setRvDokumentasi(getApplicationContext(), data,
+                                    tokenLogin, idPetani, idLahan, idPeriode);
+
+                        } else {
+
+                            preferences = getSharedPreferences(
+                                    "MySharedPref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean("isUserLogin", false);
+                            editor.apply();
+
+                            Intent intent = new Intent(
+                                    JadwalActivity.this,
+                                    LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        String message = response.body().getMessage();
+                        Toast.makeText(JadwalActivity.this, message,
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(JadwalActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(JadwalActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetOne> call, Throwable t) {
+
+                swipeRefresh.setRefreshing(false);
+
+                Toast.makeText(JadwalActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
     }
 
     private void initWidgets(String tokenLogin, String idPetani,
@@ -320,6 +413,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
             }
         });
+
+//        swipeRefresh.setRefreshing(true);
     }
 
     private void openCalendar() {
