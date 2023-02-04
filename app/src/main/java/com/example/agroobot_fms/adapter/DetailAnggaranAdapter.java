@@ -19,11 +19,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.agroobot_fms.DetailAnggaranPetaniActivity;
 import com.example.agroobot_fms.EditDetailAnggaranActivity;
+import com.example.agroobot_fms.HomeActivity;
 import com.example.agroobot_fms.LoginActivity;
 import com.example.agroobot_fms.R;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
+import com.example.agroobot_fms.model.ajukan_budget_detail.AjukanBudgetDetail;
+import com.example.agroobot_fms.model.ajukan_budget_detail.AjukanBudgetDetailBody;
+import com.example.agroobot_fms.model.ajukan_data_panen.AjukanPanenBody;
+import com.example.agroobot_fms.model.batal_ajukan_budget_detail.BatalAjukanBudgetDetail;
+import com.example.agroobot_fms.model.batal_ajukan_budget_detail.BatalAjukanBudgetDetailBody;
 import com.example.agroobot_fms.model.delete_budget_detail.DeleteBudgetDetail;
 import com.example.agroobot_fms.model.get_one_budget_plan.BudgetDetail;
 import com.jakewharton.picasso.OkHttp3Downloader;
@@ -106,7 +113,176 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
                 TextView txtTotalHarga = dialog.findViewById(R.id.txt_total_harga);
 
                 LinearLayout btnAjukan = dialog.findViewById(R.id.btn_ajukan);
+                btnAjukan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ProgressDialog progressDialog = new ProgressDialog(
+                                view.getContext());
+                        progressDialog.setMessage("Loading....");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+
+                        SharedPreferences sh = view.getContext()
+                                .getSharedPreferences("MySharedPref",
+                                        Context.MODE_PRIVATE);
+                        String tokenLogin = sh.getString("tokenLogin", "");
+                        String fullnameVar = sh.getString("fullnameVar", "");
+
+                        AjukanBudgetDetailBody ajukanBudgetDetailBody = new AjukanBudgetDetailBody();
+                        ajukanBudgetDetailBody.setUpdatedByVar(fullnameVar);
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        Call<AjukanBudgetDetail> ajukanBudgetDetailCall = service.ajukanBudgetDetail(
+                                Integer.parseInt(dataItem.getIdSeq()), tokenLogin, ajukanBudgetDetailBody);
+                        ajukanBudgetDetailCall.enqueue(new Callback<AjukanBudgetDetail>() {
+                            @Override
+                            public void onResponse(Call<AjukanBudgetDetail> call,
+                                                   Response<AjukanBudgetDetail> response) {
+
+                                progressDialog.dismiss();
+
+                                if(response.code() == 200) {
+                                    if (response.body() != null) {
+                                        if(response.body().getCode() == 0) {
+
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(
+                                                    view.getContext(),
+                                                    DetailAnggaranPetaniActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.putExtra("idSeq", idAnggaran);
+                                            view.getContext().startActivity(intent);
+
+//                                            Toast.makeText(view.getContext(),
+//                                                    "Silahkan refresh kembali table data panen!",
+//                                                    Toast.LENGTH_SHORT).show();
+
+                                        } else {
+
+                                            SharedPreferences.Editor editor = sh.edit();
+                                            editor.putBoolean("isUserLogin", false);
+                                            editor.apply();
+
+                                            Intent intent = new Intent(
+                                                    view.getContext(),
+                                                    LoginActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            view.getContext().startActivity(intent);
+                                        }
+
+                                        String message = response.body().getMessage();
+                                        Toast.makeText(view.getContext(), message,
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(view.getContext(),
+                                                "Something went wrong...Please try later!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(view.getContext(),
+                                            "Something went wrong...Please try later!",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<AjukanBudgetDetail> call, Throwable t) {
+                                progressDialog.dismiss();
+                                Toast.makeText(view.getContext(),
+                                        "Something went wrong...Please try later!",
+                                        Toast.LENGTH_SHORT).show();
+                                Log.e("Failure", t.toString());
+                            }
+                        });
+                    }
+                });
+
                 LinearLayout btnBatalAjukan = dialog.findViewById(R.id.btn_batal_ajukan);
+                btnBatalAjukan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ProgressDialog progressDialog = new ProgressDialog(
+                                view.getContext());
+                        progressDialog.setMessage("Loading....");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+
+                        SharedPreferences sh = view.getContext()
+                                .getSharedPreferences("MySharedPref",
+                                        Context.MODE_PRIVATE);
+                        String tokenLogin = sh.getString("tokenLogin", "");
+                        String fullnameVar = sh.getString("fullnameVar", "");
+
+                        BatalAjukanBudgetDetailBody batalAjukanBudgetDetailBody =
+                                new BatalAjukanBudgetDetailBody();
+                        batalAjukanBudgetDetailBody.setUpdatedByVar(fullnameVar);
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        Call<BatalAjukanBudgetDetail> batalAjukanBudgetDetailCall =
+                                service.batalAjukanBudgetDetail(
+                                Integer.parseInt(dataItem.getIdSeq()), tokenLogin,
+                                        batalAjukanBudgetDetailBody);
+                        batalAjukanBudgetDetailCall.enqueue(new Callback<BatalAjukanBudgetDetail>() {
+                            @Override
+                            public void onResponse(Call<BatalAjukanBudgetDetail> call,
+                                                   Response<BatalAjukanBudgetDetail> response) {
+                                progressDialog.dismiss();
+
+                                if(response.code() == 200) {
+                                    if (response.body() != null) {
+                                        if(response.body().getCode() == 0) {
+
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(
+                                                    view.getContext(),
+                                                    DetailAnggaranPetaniActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.putExtra("idSeq", idAnggaran);
+                                            view.getContext().startActivity(intent);
+
+//                                            Toast.makeText(view.getContext(),
+//                                                    "Silahkan refresh kembali table data panen!",
+//                                                    Toast.LENGTH_SHORT).show();
+
+                                        } else {
+
+                                            SharedPreferences.Editor editor = sh.edit();
+                                            editor.putBoolean("isUserLogin", false);
+                                            editor.apply();
+
+                                            Intent intent = new Intent(
+                                                    view.getContext(),
+                                                    LoginActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            view.getContext().startActivity(intent);
+                                        }
+
+                                        String message = response.body().getMessage();
+                                        Toast.makeText(view.getContext(), message,
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(view.getContext(),
+                                                "Something went wrong...Please try later!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(view.getContext(),
+                                            "Something went wrong...Please try later!",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<BatalAjukanBudgetDetail> call, Throwable t) {
+                                progressDialog.dismiss();
+                                Toast.makeText(view.getContext(),
+                                        "Something went wrong...Please try later!",
+                                        Toast.LENGTH_SHORT).show();
+                                Log.e("Failure", t.toString());
+                            }
+                        });
+                    }
+                });
 
                 switch (dataItem.getStatusNameVar()) {
                     case "draft":

@@ -1,6 +1,8 @@
 package com.example.agroobot_fms.api;
 
+import static com.example.agroobot_fms.utils.Constants.AJUKAN_BUDGET_DETAIL_URL;
 import static com.example.agroobot_fms.utils.Constants.AJUKAN_PANEN_URL;
+import static com.example.agroobot_fms.utils.Constants.BATAL_AJUKAN_BUDGET_DETAIL_URL;
 import static com.example.agroobot_fms.utils.Constants.BATAL_AJUKAN_PANEN_URL;
 import static com.example.agroobot_fms.utils.Constants.CREATE_ACTIVITY_URL;
 import static com.example.agroobot_fms.utils.Constants.CREATE_BUDGET_DETAIL_URL;
@@ -43,8 +45,12 @@ import static com.example.agroobot_fms.utils.Constants.UPDATE_OBSERVATION_URL;
 import static com.example.agroobot_fms.utils.Constants.UPDATE_RATING_URL;
 
 import com.example.agroobot_fms.model.DeleteBudgetPlan;
+import com.example.agroobot_fms.model.ajukan_budget_detail.AjukanBudgetDetail;
+import com.example.agroobot_fms.model.ajukan_budget_detail.AjukanBudgetDetailBody;
 import com.example.agroobot_fms.model.ajukan_data_panen.AjukanDataPanen;
 import com.example.agroobot_fms.model.ajukan_data_panen.AjukanPanenBody;
+import com.example.agroobot_fms.model.batal_ajukan_budget_detail.BatalAjukanBudgetDetail;
+import com.example.agroobot_fms.model.batal_ajukan_budget_detail.BatalAjukanBudgetDetailBody;
 import com.example.agroobot_fms.model.batal_ajukan_panen.BatalAjukanPanen;
 import com.example.agroobot_fms.model.batal_ajukan_panen.BatalAjukanPanenBody;
 import com.example.agroobot_fms.model.create_activity.CreateActivityBody;
@@ -426,4 +432,16 @@ public interface GetService {
     Call<DeleteBudgetDetail> deleteBudgetDetail(
             @Path("id") int id,
             @Header("Authorization") String token);
+
+    @PATCH(AJUKAN_BUDGET_DETAIL_URL)
+    Call<AjukanBudgetDetail> ajukanBudgetDetail(
+            @Path("id") int id,
+            @Header("Authorization") String token,
+            @Body AjukanBudgetDetailBody ajukanBudgetDetailBody);
+
+    @PATCH(BATAL_AJUKAN_BUDGET_DETAIL_URL)
+    Call<BatalAjukanBudgetDetail> batalAjukanBudgetDetail(
+            @Path("id") int id,
+            @Header("Authorization") String token,
+            @Body BatalAjukanBudgetDetailBody batalAjukanBudgetDetailBody);
 }

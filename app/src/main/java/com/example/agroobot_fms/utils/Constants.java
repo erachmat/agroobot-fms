@@ -53,4 +53,6 @@ public final class Constants {
     public static final String CREATE_BUDGET_DETAIL_URL = "/api/budget-detail/create";
     public static final String UPDATE_BUDGET_DETAIL_URL = "/api/budget-detail/update/{id}";
     public static final String DELETE_BUDGET_DETAIL_URL = "/api/budget-detail/delete/{id}";
+    public static final String AJUKAN_BUDGET_DETAIL_URL = "/api/budget-detail/approval/{id}";
+    public static final String BATAL_AJUKAN_BUDGET_DETAIL_URL = "/api/budget-detail/draft/{id}";
 }
