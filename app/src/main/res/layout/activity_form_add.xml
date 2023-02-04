@@ -169,6 +169,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
+                        android:hint="Penebaran benih + penutupan dengan jerami + Micoriza"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -187,6 +188,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
+                        android:hint="Benih POKOK"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -205,6 +207,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
+                        android:hint="35 Kg benih"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -223,6 +226,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
+                        android:hint="18"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -241,6 +245,7 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/custom_border"
                         android:textSize="@dimen/_12ssp"
+                        android:hint="ST"
                         android:textColor="@color/black" />
 
                 </LinearLayout>

@@ -30,6 +30,7 @@ import static com.example.agroobot_fms.utils.Constants.DROPDOWN_KONDISI_ANAKAN_U
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_KONDISI_BUTIR_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_KONDISI_DAUN_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_KONDISI_LAHAN_URL;
+import static com.example.agroobot_fms.utils.Constants.GET_ACTIVITY_DASHBOARD_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ALL_BUDGET_DETAIL_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ALL_BUDGET_PLAN_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ALL_DATA_PANEN_URL;
@@ -91,6 +92,7 @@ import com.example.agroobot_fms.model.dropdown_kondisi_anakan.KondisiAnakan;
 import com.example.agroobot_fms.model.dropdown_kondisi_butir.KondisiButir;
 import com.example.agroobot_fms.model.dropdown_kondisi_daun.KondisiDaun;
 import com.example.agroobot_fms.model.dropdown_kondisi_lahan.KondisiLahan;
+import com.example.agroobot_fms.model.get_activity_dashboard.GetActivityDashboard;
 import com.example.agroobot_fms.model.get_all_budget_detail.GetAllBudgetDetail;
 import com.example.agroobot_fms.model.get_all_budget_plan.GetAllBudgetPlan;
 import com.example.agroobot_fms.model.get_all_data_panen.DataPanen;
@@ -138,6 +140,12 @@ public interface GetService {
 
     @GET(GET_DATA_DASHBOARD_URL)
     Call<DataDashboard> getDataDashboard(@Header("Authorization") String token);
+
+    @GET(GET_ACTIVITY_DASHBOARD_URL)
+    Call<GetActivityDashboard> getActivityDashboard(@Header("Authorization") String token,
+                                                    @Query("user_id_int") int userIdInt,
+                                                    @Query("land_code_var") String landCodeVar,
+                                                    @Query("period_plant_txt") String periodPlantTxt);
 
     @POST(LOGIN_URL)
     Call<LoginResponse> loginAccount(@Body LoginBody loginBody);

@@ -11,6 +11,7 @@ public final class Constants {
     public static final String LIST_MENU_URL = "/api/login/menu";
 
     public static final String GET_DATA_DASHBOARD_URL = "/api/dashboard/get-all";
+    public static final String GET_ACTIVITY_DASHBOARD_URL = "/api/dashboard/get-activity";
 
     public static final String GET_ALL_DATA_PANEN_URL = "/api/datapanen/get-all";
     public static final String GET_ONE_DATA_PANEN_URL = "/api/datapanen/get-one";
