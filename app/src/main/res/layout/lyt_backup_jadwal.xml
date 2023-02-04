@@ -45,10 +45,9 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -258,6 +257,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_below="@+id/lyt_today_date"
                     android:background="@color/white">
 
                     <TextView
@@ -337,13 +337,15 @@
                     android:id="@+id/calendarRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
+                    android:layout_below="@+id/lyt_day_name"
                     android:background="@color/white"/>
 
                 <!-- LYT HORIZONTAL MENU -->
                 <HorizontalScrollView
                     android:id="@+id/lyt_horizontal_menu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/calendarRecyclerView">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -406,6 +408,7 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
+                    android:layout_below="@+id/lyt_horizontal_menu"
                     android:visibility="visible"/>
 
                 <!-- RV PENGAMATAN -->
@@ -416,6 +419,7 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
+                    android:layout_below="@+id/lyt_horizontal_menu"
                     android:visibility="gone"/>
 
                 <!-- RV DOKUMENTASI -->
@@ -428,6 +432,7 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_below="@+id/lyt_horizontal_menu"
                     android:visibility="gone">
 
                     <RelativeLayout
@@ -452,22 +457,23 @@
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
+                    android:layout_below="@+id/lyt_horizontal_menu"
                     android:visibility="gone"/>
 
-            </LinearLayout>
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/btn_add"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:src="@drawable/ic_plus_box"/>
+
+            </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/btn_add"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:src="@drawable/ic_plus_box"/>
 
 </RelativeLayout>

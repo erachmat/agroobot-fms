@@ -44,6 +44,7 @@ import com.example.agroobot_fms.model.get_one.Rating;
 import com.example.agroobot_fms.utils.CalendarUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -62,7 +63,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
     private RecyclerView calendarRecyclerView, rvActivity, rvPengamatan;
     private RecyclerView rvDokumentasi, rvCatatan;
-    private RelativeLayout btnAdd;
+//    private RelativeLayout btnAdd;
+    RoundedImageView btnAdd;
     CardView lytRvDokumentasi;
     private TextView monthYearText;
     TextView btnActivity, btnPengamatan, btnDokumentasi, btnCatatan;
@@ -660,6 +662,10 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     private void setWeekView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
+
+//        Toast.makeText(JadwalActivity.this,
+//                String.valueOf(days.size()),
+//                Toast.LENGTH_SHORT).show();
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(days, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),
