@@ -17,6 +17,8 @@ public final class Constants {
     public static final String CREATE_DATA_PANEN_URL = "/api/datapanen/create";
     public static final String UPDATE_DATA_PANEN_URL = "/api/datapanen/update/{id}";
     public static final String DELETE_PANEN_URL = "/api/datapanen/delete/{id}";
+    public static final String BATAL_AJUKAN_PANEN_URL = "/api/datapanen/draft/{id}";
+    public static final String AJUKAN_PANEN_URL = "/api/datapanen/approval/{id}";
 
     public static final String GET_ONE_CULTIVATION_TASK_URL = "/api/cultivation-task/get-one";
     public static final String DROPDOWN_KONDISI_LAHAN_URL = "/api//cultivation-task/dropdownLandCondition";

@@ -23,12 +23,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agroobot_fms.DetailDataPanenActivity;
 import com.example.agroobot_fms.EditDataPanenActivity;
+import com.example.agroobot_fms.HomeActivity;
 import com.example.agroobot_fms.LoginActivity;
 import com.example.agroobot_fms.R;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
+import com.example.agroobot_fms.model.ajukan_data_panen.AjukanDataPanen;
+import com.example.agroobot_fms.model.ajukan_data_panen.AjukanPanenBody;
+import com.example.agroobot_fms.model.batal_ajukan_panen.BatalAjukanPanen;
+import com.example.agroobot_fms.model.batal_ajukan_panen.BatalAjukanPanenBody;
 import com.example.agroobot_fms.model.delete_data_panen.DeleteDataPanen;
 import com.example.agroobot_fms.model.get_all_data_panen.Datum;
+import com.example.agroobot_fms.model.update_rating.UpdateRatingBody;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -193,7 +199,170 @@ public class DataPanenAdapter extends RecyclerView.Adapter<DataPanenAdapter.View
                 });
 
                 LinearLayout btnAjukan = dialog.findViewById(R.id.btn_ajukan);
+                btnAjukan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ProgressDialog progressDialog = new ProgressDialog(view.getContext());
+                        progressDialog.setMessage("Loading....");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+
+                        SharedPreferences sh = view.getContext().getSharedPreferences("MySharedPref",
+                                Context.MODE_PRIVATE);
+                        String tokenLogin = sh.getString("tokenLogin", "");
+                        String fullnameVar = sh.getString("fullnameVar", "");
+
+                        AjukanPanenBody ajukanPanenBody = new AjukanPanenBody();
+                        ajukanPanenBody.setUpdatedByVar(fullnameVar);
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        Call<AjukanDataPanen> ajukanDataPanenCall = service.ajukanPanen(
+                                Integer.parseInt(dataItem.getIdSeq()), tokenLogin, ajukanPanenBody);
+                        ajukanDataPanenCall.enqueue(new Callback<AjukanDataPanen>() {
+                            @Override
+                            public void onResponse(Call<AjukanDataPanen> call,
+                                                   Response<AjukanDataPanen> response) {
+
+                                progressDialog.dismiss();
+
+                                if(response.code() == 200) {
+                                    if (response.body() != null) {
+                                        if(response.body().getCode() == 0) {
+
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(
+                                                    view.getContext(),
+                                                    HomeActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.putExtra("viewpager_position", 2);
+                                            view.getContext().startActivity(intent);
+
+//                                            Toast.makeText(view.getContext(),
+//                                                    "Silahkan refresh kembali table data panen!",
+//                                                    Toast.LENGTH_SHORT).show();
+
+                                        } else {
+
+                                            SharedPreferences.Editor editor = sh.edit();
+                                            editor.putBoolean("isUserLogin", false);
+                                            editor.apply();
+
+                                            Intent intent = new Intent(
+                                                    view.getContext(),
+                                                    LoginActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            view.getContext().startActivity(intent);
+                                        }
+
+                                        String message = response.body().getMessage();
+                                        Toast.makeText(view.getContext(), message,
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(view.getContext(),
+                                                "Something went wrong...Please try later!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(view.getContext(),
+                                            "Something went wrong...Please try later!",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<AjukanDataPanen> call, Throwable t) {
+                                progressDialog.dismiss();
+                                Toast.makeText(view.getContext(),
+                                        "Something went wrong...Please try later!",
+                                        Toast.LENGTH_SHORT).show();
+                                Log.e("Failure", t.toString());
+                            }
+                        });
+                    }
+                });
+
                 LinearLayout btnBatalAjukan = dialog.findViewById(R.id.btn_batal_ajukan);
+                btnBatalAjukan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ProgressDialog progressDialog = new ProgressDialog(view.getContext());
+                        progressDialog.setMessage("Loading....");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+
+                        SharedPreferences sh = view.getContext().getSharedPreferences("MySharedPref",
+                                Context.MODE_PRIVATE);
+                        String tokenLogin = sh.getString("tokenLogin", "");
+                        String fullnameVar = sh.getString("fullnameVar", "");
+
+                        BatalAjukanPanenBody batalAjukanPanenBody = new BatalAjukanPanenBody();
+                        batalAjukanPanenBody.setUpdatedByVar(fullnameVar);
+
+                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                        Call<BatalAjukanPanen> batalAjukanPanenCall = service.batalAjukanPanen(
+                                Integer.parseInt(dataItem.getIdSeq()), tokenLogin, batalAjukanPanenBody);
+                        batalAjukanPanenCall.enqueue(new Callback<BatalAjukanPanen>() {
+                            @Override
+                            public void onResponse(Call<BatalAjukanPanen> call,
+                                                   Response<BatalAjukanPanen> response) {
+
+                                progressDialog.dismiss();
+
+                                if(response.code() == 200) {
+                                    if (response.body() != null) {
+                                        if(response.body().getCode() == 0) {
+
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(
+                                                    view.getContext(),
+                                                    HomeActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            intent.putExtra("viewpager_position", 2);
+                                            view.getContext().startActivity(intent);
+
+//                                            Toast.makeText(view.getContext(),
+//                                                    "Silahkan refresh kembali table data panen!",
+//                                                    Toast.LENGTH_SHORT).show();
+
+                                        } else {
+
+                                            SharedPreferences.Editor editor = sh.edit();
+                                            editor.putBoolean("isUserLogin", false);
+                                            editor.apply();
+
+                                            Intent intent = new Intent(
+                                                    view.getContext(),
+                                                    LoginActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            view.getContext().startActivity(intent);
+                                        }
+
+//                                        String message = response.body().getMessage();
+//                        Toast.makeText(DetailDataPanenActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(view.getContext(),
+                                                "Something went wrong...Please try later!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(view.getContext(),
+                                            "Something went wrong...Please try later!",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<BatalAjukanPanen> call, Throwable t) {
+                                progressDialog.dismiss();
+                                Toast.makeText(view.getContext(),
+                                        "Something went wrong...Please try later!",
+                                        Toast.LENGTH_SHORT).show();
+                                Log.e("Failure", t.toString());
+                            }
+                        });
+                    }
+                });
 
                 switch (dataItem.getStatusNameVar()) {
                     case "draft":

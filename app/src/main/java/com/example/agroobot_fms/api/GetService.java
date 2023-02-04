@@ -1,5 +1,7 @@
 package com.example.agroobot_fms.api;
 
+import static com.example.agroobot_fms.utils.Constants.AJUKAN_PANEN_URL;
+import static com.example.agroobot_fms.utils.Constants.BATAL_AJUKAN_PANEN_URL;
 import static com.example.agroobot_fms.utils.Constants.CREATE_ACTIVITY_URL;
 import static com.example.agroobot_fms.utils.Constants.CREATE_BUDGET_DETAIL_URL;
 import static com.example.agroobot_fms.utils.Constants.CREATE_BUDGET_PLAN_URL;
@@ -41,6 +43,10 @@ import static com.example.agroobot_fms.utils.Constants.UPDATE_OBSERVATION_URL;
 import static com.example.agroobot_fms.utils.Constants.UPDATE_RATING_URL;
 
 import com.example.agroobot_fms.model.DeleteBudgetPlan;
+import com.example.agroobot_fms.model.ajukan_data_panen.AjukanDataPanen;
+import com.example.agroobot_fms.model.ajukan_data_panen.AjukanPanenBody;
+import com.example.agroobot_fms.model.batal_ajukan_panen.BatalAjukanPanen;
+import com.example.agroobot_fms.model.batal_ajukan_panen.BatalAjukanPanenBody;
 import com.example.agroobot_fms.model.create_activity.CreateActivityBody;
 import com.example.agroobot_fms.model.create_activity.CreateActivityResponse;
 import com.example.agroobot_fms.model.create_budget_detail.CreateBudgetDetail;
@@ -202,6 +208,18 @@ public interface GetService {
     Call<DeleteDataPanen> deleteDataPanen(
             @Path("id") int id,
             @Header("Authorization") String token);
+
+    @PATCH(AJUKAN_PANEN_URL)
+    Call<AjukanDataPanen> ajukanPanen(
+            @Path("id") int id,
+            @Header("Authorization") String token,
+            @Body AjukanPanenBody ajukanPanenBody);
+
+    @PATCH(BATAL_AJUKAN_PANEN_URL)
+    Call<BatalAjukanPanen> batalAjukanPanen(
+            @Path("id") int id,
+            @Header("Authorization") String token,
+            @Body BatalAjukanPanenBody batalAjukanPanenBody);
 
     @POST(GET_ONE_CULTIVATION_TASK_URL)
     Call<GetOne> getOneCultivation(
