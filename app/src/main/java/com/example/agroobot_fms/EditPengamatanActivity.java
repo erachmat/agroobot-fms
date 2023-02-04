@@ -259,10 +259,18 @@ public class EditPengamatanActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     if(response.body().getCode() == 0) {
 
+                                        Intent intent = new Intent(
+                                                EditPengamatanActivity.this,
+                                                JadwalActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+
                                         finish();
-                                        Toast.makeText(EditPengamatanActivity.this,
-                                                "Silahkan refresh list pengamatan!",
-                                                Toast.LENGTH_SHORT).show();
+
+//                                        finish();
+//                                        Toast.makeText(EditPengamatanActivity.this,
+//                                                "Silahkan refresh list pengamatan!",
+//                                                Toast.LENGTH_SHORT).show();
 
                                     } else {
 

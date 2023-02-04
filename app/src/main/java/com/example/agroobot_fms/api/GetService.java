@@ -20,6 +20,7 @@ import static com.example.agroobot_fms.utils.Constants.DELETE_PANEN_URL;
 import static com.example.agroobot_fms.utils.Constants.DELETE_RATING_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_ACTIVITY_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_CATEGORY_URL;
+import static com.example.agroobot_fms.utils.Constants.DROPDOWN_COMODITY_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_FARMER_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_FILTER_LAHAN_URL;
 import static com.example.agroobot_fms.utils.Constants.DROPDOWN_FILTER_PERIODE_URL;
@@ -80,6 +81,7 @@ import com.example.agroobot_fms.model.delete_rating.DeleteRatingBody;
 import com.example.agroobot_fms.model.delete_rating.DeleteRatingResponse;
 import com.example.agroobot_fms.model.dropdown_activity.DropdownActivity;
 import com.example.agroobot_fms.model.dropdown_category.DropdownCategory;
+import com.example.agroobot_fms.model.dropdown_comodity.DropdownComodity;
 import com.example.agroobot_fms.model.dropdown_farmer.DropdownFarmer;
 import com.example.agroobot_fms.model.dropdown_filter_lahan.DropdownFilterLahan;
 import com.example.agroobot_fms.model.dropdown_filter_period.FilterPeriod;
@@ -388,6 +390,9 @@ public interface GetService {
     @GET(DROPDOWN_FILTER_PERIODE_URL)
     Call<DropdownFilterPeriode> dropdownFilterPeriode(@Header("Authorization") String token,
                                                       @Query("land_code_var") String landCodeVar);
+
+    @GET(DROPDOWN_COMODITY_URL)
+    Call<DropdownComodity> dropdownComodity(@Header("Authorization") String token);
 
     @Multipart
     @POST(CREATE_BUDGET_DETAIL_URL)

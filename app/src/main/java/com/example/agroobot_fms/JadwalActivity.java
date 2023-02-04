@@ -40,6 +40,7 @@ import com.example.agroobot_fms.model.get_one.Documentation;
 import com.example.agroobot_fms.model.get_one.GetOne;
 import com.example.agroobot_fms.model.get_one.GetOneBody;
 import com.example.agroobot_fms.model.get_one.Observation;
+import com.example.agroobot_fms.model.get_one.Rating;
 import com.example.agroobot_fms.utils.CalendarUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -75,10 +76,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     ActivityAdapter activityAdapter;
     PengamatanAdapter pengamatanAdapter;
     DokumentasiAdapter dokumentasiAdapter;
+    CatatanAdapter catatanAdapter;
 
-    private List<Activity> listActivity;
-    private List<Observation> listPengamatan;
-    private List<Documentation> listDokumentasi;
+    private List<Activity> listActivity = new ArrayList<>();
+    private List<Observation> listPengamatan = new ArrayList<>();
+    private List<Documentation> listDokumentasi = new ArrayList<>();
+    private List<Rating> listRating = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +119,11 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 setRvDokumentasi(getApplicationContext(), data, tokenLogin, idPetani,
                         idLahan, idPeriode);
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    CalendarUtils.selectedDate = LocalDate.now();
+                    filter(CalendarUtils.selectedDate.toString());
+                }
+
 //                Toast.makeText(this, data.getActivity().get(0).getActivityTxt(),
 //                        Toast.LENGTH_SHORT).show();
             }
@@ -124,10 +132,6 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
             initWidgets(tokenLogin, idPetani,
                     idLahan, idPeriode);
             refreshData(tokenLogin, idPetani, idLahan, idPeriode);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CalendarUtils.selectedDate = LocalDate.now();
         }
 
         setWeekView();
@@ -179,6 +183,13 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                             setRvDokumentasi(getApplicationContext(), data,
                                     tokenLogin, idPetani, idLahan, idPeriode);
 
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                                CalendarUtils.selectedDate = LocalDate.now();
+//                                filter(CalendarUtils.selectedDate.toString());
+//                            }
+
+                            filter(CalendarUtils.selectedDate.toString());
+
                         } else {
 
                             preferences = getSharedPreferences(
@@ -228,6 +239,39 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
         swipeRefresh = findViewById(R.id.swipe_refresh);
 
+        rvActivity = findViewById(R.id.rv_activity);
+        rvPengamatan = findViewById(R.id.rv_pengamatan);
+        rvDokumentasi = findViewById(R.id.rv_dokumentasi);
+        rvCatatan = findViewById(R.id.rv_catatan);
+        calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
+
+        activityAdapter = new ActivityAdapter(getApplicationContext(),
+                listActivity, tokenLogin, idPetani, idLahan, idPeriode);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rvActivity.setLayoutManager(layoutManager);
+        rvActivity.setAdapter(activityAdapter);
+
+        pengamatanAdapter = new PengamatanAdapter(getApplicationContext(),
+                listPengamatan, tokenLogin, idPetani, idLahan, idPeriode);
+        RecyclerView.LayoutManager pengamatanLayoutManager =
+                new LinearLayoutManager(getApplicationContext());
+        rvPengamatan.setLayoutManager(pengamatanLayoutManager);
+        rvPengamatan.setAdapter(pengamatanAdapter);
+
+        dokumentasiAdapter = new DokumentasiAdapter(getApplicationContext(),
+                listDokumentasi, tokenLogin, idPetani, idLahan, idPeriode);
+        RecyclerView.LayoutManager dokumentasiLayoutManager = new GridLayoutManager(
+                getApplicationContext(), 2);
+        rvDokumentasi.setLayoutManager(dokumentasiLayoutManager);
+        rvDokumentasi.setAdapter(dokumentasiAdapter);
+
+        catatanAdapter = new CatatanAdapter(getApplicationContext(), listRating, tokenLogin,
+                idPetani, idLahan, idPeriode);
+        RecyclerView.LayoutManager catatanLayoutManager = new LinearLayoutManager(
+                getApplicationContext());
+        rvCatatan.setLayoutManager(catatanLayoutManager);
+        rvCatatan.setAdapter(catatanAdapter);
+
         btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,6 +286,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),
                         FormAddActivity.class);
+                intent.putExtra("selectedDate", CalendarUtils.selectedDate.toString());
                 startActivity(intent);
             }
         });
@@ -312,12 +357,6 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
             }
         });
 
-        rvActivity = findViewById(R.id.rv_activity);
-        rvPengamatan = findViewById(R.id.rv_pengamatan);
-        rvDokumentasi = findViewById(R.id.rv_dokumentasi);
-        rvCatatan = findViewById(R.id.rv_catatan);
-        calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
-
         lytRvDokumentasi = findViewById(R.id.lyt_rv_dokumentasi);
 
         monthYearText = findViewById(R.id.monthYearTV);
@@ -368,6 +407,13 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
                                     setRvDokumentasi(getApplicationContext(), data,
                                             tokenLogin, idPetani, idLahan, idPeriode);
+
+//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                                        CalendarUtils.selectedDate = LocalDate.now();
+//                                        filter(CalendarUtils.selectedDate.toString());
+//                                    }
+
+                                    filter(CalendarUtils.selectedDate.toString());
 
                                 } else {
 
@@ -447,7 +493,10 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
                         String date = year + "-" + String.format("%02d", (monthOfYear + 1))
                                 + "-" + String.format("%02d", (dayOfMonth));
-                        LocalDate localDate = LocalDate.parse(date);
+                        LocalDate localDate = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            localDate = LocalDate.parse(date);
+                        }
 
                         CalendarUtils.selectedDate = localDate;
                         setWeekView();
@@ -562,42 +611,50 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                                String idPetani, String idLahan, String idPeriode) {
 
         listActivity = data.getActivity();
-        activityAdapter = new ActivityAdapter(context,
-                data.getActivity(), tokenLogin, idPetani, idLahan, idPeriode);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-        rvActivity.setLayoutManager(layoutManager);
-        rvActivity.setAdapter(activityAdapter);
+        activityAdapter.filterList(listActivity);
+//        activityAdapter = new ActivityAdapter(context,
+//                data.getActivity(), tokenLogin, idPetani, idLahan, idPeriode);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+//        rvActivity.setLayoutManager(layoutManager);
+//        rvActivity.setAdapter(activityAdapter);
     }
 
     private void setRvPengamatan(Context context, Data data, String tokenLogin,
                                  String idPetani, String idLahan, String idPeriode) {
 
         listPengamatan = data.getObservation();
-        pengamatanAdapter = new PengamatanAdapter(context,
-                data.getObservation(), tokenLogin, idPetani, idLahan, idPeriode);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-        rvPengamatan.setLayoutManager(layoutManager);
-        rvPengamatan.setAdapter(pengamatanAdapter);
+        pengamatanAdapter.filterList(listPengamatan);
+//        pengamatanAdapter = new PengamatanAdapter(context,
+//                data.getObservation(), tokenLogin, idPetani, idLahan, idPeriode);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+//        rvPengamatan.setLayoutManager(layoutManager);
+//        rvPengamatan.setAdapter(pengamatanAdapter);
     }
 
     private void setRvDokumentasi(Context context, Data data, String tokenLogin,
                                   String idPetani, String idLahan, String idPeriode) {
 
         listDokumentasi = data.getDocumentation();
-        dokumentasiAdapter = new DokumentasiAdapter(context,
-                data.getDocumentation(), tokenLogin, idPetani, idLahan, idPeriode);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
-        rvDokumentasi.setLayoutManager(layoutManager);
-        rvDokumentasi.setAdapter(dokumentasiAdapter);
+        dokumentasiAdapter.filterList(listDokumentasi);
+
+//        dokumentasiAdapter = new DokumentasiAdapter(context,
+//                data.getDocumentation(), tokenLogin, idPetani, idLahan, idPeriode);
+//        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context, 2);
+//        rvDokumentasi.setLayoutManager(layoutManager);
+//        rvDokumentasi.setAdapter(dokumentasiAdapter);
     }
 
     private void setRvCatatan(Context context, Data data, String tokenLogin,
                               String idPetani, String idLahan, String idPeriode) {
-        CatatanAdapter catatanAdapter = new CatatanAdapter(context, data.getRating(), tokenLogin,
-                idPetani, idLahan, idPeriode);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-        rvCatatan.setLayoutManager(layoutManager);
-        rvCatatan.setAdapter(catatanAdapter);
+
+        listRating = data.getRating();
+        catatanAdapter.filterList(listRating);
+
+//        catatanAdapter = new CatatanAdapter(context, data.getRating(), tokenLogin,
+//                idPetani, idLahan, idPeriode);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+//        rvCatatan.setLayoutManager(layoutManager);
+//        rvCatatan.setAdapter(catatanAdapter);
     }
 
     private void setWeekView() {
@@ -703,6 +760,27 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         }
 
         dokumentasiAdapter.filterList(filteredDokumentasi);
+
+        // creating a new array list to filter our data.
+        List<Rating> filteredRating = new ArrayList<>();
+
+//        Toast.makeText(JadwalActivity.this, String.valueOf(filteredlist.size()),
+//                Toast.LENGTH_SHORT).show();
+
+        // running a for loop to compare elements.
+        for (Rating item : listRating) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getTimeCalenderDte().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredRating.add(item);
+            }
+        }
+
+//        Toast.makeText(JadwalActivity.this, String.valueOf(filteredRating.size()),
+//                Toast.LENGTH_SHORT).show();
+
+        catatanAdapter.filterList(filteredRating);
 
 //        if (filteredlist.isEmpty()) {
 //            // if no item is added in filtered list we are

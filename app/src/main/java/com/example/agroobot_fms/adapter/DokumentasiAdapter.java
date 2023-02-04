@@ -1,5 +1,6 @@
 package com.example.agroobot_fms.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -66,7 +67,8 @@ public class DokumentasiAdapter extends RecyclerView.Adapter<DokumentasiAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DokumentasiAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DokumentasiAdapter.ViewHolder holder,
+                                 @SuppressLint("RecyclerView") int position) {
 
         Documentation dataItem = documentation.get(position);
 
@@ -134,9 +136,12 @@ public class DokumentasiAdapter extends RecyclerView.Adapter<DokumentasiAdapter.
                                         if(response.code() == 200) {
                                             if (response.body() != null) {
                                                 if(response.body().getCode() == 0) {
-                                                    Toast.makeText(view.getContext(),
-                                                            "Silahkan refresh list dokumentasi!",
-                                                            Toast.LENGTH_SHORT).show();
+
+                                                    removeAt(position);
+
+//                                                    Toast.makeText(view.getContext(),
+//                                                            "Silahkan refresh list dokumentasi!",
+//                                                            Toast.LENGTH_SHORT).show();
                                                 }
 
 //                                                String message = response.body().getMessage();
@@ -173,6 +178,12 @@ public class DokumentasiAdapter extends RecyclerView.Adapter<DokumentasiAdapter.
     @Override
     public int getItemCount() {
         return documentation.size();
+    }
+
+    public void removeAt(int position) {
+        documentation.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, documentation.size());
     }
 
     public void filterList(List<Documentation> filteredDokumentasi) {

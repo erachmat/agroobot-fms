@@ -130,10 +130,18 @@ public class EditAktivitasActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     if(response.body().getCode() == 0) {
 
+                                        Intent intent = new Intent(
+                                                EditAktivitasActivity.this,
+                                                JadwalActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+
                                         finish();
-                                        Toast.makeText(EditAktivitasActivity.this,
-                                                "Silahkan refresh list activity!",
-                                                Toast.LENGTH_SHORT).show();
+
+//                                        finish();
+//                                        Toast.makeText(EditAktivitasActivity.this,
+//                                                "Silahkan refresh list activity!",
+//                                                Toast.LENGTH_SHORT).show();
 
                                     } else {
 

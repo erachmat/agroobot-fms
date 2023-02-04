@@ -179,10 +179,18 @@ public class EditDokumentasiActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     if(response.body().getCode() == 0) {
 
+                                        Intent intent = new Intent(
+                                                EditDokumentasiActivity.this,
+                                                JadwalActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+
                                         finish();
-                                        Toast.makeText(EditDokumentasiActivity.this,
-                                                "Silahkan refresh list dokumentasi!",
-                                                Toast.LENGTH_SHORT).show();
+
+//                                        finish();
+//                                        Toast.makeText(EditDokumentasiActivity.this,
+//                                                "Silahkan refresh list dokumentasi!",
+//                                                Toast.LENGTH_SHORT).show();
 
                                     } else {
 

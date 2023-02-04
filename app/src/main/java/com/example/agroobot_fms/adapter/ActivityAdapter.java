@@ -1,5 +1,6 @@
 package com.example.agroobot_fms.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -63,7 +64,8 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder,
+                                 @SuppressLint("RecyclerView") int position) {
 
         Activity dataItem = activity.get(position);
 
@@ -136,9 +138,13 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
                                         if(response.code() == 200) {
                                             if (response.body() != null) {
                                                 if(response.body().getCode() == 0) {
-                                                    Toast.makeText(view.getContext(),
-                                                            "Silahkan refresh list activity!",
-                                                            Toast.LENGTH_SHORT).show();
+
+                                                    removeAt(position);
+
+
+//                                                    Toast.makeText(view.getContext(),
+//                                                            "Silahkan refresh list activity!",
+//                                                            Toast.LENGTH_SHORT).show();
                                                 }
 
 //                                                String message = response.body().getMessage();
@@ -181,6 +187,12 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
     @Override
     public int getItemCount() {
         return activity.size();
+    }
+
+    public void removeAt(int position) {
+        activity.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, activity.size());
     }
 
     public void filterList(List<Activity> filteredlist) {

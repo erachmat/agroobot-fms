@@ -585,13 +585,25 @@
                     <EditText
                         android:id="@+id/et_catatan"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_100sdp"
+                        android:layout_height="@dimen/_120sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:maxLines="5"
+                        android:ems="10"
+                        android:gravity="left|top"
+                        android:hint="Tuliskan catatan"
+                        android:inputType="textMultiLine"
                         android:background="@drawable/custom_border"
-                        android:textSize="@dimen/_12ssp"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/black" />
+                        android:textSize="@dimen/_12ssp"/>
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/et_catatan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/_100sdp"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"-->
+<!--                        android:maxLines="5"-->
+<!--                        android:background="@drawable/custom_border"-->
+<!--                        android:textSize="@dimen/_12ssp"-->
+<!--                        android:textAlignment="viewStart"-->
+<!--                        android:textColor="@color/black" />-->
 
                 </LinearLayout>
 

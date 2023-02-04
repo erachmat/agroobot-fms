@@ -176,6 +176,7 @@ public class PanenFragment extends Fragment {
                             dataPanenAdapter = new DataPanenAdapter(getContext(),
                                     listData);
                             rvDataPanen.setAdapter(dataPanenAdapter);
+
                         } else {
 
                             sh = getContext().getSharedPreferences(

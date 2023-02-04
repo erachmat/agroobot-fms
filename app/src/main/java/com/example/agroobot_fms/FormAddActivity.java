@@ -104,6 +104,7 @@ public class FormAddActivity extends AppCompatActivity {
     private String kondisiAnakan;
     private String nilaiPetani;
     String idPetani, idLahan, idPeriode, fullnameVar;
+    String selectedDate;
     Bitmap imgDokumentasi;
 
     private CardView cvKosong, cvActivity, cvPengamatan, cvDokumentasi, cvSaran;
@@ -129,10 +130,18 @@ public class FormAddActivity extends AppCompatActivity {
         idPeriode = sh.getString("idPeriode", "");
         fullnameVar = sh.getString("fullnameVar", "");
 
+        if (getIntent().getExtras() != null) {
+
+            selectedDate = getIntent().getStringExtra("selectedDate");
+
+            initView();
+            initSpinner();
+        }
+
         calendar = Calendar.getInstance();
 
-        initView();
-        initSpinner();
+//        initView();
+//        initSpinner();
     }
 
     private void initView() {
@@ -211,10 +220,18 @@ public class FormAddActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     if(response.body().getCode() == 0) {
 
+                                        Intent intent = new Intent(
+                                                FormAddActivity.this,
+                                                JadwalActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+
                                         finish();
-                                        Toast.makeText(FormAddActivity.this,
-                                                "Silahkan refresh list activity!",
-                                                Toast.LENGTH_SHORT).show();
+
+//                                        finish();
+//                                        Toast.makeText(FormAddActivity.this,
+//                                                "Silahkan refresh list activity!",
+//                                                Toast.LENGTH_SHORT).show();
 
                                     } else {
 
@@ -286,7 +303,9 @@ public class FormAddActivity extends AppCompatActivity {
                     createObservationBody.setPuppiesConditionTxt(kondisiAnakan);
                     createObservationBody.setHamaTxt(kondisiHama);
                     createObservationBody.setExampleObservationTxt(catatanPengamatan);
-                    createObservationBody.setTimeCalenderDte(date);
+                    createObservationBody.setTimeCalenderDte(selectedDate);
+
+//                    createObservationBody.setTimeCalenderDte(date);
 
                     createObservationBody.setCreatedByVar(fullnameVar);
 
@@ -305,10 +324,19 @@ public class FormAddActivity extends AppCompatActivity {
                                     String message = response.body().getMessage();
 
                                     if(response.body().getCode() == 0) {
+
+                                        Intent intent = new Intent(
+                                                FormAddActivity.this,
+                                                JadwalActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+
                                         finish();
-                                        Toast.makeText(FormAddActivity.this,
-                                                "Silahkan refresh list pengamatan!",
-                                                Toast.LENGTH_SHORT).show();
+
+//                                        finish();
+//                                        Toast.makeText(FormAddActivity.this,
+//                                                "Silahkan refresh list pengamatan!",
+//                                                Toast.LENGTH_SHORT).show();
                                     }
 
                                     Toast.makeText(FormAddActivity.this, message,
@@ -363,7 +391,8 @@ public class FormAddActivity extends AppCompatActivity {
                     RequestBody userIdInt = createPartFromString(idPetani);
                     RequestBody landCodeVar = createPartFromString(idLahan);
                     RequestBody periodPlantText = createPartFromString(idPeriode);
-                    RequestBody timeCalendarDte = createPartFromString(date);
+//                    RequestBody timeCalendarDte = createPartFromString(date);
+                    RequestBody timeCalendarDte = createPartFromString(selectedDate);
 
                     //convert gambar jadi File terlebih dahulu dengan
                     // memanggil createTempFile yang di atas tadi.
@@ -389,10 +418,19 @@ public class FormAddActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     String message = response.body().getMessage();
                                     if(response.body().getCode() == 0) {
+
+                                        Intent intent = new Intent(
+                                                FormAddActivity.this,
+                                                JadwalActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+
                                         finish();
-                                        Toast.makeText(FormAddActivity.this,
-                                                "Silahkan refresh list dokumentasi!",
-                                                Toast.LENGTH_SHORT).show();
+
+//                                        finish();
+//                                        Toast.makeText(FormAddActivity.this,
+//                                                "Silahkan refresh list dokumentasi!",
+//                                                Toast.LENGTH_SHORT).show();
                                     }
 
                                     Toast.makeText(FormAddActivity.this, message,
@@ -453,7 +491,8 @@ public class FormAddActivity extends AppCompatActivity {
                     createRatingBody.setUserIdInt(idPetani);
                     createRatingBody.setLandCodeVar(idLahan);
                     createRatingBody.setPeriodPlantTxt(idPeriode);
-                    createRatingBody.setTimeCalenderDte(date);
+//                    createRatingBody.setTimeCalenderDte(date);
+                    createRatingBody.setTimeCalenderDte(selectedDate);
 
                     createRatingBody.setSuggestTxt(etSaran.getText().toString());
                     createRatingBody.setRatingTxt(nilaiPetani);
@@ -474,10 +513,18 @@ public class FormAddActivity extends AppCompatActivity {
                                 if (response.body() != null) {
                                     String message = response.body().getMessage();
                                     if(response.body().getCode() == 0) {
+//                                        finish();
+//                                        Toast.makeText(FormAddActivity.this,
+//                                                "Silahkan refresh list saran!",
+//                                                Toast.LENGTH_SHORT).show();
+
+                                        Intent intent = new Intent(
+                                                FormAddActivity.this,
+                                                JadwalActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+
                                         finish();
-                                        Toast.makeText(FormAddActivity.this,
-                                                "Silahkan refresh list saran!",
-                                                Toast.LENGTH_SHORT).show();
                                     }
 
                                     Toast.makeText(FormAddActivity.this, message,

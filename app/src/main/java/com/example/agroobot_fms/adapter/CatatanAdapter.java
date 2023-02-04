@@ -26,6 +26,7 @@ import com.example.agroobot_fms.model.delete_activity.DeleteActivityBody;
 import com.example.agroobot_fms.model.delete_activity.DeleteActivityResponse;
 import com.example.agroobot_fms.model.delete_rating.DeleteRatingBody;
 import com.example.agroobot_fms.model.delete_rating.DeleteRatingResponse;
+import com.example.agroobot_fms.model.get_one.Documentation;
 import com.example.agroobot_fms.model.get_one.Rating;
 import com.google.gson.Gson;
 
@@ -186,6 +187,15 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.ViewHold
         rating.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, rating.size());
+    }
+
+    public void filterList(List<Rating> filteredRating) {
+        // below line is to add our filtered
+        // list in our course array list.
+        rating = filteredRating;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

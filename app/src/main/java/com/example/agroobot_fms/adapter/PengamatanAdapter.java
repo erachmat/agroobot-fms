@@ -1,5 +1,6 @@
 package com.example.agroobot_fms.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -61,7 +62,8 @@ public class PengamatanAdapter extends RecyclerView.Adapter<PengamatanAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PengamatanAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PengamatanAdapter.ViewHolder holder,
+                                 @SuppressLint("RecyclerView") int position) {
 
         Observation dataItem = observation.get(position);
 
@@ -139,9 +141,13 @@ public class PengamatanAdapter extends RecyclerView.Adapter<PengamatanAdapter.Vi
                                         if(response.code() == 200) {
                                             if (response.body() != null) {
                                                 if(response.body().getCode() == 0) {
-                                                    Toast.makeText(view.getContext(),
-                                                            "Silahkan refresh list pengamatan!",
-                                                            Toast.LENGTH_SHORT).show();
+
+                                                    removeAt(position);
+
+
+//                                                    Toast.makeText(view.getContext(),
+//                                                            "Silahkan refresh list pengamatan!",
+//                                                            Toast.LENGTH_SHORT).show();
                                                 }
 
 //                                                String message = response.body().getMessage();
@@ -180,6 +186,12 @@ public class PengamatanAdapter extends RecyclerView.Adapter<PengamatanAdapter.Vi
     @Override
     public int getItemCount() {
         return observation.size();
+    }
+
+    public void removeAt(int position) {
+        observation.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, observation.size());
     }
 
     public void filterList(List<Observation> filteredPengamatan) {
