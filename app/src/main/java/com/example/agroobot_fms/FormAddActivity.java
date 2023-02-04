@@ -37,6 +37,8 @@ import com.example.agroobot_fms.model.create_activity.CreateActivityResponse;
 import com.example.agroobot_fms.model.create_documentation.CreateDocumentation;
 import com.example.agroobot_fms.model.create_observation.CreateObservation;
 import com.example.agroobot_fms.model.create_observation.CreateObservationBody;
+import com.example.agroobot_fms.model.create_rating.CreateRatingBody;
+import com.example.agroobot_fms.model.create_rating.CreateRatingResponse;
 import com.example.agroobot_fms.model.dropdown_kondisi_air.KondisiAir;
 import com.example.agroobot_fms.model.dropdown_kondisi_anakan.KondisiAnakan;
 import com.example.agroobot_fms.model.dropdown_kondisi_butir.KondisiButir;
@@ -77,6 +79,7 @@ public class FormAddActivity extends AppCompatActivity {
     private SmartMaterialSpinner<String> spKondisiLahan;
     private SmartMaterialSpinner<String> spKondisiAnakan;
     private SmartMaterialSpinner<String> spHama;
+    private SmartMaterialSpinner<String> spNilai;
 
     private List<String> kondisiHamaList;
     private List<String> kondisiDaunList;
@@ -85,6 +88,7 @@ public class FormAddActivity extends AppCompatActivity {
     private List<String> kondisiLahanList;
     private List<String> kondisiAnakanList;
     private List<String> activityList;
+    private List<String> listPenilaian;
 
     SharedPreferences sh;
     String tokenLogin;
@@ -98,13 +102,15 @@ public class FormAddActivity extends AppCompatActivity {
     private String kondisiLahan;
     private String kondisiBulir;
     private String kondisiAnakan;
+    private String nilaiPetani;
     String idPetani, idLahan, idPeriode, fullnameVar;
     Bitmap imgDokumentasi;
 
-    private CardView cvKosong, cvActivity, cvPengamatan, cvDokumentasi;
+    private CardView cvKosong, cvActivity, cvPengamatan, cvDokumentasi, cvSaran;
     private ScrollView scrollView;
-    private LinearLayout btnAddActivity, btnAddPengamatan, btnDokumentasi;
+    private LinearLayout btnAddActivity, btnAddPengamatan, btnDokumentasi, btnAddSaran;
     EditText etNamaAktivitas, etNamaBahan, etDosis, etJumlahHst, etSatuanHst, etCatatan;
+    EditText etSaran;
     private ProgressDialog progressDialog;
     TextView txtBrowsePhoto;
     ImageView imgBrowsePhoto, btnBack;
@@ -155,11 +161,13 @@ public class FormAddActivity extends AppCompatActivity {
         etJumlahHst = findViewById(R.id.et_jumlah_hst);
         etSatuanHst = findViewById(R.id.et_satuan_hst);
         etCatatan = findViewById(R.id.et_catatan);
+        etSaran = findViewById(R.id.et_saran);
 
         cvKosong = findViewById(R.id.cv_kosong);
         cvActivity = findViewById(R.id.cv_activity);
         cvPengamatan = findViewById(R.id.cv_pengamatan);
         cvDokumentasi = findViewById(R.id.cv_dokumentasi);
+        cvSaran = findViewById(R.id.cv_saran);
 
         btnAddActivity = findViewById(R.id.btn_add_activity);
         btnAddActivity.setOnClickListener(new View.OnClickListener() {
@@ -372,7 +380,8 @@ public class FormAddActivity extends AppCompatActivity {
                                     timeCalendarDte, images, createdByVar);
                     createDocumentationCall.enqueue(new Callback<CreateDocumentation>() {
                         @Override
-                        public void onResponse(Call<CreateDocumentation> call, Response<CreateDocumentation> response) {
+                        public void onResponse(Call<CreateDocumentation> call,
+                                               Response<CreateDocumentation> response) {
 
                             progressDialog.dismiss();
 
@@ -422,6 +431,86 @@ public class FormAddActivity extends AppCompatActivity {
                     Toast.makeText(FormAddActivity.this,
                             "Silahkan masukkan gambar terlebih dahulu!",
                             Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnAddSaran = findViewById(R.id.btn_add_saran);
+        btnAddSaran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkFormSaran()) {
+
+                    progressDialog = new ProgressDialog(FormAddActivity.this);
+                    progressDialog.setMessage("Loading....");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
+                    simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    date = simpleDateFormat.format(calendar.getTime());
+
+                    CreateRatingBody createRatingBody = new CreateRatingBody();
+                    createRatingBody.setUserIdInt(idPetani);
+                    createRatingBody.setLandCodeVar(idLahan);
+                    createRatingBody.setPeriodPlantTxt(idPeriode);
+                    createRatingBody.setTimeCalenderDte(date);
+
+                    createRatingBody.setSuggestTxt(etSaran.getText().toString());
+                    createRatingBody.setRatingTxt(nilaiPetani);
+
+                    createRatingBody.setCreatedByVar(fullnameVar);
+
+                    GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                    Call<CreateRatingResponse> createRatingResponseCall =
+                            service.createRating(tokenLogin, createRatingBody);
+                    createRatingResponseCall.enqueue(new Callback<CreateRatingResponse>() {
+                        @Override
+                        public void onResponse(Call<CreateRatingResponse> call,
+                                               Response<CreateRatingResponse> response) {
+
+                            progressDialog.dismiss();
+
+                            if(response.code() == 200) {
+                                if (response.body() != null) {
+                                    String message = response.body().getMessage();
+                                    if(response.body().getCode() == 0) {
+                                        finish();
+                                        Toast.makeText(FormAddActivity.this,
+                                                "Silahkan refresh list saran!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    Toast.makeText(FormAddActivity.this, message,
+                                            Toast.LENGTH_SHORT).show();
+
+//                                    Gson gson = new Gson();
+//                                    String json = gson.toJson(createObservationBody);
+//                                    Log.e("TOKEN", tokenLogin);
+//                                    Log.e("OBSERVATION", json);
+//                                    Log.e("CODE", String.valueOf(response.code()));
+
+                                } else {
+                                    Toast.makeText(FormAddActivity.this,
+                                            "Something went wrong...Please try later!",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(FormAddActivity.this,
+                                        "Something went wrong...Please try later!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<CreateRatingResponse> call, Throwable t) {
+                            progressDialog.dismiss();
+                            Toast.makeText(FormAddActivity.this,
+                                    "Something went wrong...Please try later!",
+                                    Toast.LENGTH_SHORT).show();
+                            Log.e("Failure", t.toString());
+                        }
+                    });
+
                 }
             }
         });
@@ -506,6 +595,22 @@ public class FormAddActivity extends AppCompatActivity {
         return true;
     }
 
+    private boolean checkFormSaran() {
+
+        if (etSaran.length() == 0) {
+            etSaran.setError("This field is required");
+            return false;
+        }
+
+        if(nilaiPetani == null || nilaiPetani.equals("")) {
+            Toast.makeText(FormAddActivity.this, "Pilih nilai petani terlebih dahulu",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
     private void initSpinner() {
 
         spPilihActivity = findViewById(R.id.sp_pilih_activity);
@@ -516,11 +621,13 @@ public class FormAddActivity extends AppCompatActivity {
         spKondisiAnakan = findViewById(R.id.sp_kondisi_anakan);
         spHama = findViewById(R.id.sp_hama);
         spDaun = findViewById(R.id.sp_daun);
+        spNilai = findViewById(R.id.sp_nilai_petani);
 
         activityList = new ArrayList<>();
         activityList.add("Aktivitas");
         activityList.add("Pengamatan");
         activityList.add("Dokumentasi");
+        activityList.add("Saran dan Penilaian");
 
         spPilihActivity.setItem(activityList);
         spPilihActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -624,6 +731,24 @@ public class FormAddActivity extends AppCompatActivity {
 
             }
         });
+
+        listPenilaian = new ArrayList<>();
+        listPenilaian.add("Tidak Dilakukan");
+        listPenilaian.add("Dilakukan");
+        spNilai.setItem(listPenilaian);
+
+        spNilai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                nilaiPetani = listPenilaian.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     private void setView(String activity) {
@@ -640,6 +765,8 @@ public class FormAddActivity extends AppCompatActivity {
                 btnAddPengamatan.setVisibility(View.GONE);
                 cvDokumentasi.setVisibility(View.GONE);
                 btnDokumentasi.setVisibility(View.GONE);
+                cvSaran.setVisibility(View.GONE);
+                btnAddSaran.setVisibility(View.GONE);
                 break;
 
             case "Pengamatan":
@@ -650,6 +777,8 @@ public class FormAddActivity extends AppCompatActivity {
                 btnAddActivity.setVisibility(View.GONE);
                 cvDokumentasi.setVisibility(View.GONE);
                 btnDokumentasi.setVisibility(View.GONE);
+                cvSaran.setVisibility(View.GONE);
+                btnAddSaran.setVisibility(View.GONE);
 
                 setSpKondisiDaun();
                 setSpKondisiPengairan();
@@ -666,6 +795,19 @@ public class FormAddActivity extends AppCompatActivity {
                 btnAddPengamatan.setVisibility(View.GONE);
                 cvActivity.setVisibility(View.GONE);
                 btnAddActivity.setVisibility(View.GONE);
+                cvSaran.setVisibility(View.GONE);
+                btnAddSaran.setVisibility(View.GONE);
+                break;
+            case "Saran dan Penilaian":
+                cvSaran.setVisibility(View.VISIBLE);
+                btnAddSaran.setVisibility(View.VISIBLE);
+
+                cvPengamatan.setVisibility(View.GONE);
+                btnAddPengamatan.setVisibility(View.GONE);
+                cvActivity.setVisibility(View.GONE);
+                btnAddActivity.setVisibility(View.GONE);
+                cvDokumentasi.setVisibility(View.GONE);
+                btnDokumentasi.setVisibility(View.GONE);
                 break;
         }
     }

@@ -14,6 +14,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -122,7 +123,9 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
             }
         }
 
-        CalendarUtils.selectedDate = LocalDate.now();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CalendarUtils.selectedDate = LocalDate.now();
+        }
 
         setWeekView();
     }
@@ -495,7 +498,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
     private void setRvCatatan(Context context, Data data, String tokenLogin,
                               String idPetani, String idLahan, String idPeriode) {
-        CatatanAdapter catatanAdapter = new CatatanAdapter(context, data.getRating());
+        CatatanAdapter catatanAdapter = new CatatanAdapter(context, data.getRating(), tokenLogin,
+                idPetani, idLahan, idPeriode);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         rvCatatan.setLayoutManager(layoutManager);
         rvCatatan.setAdapter(catatanAdapter);
@@ -506,19 +510,24 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         ArrayList<LocalDate> days = daysInWeekArray(CalendarUtils.selectedDate);
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(days, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),
+                7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
         setEventAdpater();
     }
 
     public void previousWeekAction(View view) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1);
+        }
         setWeekView();
     }
 
     public void nextWeekAction(View view) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1);
+        }
         setWeekView();
     }
 
