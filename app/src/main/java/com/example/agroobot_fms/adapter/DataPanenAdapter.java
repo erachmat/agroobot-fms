@@ -113,6 +113,14 @@ public class DataPanenAdapter extends RecyclerView.Adapter<DataPanenAdapter.View
 
                 ImageView imgDokumentasi = dialog.findViewById(R.id.img_dokumentasi);
 
+                ImageView btnClose = dialog.findViewById(R.id.btn_close);
+                btnClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
                 ImageView btnEdit = dialog.findViewById(R.id.btn_edit);
                 btnEdit.setOnClickListener(new View.OnClickListener() {
                     @Override

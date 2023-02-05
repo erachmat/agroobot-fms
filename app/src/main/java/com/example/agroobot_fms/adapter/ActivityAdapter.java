@@ -69,7 +69,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
 
         Activity dataItem = activity.get(position);
 
-        String idActivity = "Aktivitas " + String.valueOf(position + 1);
+        String idActivity = "Aktivitas " + (position + 1);
         String namaBahan = ": " + dataItem.getMaterialTxt();
         String dosis = ": " + dataItem.getDoseTxt();
         String jumlahHst = ": " + String.valueOf(dataItem.getJumlahTxt());

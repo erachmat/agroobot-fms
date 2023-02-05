@@ -45,6 +45,9 @@ public class GetActivityAdapter extends RecyclerView.Adapter<GetActivityAdapter.
         holder.txtWaktu.setText(dataItem.getTimeTxt());
         holder.txtTanggal.setText(dataItem.getTimeCalenderDte().substring(0, 10));
 
+        String idActivity = "Aktivitas " + (position + 1);
+        holder.txtActivity.setText(idActivity);
+
         holder.btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +65,14 @@ public class GetActivityAdapter extends RecyclerView.Adapter<GetActivityAdapter.
                 TextView txtPeriode = dialog.findViewById(R.id.txt_periode);
                 TextView txtPetani = dialog.findViewById(R.id.txt_petani);
                 TextView txtPendamping = dialog.findViewById(R.id.txt_pendamping);
+
+                ImageView btnClose = dialog.findViewById(R.id.btn_close);
+                btnClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
                 txtAktivitas.setText(dataItem.getActivityTxt());
                 txtWaktu.setText(dataItem.getTimeTxt());
@@ -89,6 +100,7 @@ public class GetActivityAdapter extends RecyclerView.Adapter<GetActivityAdapter.
 
         ImageView btnAction;
         TextView txtAktivitas, txtWaktu, txtTanggal;
+        TextView txtActivity;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +109,7 @@ public class GetActivityAdapter extends RecyclerView.Adapter<GetActivityAdapter.
 
             btnAction = mView.findViewById(R.id.btn_action);
 
+            txtActivity = mView.findViewById(R.id.txt_activity);
             txtAktivitas = mView.findViewById(R.id.txt_aktivitas);
             txtWaktu = mView.findViewById(R.id.txt_waktu);
             txtTanggal = mView.findViewById(R.id.txt_tgl);

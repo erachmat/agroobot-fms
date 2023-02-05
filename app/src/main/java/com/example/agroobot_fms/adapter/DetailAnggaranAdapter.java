@@ -112,6 +112,14 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
                 TextView txtHarga = dialog.findViewById(R.id.txt_harga);
                 TextView txtTotalHarga = dialog.findViewById(R.id.txt_total_harga);
 
+                ImageView btnClose = dialog.findViewById(R.id.btn_close);
+                btnClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
                 LinearLayout btnAjukan = dialog.findViewById(R.id.btn_ajukan);
                 btnAjukan.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -488,6 +496,15 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
         budgetDetail.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, budgetDetail.size());
+    }
+
+    public void filterList(List<BudgetDetail> filteredlist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        budgetDetail = filteredlist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -42,7 +42,9 @@ import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -528,6 +530,13 @@ public class BerandaFragment extends Fragment {
         txtUsername = view.findViewById(R.id.txt_username);
         String username = "Halo " + fullnameVar + ",";
         txtUsername.setText(username);
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, d MMM YYYY");
+        String date = dateFormat.format(calendar.getTime());
+
+        TextView txtTodayDate = view.findViewById(R.id.txt_today_date);
+        txtTodayDate.setText(date);
 
         imgProfile = view.findViewById(R.id.img_profile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
