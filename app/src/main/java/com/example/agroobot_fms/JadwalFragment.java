@@ -48,7 +48,6 @@ public class JadwalFragment extends Fragment {
 
     private List<String> lahanList;
     private List<String> idLahanList;
-
     private List<String> periodeList;
 
     private Integer idPetani;

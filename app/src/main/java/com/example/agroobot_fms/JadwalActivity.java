@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.example.agroobot_fms.adapter.ActivityAdapter;
 import com.example.agroobot_fms.adapter.CalendarAdapter;
 import com.example.agroobot_fms.adapter.CatatanAdapter;
@@ -34,6 +37,10 @@ import com.example.agroobot_fms.adapter.PengamatanAdapter;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
 import com.example.agroobot_fms.model.Event;
+import com.example.agroobot_fms.model.dropdown_farmer.Datum;
+import com.example.agroobot_fms.model.dropdown_farmer.DropdownFarmer;
+import com.example.agroobot_fms.model.dropdown_filter_lahan.DropdownFilterLahan;
+import com.example.agroobot_fms.model.dropdown_filter_periode.DropdownFilterPeriode;
 import com.example.agroobot_fms.model.get_one.Activity;
 import com.example.agroobot_fms.model.get_one.Data;
 import com.example.agroobot_fms.model.get_one.Documentation;
@@ -72,6 +79,10 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     SwipeRefreshLayout swipeRefresh;
     LinearLayout lytTodayDate;
     ImageView btnBack;
+    private SmartMaterialSpinner<String> spPetani;
+    private SmartMaterialSpinner<String> spLahan;
+    private SmartMaterialSpinner<String> spPeriode;
+    LinearLayout btnCari;
 
     Data data;
 
@@ -84,6 +95,22 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     private List<Observation> listPengamatan = new ArrayList<>();
     private List<Documentation> listDokumentasi = new ArrayList<>();
     private List<Rating> listRating = new ArrayList<>();
+
+    private List<String> petaniList;
+    private List<Integer> idPetaniList;
+
+    private List<String> lahanList;
+    private List<String> idLahanList;
+    private List<String> periodeList;
+
+    private Integer idPetaniSpinner;
+    private String namaPetani;
+
+    private String idLahanSpinner;
+    private String namaLahan;
+
+    private String idPeriodeSpinner;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,18 +148,21 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 setRvDokumentasi(getApplicationContext(), data, tokenLogin, idPetani,
                         idLahan, idPeriode);
 
+                initSpinner(tokenLogin);
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     CalendarUtils.selectedDate = LocalDate.now();
                     filter(CalendarUtils.selectedDate.toString());
                 }
 
-//                Toast.makeText(this, data.getActivity().get(0).getActivityTxt(),
+//                Toast.makeText(this, data.JadwalActivity.this.get(0).getActivityTxt(),
 //                        Toast.LENGTH_SHORT).show();
             }
         }
         else {
             initWidgets(tokenLogin, idPetani,
                     idLahan, idPeriode);
+            initSpinner(tokenLogin);
             refreshData(tokenLogin, idPetani, idLahan, idPeriode);
         }
 
@@ -462,6 +492,111 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
             }
         });
 
+        btnCari = findViewById(R.id.btn_cari_jadwal);
+        btnCari.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkAllField()) {
+
+                    ProgressDialog progressDialog = new ProgressDialog(JadwalActivity.this);
+                    progressDialog.setMessage("Loading....");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
+                    GetOneBody getOneBody = new GetOneBody();
+                    getOneBody.setUserIdInt(String.valueOf(idPetaniSpinner));
+                    getOneBody.setLandCodeVar(idLahanSpinner);
+                    getOneBody.setPeriodPlantTxt(idPeriodeSpinner);
+
+                    SharedPreferences sh = JadwalActivity.this.getSharedPreferences("MySharedPref",
+                            Context.MODE_PRIVATE);
+
+                    String tokenLogin = sh.getString("tokenLogin", "");
+
+                    GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                    Call<GetOne> getOneCall = service.getOneCultivation(tokenLogin, getOneBody);
+                    getOneCall.enqueue(new Callback<GetOne>() {
+                        @Override
+                        public void onResponse(Call<GetOne> call, Response<GetOne> response) {
+                            progressDialog.dismiss();
+
+                            if(response.code() == 200) {
+                                if (response.body() != null) {
+
+                                    String message = response.body().getMessage();
+                                    if(response.body().getCode() == 0) {
+
+                                        preferences = getSharedPreferences(
+                                                "MySharedPref", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString("idPetani", idPetani);
+                                        editor.putString("idLahan", idLahan);
+                                        editor.putString("idPeriode", idPeriode);
+                                        editor.apply();
+
+                                        data = response.body().getData();
+
+                                        setRvActivity(getApplicationContext(), data,
+                                                tokenLogin, idPetani,
+                                                idLahan, idPeriode);
+
+                                        setRvPengamatan(getApplicationContext(), data,
+                                                tokenLogin, idPetani, idLahan, idPeriode);
+
+                                        setRvCatatan(getApplicationContext(), data,
+                                                tokenLogin, idPetani, idLahan, idPeriode);
+
+                                        setRvDokumentasi(getApplicationContext(), data,
+                                                tokenLogin, idPetani, idLahan, idPeriode);
+
+//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                                        CalendarUtils.selectedDate = LocalDate.now();
+//                                        filter(CalendarUtils.selectedDate.toString());
+//                                    }
+
+                                        filter(CalendarUtils.selectedDate.toString());
+                                    } else {
+
+                                        preferences = JadwalActivity.this.getSharedPreferences(
+                                                "MySharedPref", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putBoolean("isUserLogin", false);
+                                        editor.apply();
+
+                                        Intent intent = new Intent(JadwalActivity.this,
+                                                LoginActivity.class);
+                                        startActivity(intent);
+                                        JadwalActivity.this.finish();
+                                    }
+
+                                    Toast.makeText(JadwalActivity.this, message,
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(JadwalActivity.this,
+                                            "Something went wrong...Please try later!",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(JadwalActivity.this,
+                                        "Something went wrong...Please try later!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<GetOne> call, Throwable t) {
+                            progressDialog.dismiss();
+
+                            Toast.makeText(JadwalActivity.this,
+                                    "Something went wrong...Please try later!",
+                                    Toast.LENGTH_SHORT).show();
+                            Log.e("Failure", t.toString());
+                        }
+                    });
+                }
+            }
+        });
+
 //        swipeRefresh.setRefreshing(true);
     }
 
@@ -615,7 +750,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         listActivity = data.getActivity();
         activityAdapter.filterList(listActivity);
 //        activityAdapter = new ActivityAdapter(context,
-//                data.getActivity(), tokenLogin, idPetani, idLahan, idPeriode);
+//                data.JadwalActivity.this, tokenLogin, idPetani, idLahan, idPeriode);
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
 //        rvActivity.setLayoutManager(layoutManager);
 //        rvActivity.setAdapter(activityAdapter);
@@ -657,6 +792,262 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
 //        rvCatatan.setLayoutManager(layoutManager);
 //        rvCatatan.setAdapter(catatanAdapter);
+    }
+
+    private void initSpinner(String tokenLogin) {
+
+        spPetani = findViewById(R.id.sp_petani);
+        spLahan = findViewById(R.id.sp_lahan);
+        spPeriode = findViewById(R.id.sp_periode);
+
+        setSpinnerPetani(tokenLogin);
+
+        spPetani.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int position, long id) {
+
+                idPetaniSpinner = idPetaniList.get(position);
+
+                setSpinnerLahan(tokenLogin, idPetaniSpinner);
+
+//                Toast.makeText(JadwalActivity.this, idPetani,
+//                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        spLahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int i, long l) {
+
+                idLahanSpinner = idLahanList.get(i);
+                setSpinnerPeriode(tokenLogin, idLahanSpinner);
+
+//                Toast.makeText(JadwalActivity.this, idLahan,
+//                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        spPeriode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int i, long l) {
+
+                idPeriodeSpinner = periodeList.get(i);
+
+//                Toast.makeText(JadwalActivity.this, idPeriode,
+//                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    private void setSpinnerPeriode(String tokenLogin, String idLahan) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFilterPeriode> dropdownFilterPeriodeCall = service.dropdownFilterPeriode(tokenLogin,
+                idLahan);
+        dropdownFilterPeriodeCall.enqueue(new Callback<DropdownFilterPeriode>() {
+            @Override
+            public void onResponse(Call<DropdownFilterPeriode> call,
+                                   Response<DropdownFilterPeriode> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_filter_periode.Datum>
+                                    listData = response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            periodeList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                periodeList.add(listData.get(i).getPeriodPlantTxt());
+                            }
+
+                            spPeriode.setItem(periodeList);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_LAHAN", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(JadwalActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(JadwalActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFilterPeriode> call, Throwable t) {
+                Toast.makeText(JadwalActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private void setSpinnerLahan(String tokenLogin, Integer idPetani) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFilterLahan> dropdownFilterLahanCall = service.dropdownFilterLahan(tokenLogin,
+                idPetani);
+        dropdownFilterLahanCall.enqueue(new Callback<DropdownFilterLahan>() {
+            @Override
+            public void onResponse(Call<DropdownFilterLahan> call,
+                                   Response<DropdownFilterLahan> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_filter_lahan.Datum> listData =
+                                    response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            lahanList = new ArrayList<>();
+                            idLahanList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                lahanList.add(listData.get(i).getLandNameVar());
+                                idLahanList.add(listData.get(i).getLandCodeVar());
+                            }
+
+                            spLahan.setItem(lahanList);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_LAHAN", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(JadwalActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(JadwalActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFilterLahan> call, Throwable t) {
+                Toast.makeText(JadwalActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private void setSpinnerPetani(String tokenLogin) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFarmer> dropdownFarmerCall = service.dropdownFarmer(tokenLogin);
+        dropdownFarmerCall.enqueue(new Callback<DropdownFarmer>() {
+            @Override
+            public void onResponse(Call<DropdownFarmer> call,
+                                   Response<DropdownFarmer> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+                            List<Datum> listData = response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            petaniList = new ArrayList<>();
+                            idPetaniList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                petaniList.add(listData.get(i).getFullnameVar());
+                                idPetaniList.add(listData.get(i).getIdSeq());
+                            }
+
+                            spPetani.setItem(petaniList);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_PETANI", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(JadwalActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(JadwalActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFarmer> call, Throwable t) {
+                Toast.makeText(JadwalActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private boolean checkAllField() {
+
+        if(idPetaniSpinner == null || idPetaniSpinner.equals("")) {
+            Toast.makeText(JadwalActivity.this, "Pilih petani terlebih dahulu",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(idLahanSpinner == null || idLahanSpinner.equals("")) {
+            Toast.makeText(JadwalActivity.this, "Pilih lahan terlebih dahulu",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(idPeriodeSpinner == null || idPeriodeSpinner.equals("")) {
+            Toast.makeText(JadwalActivity.this, "Pilih periode terlebih dahulu",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // after all validation return true.
+        return true;
     }
 
     private void setWeekView() {
@@ -791,7 +1182,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 //        if (filteredlist.isEmpty()) {
 //            // if no item is added in filtered list we are
 //            // displaying a toast message as no data found.
-//            Toast.makeText(getContext(), "No Data Found..", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(JadwalActivity.this, "No Data Found..", Toast.LENGTH_SHORT).show();
 //        } else {
 //            // at last we are passing that filtered
 //            // list to our adapter class.
