@@ -27,9 +27,13 @@ import com.example.agroobot_fms.model.get_all_budget_plan.GetAllBudgetPlan;
 import com.example.agroobot_fms.model.get_one_budget_plan.BudgetDetail;
 import com.example.agroobot_fms.model.get_one_budget_plan.Data;
 import com.example.agroobot_fms.model.get_one_budget_plan.GetOneBudgetPlan;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,6 +53,7 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
 
     private SharedPreferences sh;
     private List<BudgetDetail> listAnggaran = new ArrayList<>();
+    private Comparator<BudgetDetail> comparator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,11 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
     }
 
     private void initView(String idSeq) {
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_menu);
+        bottomNav.setItemIconTintList(null);
+        bottomNav.getMenu().getItem(3).setChecked(true);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         swipeRefresh = findViewById(R.id.swipe_refresh);
         etSearch = findViewById(R.id.et_search);
@@ -89,7 +99,6 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
                 listAnggaran,
                 idSeq);
         rvAnggaran.setAdapter(anggaranAdapter);
-
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -126,6 +135,45 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
             }
         });
     }
+
+    private final BottomNavigationView.OnNavigationItemSelectedListener navListener = item -> {
+        switch (item.getItemId()) {
+            case R.id.beranda:
+                Intent intent = new Intent(
+                        DetailAnggaranPetaniActivity.this,
+                        HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("viewpager_position", 0);
+                startActivity(intent);
+
+                finish();
+                break;
+
+            case R.id.jadwal:
+                intent = new Intent(
+                        DetailAnggaranPetaniActivity.this,
+                        HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("viewpager_position", 1);
+                startActivity(intent);
+
+                finish();
+                break;
+
+            case R.id.panen:
+                intent = new Intent(
+                        DetailAnggaranPetaniActivity.this,
+                        HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("viewpager_position", 2);
+                startActivity(intent);
+
+                finish();
+                break;
+
+        }
+        return false;
+    };
 
     private void initDataAnggaran(String idSeq) {
 
@@ -165,6 +213,17 @@ public class DetailAnggaranPetaniActivity extends AppCompatActivity {
                             txtTotalBudget.setText(hargaRp);
 
                             listAnggaran = dataItem.getBudgetDetail();
+
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                comparator = (d1, d2) -> {
+                                    LocalDateTime date1 = LocalDateTime.parse(d1.getCreatedOnDtm(), formatter);
+                                    LocalDateTime date2 = LocalDateTime.parse(d2.getCreatedOnDtm(), formatter);
+                                    return date2.compareTo(date1);
+                                };
+                            }
+
+                            listAnggaran.sort(comparator);
                             anggaranAdapter.filterList(listAnggaran);
 
 //                            anggaranAdapter = new DetailAnggaranAdapter(

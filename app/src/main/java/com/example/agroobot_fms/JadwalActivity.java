@@ -809,6 +809,14 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
                 idPetaniSpinner = idPetaniList.get(position);
 
+                idLahanList = new ArrayList<>();
+                idLahanSpinner = "";
+                spLahan.setItem(idLahanList);
+
+                periodeList = new ArrayList<>();
+                idPeriodeSpinner = "";
+                spPeriode.setItem(periodeList);
+
                 setSpinnerLahan(tokenLogin, idPetaniSpinner);
 
 //                Toast.makeText(JadwalActivity.this, idPetani,
@@ -826,6 +834,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                                        int i, long l) {
 
                 idLahanSpinner = idLahanList.get(i);
+
                 setSpinnerPeriode(tokenLogin, idLahanSpinner);
 
 //                Toast.makeText(JadwalActivity.this, idLahan,

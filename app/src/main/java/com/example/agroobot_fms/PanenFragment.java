@@ -21,15 +21,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.agroobot_fms.adapter.ActivityAdapter;
 import com.example.agroobot_fms.adapter.DataPanenAdapter;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
-import com.example.agroobot_fms.model.create_observation.CreateObservation;
 import com.example.agroobot_fms.model.get_all_data_panen.DataPanen;
 import com.example.agroobot_fms.model.get_all_data_panen.Datum;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,6 +47,7 @@ public class PanenFragment extends Fragment {
 
     SharedPreferences sh;
     List<Datum> listData;
+    Comparator<Datum> comparator;
     DataPanenAdapter dataPanenAdapter;
 
     public PanenFragment() {
@@ -172,6 +174,36 @@ public class PanenFragment extends Fragment {
                         if(response.body().getCode() == 0) {
 
                             listData = response.body().getData();
+
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                comparator = (d1, d2) -> {
+                                    LocalDateTime date1 = LocalDateTime.parse(d1.getCreatedOnDtm(), formatter);
+                                    LocalDateTime date2 = LocalDateTime.parse(d2.getCreatedOnDtm(), formatter);
+                                    return date2.compareTo(date1);
+                                };
+                            }
+
+//                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//                            Comparator<Data> comparator = (d1, d2) -> {
+//                                LocalDateTime date1, date2;
+//                                if (d1.getUpdatedOnDtm() != null && d2.getUpdatedOnDtm() != null) {
+//                                    date1 = LocalDateTime.parse(d1.getUpdatedOnDtm(), formatter);
+//                                    date2 = LocalDateTime.parse(d2.getUpdatedOnDtm(), formatter);
+//                                } else if (d1.getUpdatedOnDtm() != null) {
+//                                    date1 = LocalDateTime.parse(d1.getUpdatedOnDtm(), formatter);
+//                                    date2 = LocalDateTime.parse(d2.getCreatedOnDtm(), formatter);
+//                                } else if (d2.getUpdatedOnDtm() != null) {
+//                                    date1 = LocalDateTime.parse(d1.getCreatedOnDtm(), formatter);
+//                                    date2 = LocalDateTime.parse(d2.getUpdatedOnDtm(), formatter);
+//                                } else {
+//                                    date1 = LocalDateTime.parse(d1.getCreatedOnDtm(), formatter);
+//                                    date2 = LocalDateTime.parse(d2.getCreatedOnDtm(), formatter);
+//                                }
+//                                return date2.compareTo(date1);
+//                            };
+
+                            listData.sort(comparator);
 
                             dataPanenAdapter = new DataPanenAdapter(getContext(),
                                     listData);

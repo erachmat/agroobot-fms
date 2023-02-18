@@ -93,6 +93,7 @@ public class AddDataPanenActivity extends AppCompatActivity {
 
     String idLahan, idKomoditas, idPeriode;
     Integer idPetani;
+
     String tokenLogin;
     SharedPreferences sh;
     Bitmap imgDokumentasi;
@@ -377,6 +378,15 @@ public class AddDataPanenActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 idPetani = idPetaniList.get(i);
+
+                idLahanList = new ArrayList<>();
+                idLahan = "";
+                spLahan.setItem(idLahanList);
+
+                periodeList = new ArrayList<>();
+                idPeriode = "";
+                spPeriodeTanam.setItem(periodeList);
+
                 setSpinnerLahan(idPetani);
             }
 
@@ -655,6 +665,12 @@ public class AddDataPanenActivity extends AppCompatActivity {
 
         if(idKomoditas == null || idKomoditas.equals("")) {
             Toast.makeText(AddDataPanenActivity.this, "Pilih komoditas terlebih dahulu",
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(idPetani == null || idPetani.equals("")) {
+            Toast.makeText(AddDataPanenActivity.this, "Pilih petani terlebih dahulu",
                     Toast.LENGTH_SHORT).show();
             return false;
         }

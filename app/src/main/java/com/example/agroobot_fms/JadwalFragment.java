@@ -221,6 +221,14 @@ public class JadwalFragment extends Fragment {
 
                 idPetani = idPetaniList.get(position);
 
+                idLahanList = new ArrayList<>();
+                idLahan = "";
+                spLahan.setItem(idLahanList);
+
+                periodeList = new ArrayList<>();
+                idPeriode = "";
+                spPeriode.setItem(periodeList);
+
                 setSpinnerLahan(tokenLogin, idPetani);
 
 //                Toast.makeText(getActivity(), idPetani,

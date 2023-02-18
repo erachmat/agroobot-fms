@@ -1,9 +1,11 @@
 package com.example.agroobot_fms.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -32,6 +34,8 @@ import com.example.agroobot_fms.model.ajukan_data_panen.AjukanDataPanen;
 import com.example.agroobot_fms.model.ajukan_data_panen.AjukanPanenBody;
 import com.example.agroobot_fms.model.batal_ajukan_panen.BatalAjukanPanen;
 import com.example.agroobot_fms.model.batal_ajukan_panen.BatalAjukanPanenBody;
+import com.example.agroobot_fms.model.delete_activity.DeleteActivityBody;
+import com.example.agroobot_fms.model.delete_activity.DeleteActivityResponse;
 import com.example.agroobot_fms.model.delete_data_panen.DeleteDataPanen;
 import com.example.agroobot_fms.model.get_all_data_panen.Datum;
 import com.example.agroobot_fms.model.update_rating.UpdateRatingBody;
@@ -72,19 +76,22 @@ public class DataPanenAdapter extends RecyclerView.Adapter<DataPanenAdapter.View
         holder.txtNamaKomoditas.setText(dataItem.getCommodityNameVar());
         holder.txtLahan.setText(dataItem.getLandCodeVar());
 
-        holder.txtStatus.setText(dataItem.getStatusNameVar());
         switch (dataItem.getStatusNameVar()) {
             case "draft":
                 holder.txtStatus.setBackgroundResource(R.drawable.button_rounded_grey);
+                holder.txtStatus.setText(dataItem.getStatusNameVar());
                 break;
             case "approval":
                 holder.txtStatus.setBackgroundResource(R.drawable.button_rounded_blue);
+                holder.txtStatus.setText("diproses");
                 break;
             case "approved":
                 holder.txtStatus.setBackgroundResource(R.drawable.button_rounded_green);
+                holder.txtStatus.setText("disetujui");
                 break;
             case "rejected":
                 holder.txtStatus.setBackgroundResource(R.drawable.button_rounded_red);
+                holder.txtStatus.setText("ditolak");
                 break;
         }
 
@@ -136,73 +143,85 @@ public class DataPanenAdapter extends RecyclerView.Adapter<DataPanenAdapter.View
                 btnDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ProgressDialog progressDialog = new ProgressDialog(view.getContext());
-                        progressDialog.setMessage("Loading....");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
 
-                        SharedPreferences sh = view.getContext().getSharedPreferences("MySharedPref",
-                                Context.MODE_PRIVATE);
-                        String tokenLogin = sh.getString("tokenLogin", "");
+                        new AlertDialog.Builder(view.getContext())
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle("Hapus Data Panen")
+                                .setMessage("Anda yakin menghapus data ini?")
+                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int which) {
 
-                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
-                        Call<DeleteDataPanen> deleteDataPanenCall = service.deleteDataPanen(
-                                Integer.parseInt(dataItem.getIdSeq()), tokenLogin);
-                        deleteDataPanenCall.enqueue(new Callback<DeleteDataPanen>() {
-                            @Override
-                            public void onResponse(Call<DeleteDataPanen> call,
-                                                   Response<DeleteDataPanen> response) {
+                                        ProgressDialog progressDialog = new ProgressDialog(view.getContext());
+                                        progressDialog.setMessage("Loading....");
+                                        progressDialog.setCancelable(false);
+                                        progressDialog.show();
 
-                                progressDialog.dismiss();
+                                        SharedPreferences sh = view.getContext().getSharedPreferences("MySharedPref",
+                                                Context.MODE_PRIVATE);
+                                        String tokenLogin = sh.getString("tokenLogin", "");
 
-                                if(response.code() == 200) {
-                                    if (response.body() != null) {
-                                        if(response.body().getCode() == 0) {
+                                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                                        Call<DeleteDataPanen> deleteDataPanenCall = service.deleteDataPanen(
+                                                Integer.parseInt(dataItem.getIdSeq()), tokenLogin);
+                                        deleteDataPanenCall.enqueue(new Callback<DeleteDataPanen>() {
+                                            @Override
+                                            public void onResponse(Call<DeleteDataPanen> call,
+                                                                   Response<DeleteDataPanen> response) {
 
-                                            dialog.dismiss();
-                                            removeAt(position);
+                                                progressDialog.dismiss();
+
+                                                if(response.code() == 200) {
+                                                    if (response.body() != null) {
+                                                        if(response.body().getCode() == 0) {
+
+                                                            dialogInterface.dismiss();
+                                                            dialog.dismiss();
+                                                            removeAt(position);
 
 //                                            Toast.makeText(view.getContext(),
 //                                                    "Silahkan refresh kembali table data panen!",
 //                                                    Toast.LENGTH_SHORT).show();
 
-                                        } else {
+                                                        } else {
 
-                                            SharedPreferences.Editor editor = sh.edit();
-                                            editor.putBoolean("isUserLogin", false);
-                                            editor.apply();
+                                                            SharedPreferences.Editor editor = sh.edit();
+                                                            editor.putBoolean("isUserLogin", false);
+                                                            editor.apply();
 
-                                            Intent intent = new Intent(
-                                                    view.getContext(),
-                                                    LoginActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            view.getContext().startActivity(intent);
-                                        }
+                                                            Intent intent = new Intent(
+                                                                    view.getContext(),
+                                                                    LoginActivity.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                            view.getContext().startActivity(intent);
+                                                        }
 
 //                                        String message = response.body().getMessage();
 //                        Toast.makeText(DetailDataPanenActivity.this, message,
 //                                Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(view.getContext(),
-                                                "Something went wrong...Please try later!",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Toast.makeText(view.getContext(),
-                                            "Something went wrong...Please try later!",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                                                    } else {
+                                                        Toast.makeText(view.getContext(),
+                                                                "Something went wrong...Please try later!",
+                                                                Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } else {
+                                                    Toast.makeText(view.getContext(),
+                                                            "Something went wrong...Please try later!",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
 
-                            @Override
-                            public void onFailure(Call<DeleteDataPanen> call, Throwable t) {
-                                progressDialog.dismiss();
-                                Toast.makeText(view.getContext(),
-                                        "Something went wrong...Please try later!",
-                                        Toast.LENGTH_SHORT).show();
-                                Log.e("Failure", t.toString());
-                            }
-                        });
+                                            @Override
+                                            public void onFailure(Call<DeleteDataPanen> call, Throwable t) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(view.getContext(),
+                                                        "Something went wrong...Please try later!",
+                                                        Toast.LENGTH_SHORT).show();
+                                                Log.e("Failure", t.toString());
+                                            }
+                                        });
+                                    }
+                                }).setNegativeButton("Tidak", null).show();
                     }
                 });
 

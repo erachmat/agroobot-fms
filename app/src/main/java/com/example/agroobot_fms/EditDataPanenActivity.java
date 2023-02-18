@@ -33,16 +33,18 @@ import android.widget.Toast;
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
+import com.example.agroobot_fms.model.dropdown_comodity.DropdownComodity;
+import com.example.agroobot_fms.model.dropdown_farmer.DropdownFarmer;
+import com.example.agroobot_fms.model.dropdown_filter_lahan.DropdownFilterLahan;
+import com.example.agroobot_fms.model.dropdown_filter_periode.DropdownFilterPeriode;
 import com.example.agroobot_fms.model.get_one_data_panen.Data;
 import com.example.agroobot_fms.model.get_one_data_panen.DataPanen;
 import com.example.agroobot_fms.model.update_data_panen.UpdateDataPanen;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -69,6 +71,7 @@ public class EditDataPanenActivity extends AppCompatActivity {
     private SmartMaterialSpinner<String> spKomoditas;
     private SmartMaterialSpinner<String> spLahan;
     private SmartMaterialSpinner<String> spPeriodeTanam;
+    private SmartMaterialSpinner<String> spPetani;
 
     LinearLayout lytTglPanen;
     LinearLayout lytTglPenggilingan;
@@ -79,6 +82,7 @@ public class EditDataPanenActivity extends AppCompatActivity {
     TextView txtTglPenggilingan;
     TextView txtTglPenjemuran;
     TextView txtBrowsePhoto;
+    TextView txtCurrentLahan, txtCurrentPeriode;
 
     EditText etHasilPanen;
     EditText etHasilPenggilingan;
@@ -89,7 +93,13 @@ public class EditDataPanenActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private ArrayList<String> komoditasList, lahanList, periodeList;
+    ArrayList<String> petaniList = new ArrayList<>();
+    ArrayList<String> idLahanList = new ArrayList<>();
+    ArrayList<Integer> idPetaniList = new ArrayList<>();
+
     String idLahan, idKomoditas, idPeriode;
+    Integer idPetani;
+
     String tokenLogin;
     SharedPreferences sh;
     Bitmap imgDokumentasi;
@@ -114,8 +124,7 @@ public class EditDataPanenActivity extends AppCompatActivity {
             String idSeq = getIntent().getStringExtra("idSeq");
 
             initView(idSeq);
-            initSpinner();
-            initData(idSeq);
+            initSpinner(idSeq);
         }
     }
 
@@ -148,13 +157,25 @@ public class EditDataPanenActivity extends AppCompatActivity {
                             int indexKomoditas = komoditasList.indexOf(idKomoditas);
                             spKomoditas.setSelection(indexKomoditas);
 
-                            idLahan = dataItem.getLandCodeVar();
-                            int indexLahan = lahanList.indexOf(idLahan);
-                            spLahan.setSelection(indexLahan);
+//                            idPetani = dataItem.get();
+//                            int indexLahan = lahanList.indexOf(idLahan);
+//                            spLahan.setSelection(indexLahan);
+//
+                            String currentLahan = "Lahan saat ini " + dataItem.getLandCodeVar();
+                            txtCurrentLahan.setText(currentLahan);
+                            txtCurrentLahan.setVisibility(View.GONE);
 
-                            idPeriode = dataItem.getPeriodPlantTxt();
-                            int indexPeriode = periodeList.indexOf(idPeriode);
-                            spPeriodeTanam.setSelection(indexPeriode);
+                            String currentPeriode = "Periode saat ini " + dataItem.getPeriodPlantTxt();
+                            txtCurrentPeriode.setText(currentPeriode);
+                            txtCurrentPeriode.setVisibility(View.GONE);
+
+                            idLahan = dataItem.getLandCodeVar();
+                            int indexLahan = idLahanList.indexOf(idLahan);
+                            spLahan.setSelection(indexLahan);
+//
+//                            idPeriode = dataItem.getPeriodPlantTxt();
+//                            int indexPeriode = periodeList.indexOf(idPeriode);
+//                            spPeriodeTanam.setSelection(indexPeriode);
 
                             etHasilPanen.setText(String.valueOf(dataItem.getHarvestFlo()));
 
@@ -233,6 +254,9 @@ public class EditDataPanenActivity extends AppCompatActivity {
     }
 
     private void initView(String idSeq) {
+
+        txtCurrentLahan = findViewById(R.id.txt_current_lahan);
+        txtCurrentPeriode = findViewById(R.id.txt_current_periode);
 
         btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -459,27 +483,32 @@ public class EditDataPanenActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void initSpinner() {
+    private void initSpinner(String idSeq) {
 
         spKomoditas = findViewById(R.id.sp_komoditas);
         spLahan = findViewById(R.id.sp_lahan);
         spPeriodeTanam = findViewById(R.id.sp_periode_tanam);
+        spPetani = findViewById(R.id.sp_petani);
 
-        komoditasList = new ArrayList<>();
-        komoditasList.add("PADI");
-        komoditasList.add("KACANG PANJANG");
+        setSpinnerKomoditas(idSeq);
 
-        lahanList = new ArrayList<>();
-        lahanList.add("01001");
-        lahanList.add("03003");
+//        setSpinnerPetani(idSeq);
 
-        periodeList = new ArrayList<>();
-        periodeList.add("3");
-        periodeList.add("2201");
-
-        spKomoditas.setItem(komoditasList);
-        spLahan.setItem(lahanList);
-        spPeriodeTanam.setItem(periodeList);
+//        komoditasList = new ArrayList<>();
+//        komoditasList.add("PADI");
+//        komoditasList.add("KACANG PANJANG");
+//
+//        lahanList = new ArrayList<>();
+//        lahanList.add("01001");
+//        lahanList.add("03003");
+//
+//        periodeList = new ArrayList<>();
+//        periodeList.add("3");
+//        periodeList.add("2201");
+//
+//        spKomoditas.setItem(komoditasList);
+//        spLahan.setItem(lahanList);
+//        spPeriodeTanam.setItem(periodeList);
 
         spKomoditas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -498,12 +527,36 @@ public class EditDataPanenActivity extends AppCompatActivity {
             }
         });
 
+        spPetani.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+//                idPetani = idPetaniList.get(i);
+//
+//                idLahanList = new ArrayList<>();
+//                idLahan = "";
+//                spLahan.setItem(idLahanList);
+//
+//                periodeList = new ArrayList<>();
+//                idPeriode = "";
+//                spPeriodeTanam.setItem(periodeList);
+//
+//                setSpinnerLahan(idPetani);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         spLahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view,
                                        int i, long l) {
 
-                idLahan = lahanList.get(i);
+                idLahan = idLahanList.get(i);
+                setSpinnerPeriode(idLahan);
 
 //                Toast.makeText(getActivity(), idLahan,
 //                        Toast.LENGTH_SHORT).show();
@@ -529,6 +582,322 @@ public class EditDataPanenActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+    }
+
+    private void setSpinnerPeriode(String idLahan) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFilterPeriode> dropdownFilterPeriodeCall = service.dropdownFilterPeriode(tokenLogin,
+                idLahan);
+        dropdownFilterPeriodeCall.enqueue(new Callback<DropdownFilterPeriode>() {
+            @Override
+            public void onResponse(Call<DropdownFilterPeriode> call,
+                                   Response<DropdownFilterPeriode> response) {
+
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_filter_periode.Datum>
+                                    listData = response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            periodeList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                periodeList.add(listData.get(i).getPeriodPlantTxt());
+                            }
+
+                            spPeriodeTanam.setItem(periodeList);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_PERIODE", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditDataPanenActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(EditDataPanenActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFilterPeriode> call, Throwable t) {
+                Toast.makeText(EditDataPanenActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private void setSpinnerLahan(Integer idPetani) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFilterLahan> dropdownFilterLahanCall = service.dropdownFilterLahan(tokenLogin,
+                idPetani);
+        dropdownFilterLahanCall.enqueue(new Callback<DropdownFilterLahan>() {
+            @Override
+            public void onResponse(Call<DropdownFilterLahan> call,
+                                   Response<DropdownFilterLahan> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_filter_lahan.Datum> listData =
+                                    response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            lahanList = new ArrayList<>();
+                            idLahanList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                lahanList.add(listData.get(i).getLandNameVar());
+                                idLahanList.add(listData.get(i).getLandCodeVar());
+                            }
+
+                            spLahan.setItem(lahanList);
+                        }
+
+                        String message = response.body().getMessage();
+//                        Log.e("SP_LAHAN", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditDataPanenActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(EditDataPanenActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFilterLahan> call, Throwable t) {
+                Toast.makeText(EditDataPanenActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private void setSpinnerPetani(String idSeq) {
+
+        lahanList = new ArrayList<>();
+        idLahanList = new ArrayList<>();
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFarmer> dropdownFarmerCall = service.dropdownFarmer(tokenLogin);
+        dropdownFarmerCall.enqueue(new Callback<DropdownFarmer>() {
+            @Override
+            public void onResponse(Call<DropdownFarmer> call, Response<DropdownFarmer> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_farmer.Datum> listData
+                                    = response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            idPetaniList = new ArrayList<>();
+                            petaniList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                petaniList.add(listData.get(i).getFullnameVar());
+                                idPetaniList.add(listData.get(i).getIdSeq());
+                            }
+
+                            spPetani.setItem(petaniList);
+
+                            progressDialog = new ProgressDialog(EditDataPanenActivity.this);
+                            progressDialog.setMessage("Loading....");
+                            progressDialog.setCancelable(false);
+                            progressDialog.show();
+
+                            Log.e("idPetaniList_size", String.valueOf(idPetaniList.size()));
+
+                            for(int j = 0; j < idPetaniList.size(); j++) {
+
+                                idPetani = idPetaniList.get(j);
+                                Log.e("idPetani", String.valueOf(idPetani));
+
+                                getAllLahan(idPetani);
+                            }
+
+                            progressDialog.dismiss();
+
+//                            Toast.makeText(EditDataPanenActivity.this, String.valueOf(lahanList.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            initData(idSeq);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_KOMODITAS", message);
+
+//                        Toast.makeText(EditDataPanenActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditDataPanenActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(EditDataPanenActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFarmer> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(EditDataPanenActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private void getAllLahan(Integer idPetani) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownFilterLahan> dropdownFilterLahanCall = service.dropdownFilterLahan(tokenLogin,
+                idPetani);
+        dropdownFilterLahanCall.enqueue(new Callback<DropdownFilterLahan>() {
+            @Override
+            public void onResponse(Call<DropdownFilterLahan> call,
+                                   Response<DropdownFilterLahan> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_filter_lahan.Datum> listData =
+                                    response.body().getData();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                lahanList.add(listData.get(i).getLandNameVar());
+                                idLahanList.add(listData.get(i).getLandCodeVar());
+                            }
+
+                            spLahan.setItem(lahanList);
+                            Log.e("lahanList_size", String.valueOf(lahanList.size()));
+
+//                            Toast.makeText(EditDataPanenActivity.this,
+//                                    String.valueOf(lahanList.size()),
+//                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        String message = response.body().getMessage();
+//                        Log.e("SP_LAHAN", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditDataPanenActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(EditDataPanenActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownFilterLahan> call, Throwable t) {
+                Toast.makeText(EditDataPanenActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
+    }
+
+    private void setSpinnerKomoditas(String idSeq) {
+
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<DropdownComodity> dropdownComodityCall = service.dropdownComodity(tokenLogin);
+        dropdownComodityCall.enqueue(new Callback<DropdownComodity>() {
+            @Override
+            public void onResponse(Call<DropdownComodity> call,
+                                   Response<DropdownComodity> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.dropdown_comodity.Datum> listData
+                                    = response.body().getData();
+
+//                            Toast.makeText(EditPengamatanActivity.this,
+//                                    String.valueOf(listData.size()),
+//                                    Toast.LENGTH_SHORT).show();
+
+                            komoditasList = new ArrayList<>();
+
+                            for(int i = 0; i < listData.size(); i++) {
+                                komoditasList.add(listData.get(i).getCommodityNameVar());
+                            }
+
+                            spKomoditas.setItem(komoditasList);
+
+                            setSpinnerPetani(idSeq);
+                        }
+
+                        String message = response.body().getMessage();
+                        Log.e("SP_KOMODITAS", message);
+
+//                        Toast.makeText(EditPengamatanActivity.this, message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(EditDataPanenActivity.this,
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(EditDataPanenActivity.this,
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DropdownComodity> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(EditDataPanenActivity.this,
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+
     }
 
     public void pickImg() {
@@ -685,6 +1054,12 @@ public class EditDataPanenActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return false;
         }
+
+//        if(idPetani == null || idPetani.equals("")) {
+//            Toast.makeText(EditDataPanenActivity.this, "Pilih petani terlebih dahulu",
+//                    Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         if(idLahan == null || idLahan.equals("")) {
             Toast.makeText(EditDataPanenActivity.this, "Pilih lahan terlebih dahulu",

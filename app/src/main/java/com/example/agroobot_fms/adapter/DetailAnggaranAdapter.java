@@ -1,9 +1,11 @@
 package com.example.agroobot_fms.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -32,6 +34,7 @@ import com.example.agroobot_fms.model.ajukan_data_panen.AjukanPanenBody;
 import com.example.agroobot_fms.model.batal_ajukan_budget_detail.BatalAjukanBudgetDetail;
 import com.example.agroobot_fms.model.batal_ajukan_budget_detail.BatalAjukanBudgetDetailBody;
 import com.example.agroobot_fms.model.delete_budget_detail.DeleteBudgetDetail;
+import com.example.agroobot_fms.model.delete_data_panen.DeleteDataPanen;
 import com.example.agroobot_fms.model.get_one_budget_plan.BudgetDetail;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
@@ -79,19 +82,22 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
         totalRp = "Rp " + totalRp;
         holder.txtTotalNominal.setText(totalRp);
 
-        holder.txtStatus.setText(dataItem.getStatusNameVar());
         switch (dataItem.getStatusNameVar()) {
             case "draft":
                 holder.txtStatus.setBackgroundResource(R.drawable.button_rounded_grey);
+                holder.txtStatus.setText(dataItem.getStatusNameVar());
                 break;
             case "approval":
                 holder.txtStatus.setBackgroundResource(R.drawable.button_rounded_blue);
+                holder.txtStatus.setText("diproses");
                 break;
             case "approved":
                 holder.txtStatus.setBackgroundResource(R.drawable.button_rounded_green);
+                holder.txtStatus.setText("disetujui");
                 break;
             case "rejected":
                 holder.txtStatus.setBackgroundResource(R.drawable.button_rounded_red);
+                holder.txtStatus.setText("ditolak");
                 break;
         }
 
@@ -325,71 +331,82 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
                     @Override
                     public void onClick(View view) {
 
-                        ProgressDialog progressDialog = new ProgressDialog(
-                                view.getContext());
-                        progressDialog.setMessage("Loading....");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
+                        new AlertDialog.Builder(view.getContext())
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle("Hapus Data Anggaran")
+                                .setMessage("Anda yakin menghapus data ini?")
+                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int which) {
 
-                        SharedPreferences sh = view.getContext()
-                                .getSharedPreferences("MySharedPref",
-                                Context.MODE_PRIVATE);
-                        String tokenLogin = sh.getString("tokenLogin", "");
+                                        ProgressDialog progressDialog = new ProgressDialog(
+                                                view.getContext());
+                                        progressDialog.setMessage("Loading....");
+                                        progressDialog.setCancelable(false);
+                                        progressDialog.show();
 
-                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
-                        Call<DeleteBudgetDetail> deleteBudgetDetailCall = service.deleteBudgetDetail(
-                                Integer.parseInt(dataItem.getIdSeq()), tokenLogin);
-                        deleteBudgetDetailCall.enqueue(new Callback<DeleteBudgetDetail>() {
-                            @Override
-                            public void onResponse(Call<DeleteBudgetDetail> call,
-                                                   Response<DeleteBudgetDetail> response) {
+                                        SharedPreferences sh = view.getContext()
+                                                .getSharedPreferences("MySharedPref",
+                                                        Context.MODE_PRIVATE);
+                                        String tokenLogin = sh.getString("tokenLogin", "");
 
-                                progressDialog.dismiss();
+                                        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+                                        Call<DeleteBudgetDetail> deleteBudgetDetailCall = service.deleteBudgetDetail(
+                                                Integer.parseInt(dataItem.getIdSeq()), tokenLogin);
+                                        deleteBudgetDetailCall.enqueue(new Callback<DeleteBudgetDetail>() {
+                                            @Override
+                                            public void onResponse(Call<DeleteBudgetDetail> call,
+                                                                   Response<DeleteBudgetDetail> response) {
 
-                                if(response.code() == 200) {
-                                    if (response.body() != null) {
-                                        if(response.body().getCode() == 0) {
+                                                progressDialog.dismiss();
 
-                                            dialog.dismiss();
-                                            removeAt(position);
+                                                if(response.code() == 200) {
+                                                    if (response.body() != null) {
+                                                        if(response.body().getCode() == 0) {
 
-                                        } else {
+                                                            dialogInterface.dismiss();
+                                                            dialog.dismiss();
+                                                            removeAt(position);
 
-                                            SharedPreferences.Editor editor = sh.edit();
-                                            editor.putBoolean("isUserLogin", false);
-                                            editor.apply();
+                                                        } else {
 
-                                            Intent intent = new Intent(
-                                                    view.getContext(),
-                                                    LoginActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            view.getContext().startActivity(intent);
-                                        }
+                                                            SharedPreferences.Editor editor = sh.edit();
+                                                            editor.putBoolean("isUserLogin", false);
+                                                            editor.apply();
+
+                                                            Intent intent = new Intent(
+                                                                    view.getContext(),
+                                                                    LoginActivity.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                            view.getContext().startActivity(intent);
+                                                        }
 
 //                                        String message = response.body().getMessage();
 //                        Toast.makeText(DetailDataPanenActivity.this, message,
 //                                Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(view.getContext(),
-                                                "Something went wrong...Please try later!",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Toast.makeText(view.getContext(),
-                                            "Something went wrong...Please try later!",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                                                    } else {
+                                                        Toast.makeText(view.getContext(),
+                                                                "Something went wrong...Please try later!",
+                                                                Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } else {
+                                                    Toast.makeText(view.getContext(),
+                                                            "Something went wrong...Please try later!",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
 
-                            @Override
-                            public void onFailure(Call<DeleteBudgetDetail> call, Throwable t) {
-                                progressDialog.dismiss();
-                                Toast.makeText(view.getContext(),
-                                        "Something went wrong...Please try later!",
-                                        Toast.LENGTH_SHORT).show();
-                                Log.e("Failure", t.toString());
-                            }
-                        });
+                                            @Override
+                                            public void onFailure(Call<DeleteBudgetDetail> call, Throwable t) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(view.getContext(),
+                                                        "Something went wrong...Please try later!",
+                                                        Toast.LENGTH_SHORT).show();
+                                                Log.e("Failure", t.toString());
+                                            }
+                                        });
+                                    }
+                                }).setNegativeButton("Tidak", null).show();
                     }
                 });
 
