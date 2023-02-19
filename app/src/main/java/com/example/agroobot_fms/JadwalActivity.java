@@ -23,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,6 +110,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
     private String idPeriodeSpinner;
     SharedPreferences preferences;
+    private TextView txtNamaPetani;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +130,14 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                     idLahan, idPeriode);
 
             String dataJson = getIntent().getStringExtra("dataJadwal");
+            namaPetani = getIntent().getStringExtra("namaPetani");
+            namaLahan = getIntent().getStringExtra("namaLahan");
+            idPeriode = getIntent().getStringExtra("namaPeriode");
+            petaniList = getIntent().getStringArrayListExtra("petaniList");
+            idPetaniList = getIntent().getIntegerArrayListExtra("idPetaniList");
+            lahanList = getIntent().getStringArrayListExtra("lahanList");
+            idLahanList = getIntent().getStringArrayListExtra("idLahanList");
+            periodeList = getIntent().getStringArrayListExtra("periodeList");
 
             if(dataJson != null) {
 
@@ -148,7 +156,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                 setRvDokumentasi(getApplicationContext(), data, tokenLogin, idPetani,
                         idLahan, idPeriode);
 
-                initSpinner(tokenLogin);
+                initSpinner(tokenLogin, idPetani,
+                        idLahan, idPeriode);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     CalendarUtils.selectedDate = LocalDate.now();
@@ -162,7 +171,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         else {
             initWidgets(tokenLogin, idPetani,
                     idLahan, idPeriode);
-            initSpinner(tokenLogin);
+            initSpinner(tokenLogin, idPetani,
+                    idLahan, idPeriode);
             refreshData(tokenLogin, idPetani, idLahan, idPeriode);
         }
 
@@ -276,6 +286,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         rvDokumentasi = findViewById(R.id.rv_dokumentasi);
         rvCatatan = findViewById(R.id.rv_catatan);
         calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
+
+        txtNamaPetani = findViewById(R.id.txt_nama_petani);
 
         activityAdapter = new ActivityAdapter(getApplicationContext(),
                 listActivity, tokenLogin, idPetani, idLahan, idPeriode);
@@ -794,18 +806,24 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 //        rvCatatan.setAdapter(catatanAdapter);
     }
 
-    private void initSpinner(String tokenLogin) {
+    private void initSpinner(String tokenLogin, String idPetani,
+                             String idLahan, String idPeriode) {
 
         spPetani = findViewById(R.id.sp_petani);
         spLahan = findViewById(R.id.sp_lahan);
         spPeriode = findViewById(R.id.sp_periode);
 
-        setSpinnerPetani(tokenLogin);
+        setSpinnerPetani(tokenLogin, idPetani, idLahan, idPeriode);
+//        txtNamaPetani.setText(namaPetani);
+//        spPetani.setHint("");
 
         spPetani.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view,
                                        int position, long id) {
+
+//                txtNamaPetani.setVisibility(View.GONE);
+//                spPetani.setHint("Pilih Petani");
 
                 idPetaniSpinner = idPetaniList.get(position);
 
@@ -825,6 +843,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -979,7 +998,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
     }
 
-    private void setSpinnerPetani(String tokenLogin) {
+    private void setSpinnerPetani(String tokenLogin, String idPetani,
+                                  String idLahan, String idPeriode) {
 
         GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
         Call<DropdownFarmer> dropdownFarmerCall = service.dropdownFarmer(tokenLogin);
@@ -1005,6 +1025,22 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                             }
 
                             spPetani.setItem(petaniList);
+
+                            idPetaniSpinner =  Integer.parseInt(idPetani);
+                            int indexPetani = petaniList.indexOf(namaPetani);
+                            spPetani.setHint(namaPetani);
+
+                            spLahan.setItem(lahanList);
+
+                            idLahanSpinner =  idLahan;
+                            int indexLahan = lahanList.indexOf(namaLahan);
+                            spLahan.setHint(namaLahan);
+
+                            spPeriode.setItem(periodeList);
+
+                            idPeriodeSpinner =  idPeriode;
+                            int indexPeriode = periodeList.indexOf(idPeriode);
+                            spPeriode.setHint(idPeriode);
                         }
 
                         String message = response.body().getMessage();

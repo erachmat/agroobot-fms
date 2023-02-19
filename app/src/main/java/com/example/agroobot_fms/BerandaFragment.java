@@ -414,6 +414,8 @@ public class BerandaFragment extends Fragment {
                                                     .getTotalAreaActiveFlo())),
                                             Color.parseColor("#508EF7")));
 
+                            chartPendanaan.clearChart();
+
                             // Set the data and color to the pie chart
                             chartPendanaan.addPieSlice(
                                     new PieModel(

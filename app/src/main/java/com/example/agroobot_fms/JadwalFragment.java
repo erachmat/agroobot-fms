@@ -133,9 +133,27 @@ public class JadwalFragment extends Fragment {
 
                                         String dataJson = new Gson().toJson(result);
 
+
                                         Intent intent = new Intent(getContext(),
                                                 JadwalActivity.class);
                                         intent.putExtra("dataJadwal", dataJson);
+
+                                        intent.putExtra("namaPetani", namaPetani);
+                                        intent.putStringArrayListExtra("petaniList",
+                                                (ArrayList<String>) petaniList);
+                                        intent.putIntegerArrayListExtra("idPetaniList",
+                                                (ArrayList<Integer>) idPetaniList);
+
+                                        intent.putExtra("namaLahan", namaLahan);
+                                        intent.putStringArrayListExtra("lahanList",
+                                                (ArrayList<String>) lahanList);
+                                        intent.putStringArrayListExtra("idLahanList",
+                                                (ArrayList<String>) idLahanList);
+
+                                        intent.putExtra("namaPeriode", idPeriode);
+                                        intent.putStringArrayListExtra("periodeList",
+                                                (ArrayList<String>) periodeList);
+
                                         startActivity(intent);
                                     } else {
 
@@ -220,6 +238,7 @@ public class JadwalFragment extends Fragment {
                                        int position, long id) {
 
                 idPetani = idPetaniList.get(position);
+                namaPetani = petaniList.get(position);
 
                 idLahanList = new ArrayList<>();
                 idLahan = "";
@@ -246,6 +265,8 @@ public class JadwalFragment extends Fragment {
                                        int i, long l) {
 
                 idLahan = idLahanList.get(i);
+                namaLahan = lahanList.get(i);
+
                 setSpinnerPeriode(tokenLogin, idLahan);
 
 //                Toast.makeText(getActivity(), idLahan,

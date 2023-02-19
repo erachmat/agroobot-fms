@@ -56,25 +56,44 @@
                     android:orientation="horizontal"
                     android:visibility="visible">
 
-                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                        android:id="@+id/sp_petani"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:paddingStart="@dimen/_10sdp"
                         android:background="@drawable/custom_border_no_radius"
-                        app:smsp_arrowSize="0dp"
-                        app:smsp_hint="Pilih Petani"
-                        app:smsp_itemColor="@color/black"
-                        app:smsp_itemListColor="@color/black"
-                        app:smsp_itemListHintBackgroundColor="#808080"
-                        app:smsp_itemListHintColor="#FFFFFF"
-                        app:smsp_floatingLabelColor="@color/white"
-                        app:smsp_multilineError="false"
-                        app:smsp_isSearchable="true"
-                        app:smsp_underlineColor="@color/white"
-                        app:smsp_hintSize="@dimen/_10ssp"
-                        app:smsp_selectedItemListColor="@color/green" />
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:id="@+id/txt_nama_petani"
+                            android:text="Pilih Petani"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans_regular"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10ssp"
+                            android:visibility="gone"/>
+
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/sp_petani"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/_10sdp"
+                            app:smsp_arrowSize="0dp"
+                            app:smsp_hint="Pilih Petani"
+                            app:smsp_itemColor="@color/black"
+                            app:smsp_itemListColor="@color/black"
+                            app:smsp_itemListHintBackgroundColor="#808080"
+                            app:smsp_itemListHintColor="#FFFFFF"
+                            app:smsp_floatingLabelColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_isSearchable="true"
+                            app:smsp_underlineColor="@color/white"
+                            app:smsp_hintSize="@dimen/_10ssp"
+                            app:smsp_selectedItemListColor="@color/green" />
+
+
+                    </RelativeLayout>
 
                     <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                         android:id="@+id/sp_lahan"
