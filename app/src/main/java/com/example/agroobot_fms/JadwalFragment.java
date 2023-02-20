@@ -29,7 +29,9 @@ import com.example.agroobot_fms.model.get_one.GetOneBody;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,13 +46,13 @@ public class JadwalFragment extends Fragment {
     LinearLayout btnCari;
 
     private List<String> petaniList;
-    private List<Integer> idPetaniList;
+    private List<String> idPetaniList;
 
     private List<String> lahanList;
     private List<String> idLahanList;
     private List<String> periodeList;
 
-    private Integer idPetani;
+    private String idPetani;
     private String namaPetani;
 
     private String idLahan;
@@ -125,34 +127,54 @@ public class JadwalFragment extends Fragment {
                                         "MySharedPref", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = preferences.edit();
                                         editor.putString("idPetani", String.valueOf(idPetani));
+                                        editor.putString("namaPetani", namaPetani);
+
+                                        Set<String> petaniListSet = new HashSet<>(petaniList);
+                                        editor.putStringSet("petaniList", petaniListSet);
+
+                                        Set<String> idPetaniListSet = new HashSet<>(idPetaniList);
+                                        editor.putStringSet("idPetaniList", idPetaniListSet);
+
                                         editor.putString("idLahan", idLahan);
+                                        editor.putString("namaLahan", namaLahan);
+
+                                        Set<String> lahanListSet = new HashSet<>(lahanList);
+                                        editor.putStringSet("lahanList", lahanListSet);
+
+                                        Set<String> idLahanListSet = new HashSet<>(idLahanList);
+                                        editor.putStringSet("idLahanList", idLahanListSet);
+
                                         editor.putString("idPeriode", idPeriode);
+                                        editor.putString("namaPeriode", idPeriode);
+
+                                        Set<String> periodeListSet = new HashSet<>(periodeList);
+                                        editor.putStringSet("periodeList", periodeListSet);
+
                                         editor.apply();
 
                                         Data result = response.body().getData();
 
                                         String dataJson = new Gson().toJson(result);
 
-
                                         Intent intent = new Intent(getContext(),
                                                 JadwalActivity.class);
                                         intent.putExtra("dataJadwal", dataJson);
 
-                                        intent.putExtra("namaPetani", namaPetani);
-                                        intent.putStringArrayListExtra("petaniList",
-                                                (ArrayList<String>) petaniList);
-                                        intent.putIntegerArrayListExtra("idPetaniList",
-                                                (ArrayList<Integer>) idPetaniList);
-
-                                        intent.putExtra("namaLahan", namaLahan);
-                                        intent.putStringArrayListExtra("lahanList",
-                                                (ArrayList<String>) lahanList);
-                                        intent.putStringArrayListExtra("idLahanList",
-                                                (ArrayList<String>) idLahanList);
-
-                                        intent.putExtra("namaPeriode", idPeriode);
-                                        intent.putStringArrayListExtra("periodeList",
-                                                (ArrayList<String>) periodeList);
+//                                        intent.putExtra("namaPetani", namaPetani);
+//                                        intent.putStringArrayListExtra("petaniList",
+//                                                (ArrayList<String>) petaniList);
+//                                        intent.putIntegerArrayListExtra("idPetaniList",
+//                                                (ArrayList<Integer>) idPetaniList);
+//
+//                                        intent.putExtra("namaLahan", namaLahan);
+//                                        intent.putStringArrayListExtra("lahanList",
+//                                                (ArrayList<String>) lahanList);
+//                                        intent.putStringArrayListExtra("idLahanList",
+//                                                (ArrayList<String>) idLahanList);
+//
+//                                        intent.putExtra("namaPeriode", idPeriode);
+//                                        intent.putStringArrayListExtra("periodeList",
+//                                                (ArrayList<String>) periodeList);
 
                                         startActivity(intent);
                                     } else {
@@ -352,11 +374,11 @@ public class JadwalFragment extends Fragment {
 
     }
 
-    private void setSpinnerLahan(String tokenLogin, Integer idPetani) {
+    private void setSpinnerLahan(String tokenLogin, String idPetani) {
 
         GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
         Call<DropdownFilterLahan> dropdownFilterLahanCall = service.dropdownFilterLahan(tokenLogin,
-                idPetani);
+                Integer.parseInt(idPetani));
         dropdownFilterLahanCall.enqueue(new Callback<DropdownFilterLahan>() {
             @Override
             public void onResponse(Call<DropdownFilterLahan> call,
@@ -433,7 +455,7 @@ public class JadwalFragment extends Fragment {
 
                             for(int i = 0; i < listData.size(); i++) {
                                 petaniList.add(listData.get(i).getFullnameVar());
-                                idPetaniList.add(listData.get(i).getIdSeq());
+                                idPetaniList.add(String.valueOf(listData.get(i).getIdSeq()));
                             }
 
                             spPetani.setItem(petaniList);

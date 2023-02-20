@@ -45,13 +45,13 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey"
-                android:orientation="vertical">
+                android:background="@color/grey">
 
                 <LinearLayout
+                    android:id="@+id/lyt_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -81,16 +81,17 @@
 
                     </RelativeLayout>
 
-                    <ImageView
-                        android:id="@+id/btn_add"
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:src="@drawable/ic_plus_box"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/btn_add"-->
+<!--                        android:layout_width="@dimen/_40sdp"-->
+<!--                        android:layout_height="@dimen/_40sdp"-->
+<!--                        android:layout_marginStart="@dimen/_5sdp"-->
+<!--                        android:src="@drawable/ic_plus_box"/>-->
 
                 </LinearLayout>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_info_petani"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/_8sdp"
@@ -98,6 +99,7 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/custom_border"
+                    android:layout_below="@+id/lyt_search"
                     android:visibility="visible">
 
                     <LinearLayout
@@ -188,9 +190,11 @@
 <!--                </HorizontalScrollView>-->
 
                 <RelativeLayout
+                    android:id="@+id/lyt_lst_anggaran"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:layout_below="@+id/cv_info_petani"
                     android:layout_marginTop="@dimen/_10sdp">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -204,11 +208,22 @@
 
                 </RelativeLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ImageView
+        android:id="@+id/btn_add"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_above="@+id/bottom_navigation_menu"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:src="@drawable/ic_plus_box"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_menu"

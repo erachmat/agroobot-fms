@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     tools:context=".PanenFragment">
 
     <!-- TOP BAR -->
     <RelativeLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/semi_black"
@@ -37,7 +37,8 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_bar">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -79,12 +80,12 @@
 
                    </RelativeLayout>
 
-                   <ImageView
-                       android:id="@+id/btn_add"
-                       android:layout_width="@dimen/_40sdp"
-                       android:layout_height="@dimen/_40sdp"
-                       android:layout_marginStart="@dimen/_5sdp"
-                       android:src="@drawable/ic_plus_box"/>
+<!--                   <ImageView-->
+<!--                       android:id="@+id/btn_add"-->
+<!--                       android:layout_width="@dimen/_40sdp"-->
+<!--                       android:layout_height="@dimen/_40sdp"-->
+<!--                       android:layout_marginStart="@dimen/_5sdp"-->
+<!--                       android:src="@drawable/ic_plus_box"/>-->
 
                </LinearLayout>
 
@@ -128,4 +129,15 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/btn_add"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:src="@drawable/ic_plus_box"/>
+
+</RelativeLayout>

@@ -56,7 +56,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,13 +98,13 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
     private List<Rating> listRating = new ArrayList<>();
 
     private List<String> petaniList;
-    private List<Integer> idPetaniList;
+    private List<String> idPetaniList;
 
     private List<String> lahanList;
     private List<String> idLahanList;
     private List<String> periodeList;
 
-    private Integer idPetaniSpinner;
+    private String idPetaniSpinner;
     private String namaPetani;
 
     private String idLahanSpinner;
@@ -120,9 +122,30 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
         SharedPreferences sh = getSharedPreferences("MySharedPref",
                 Context.MODE_PRIVATE);
         String tokenLogin = sh.getString("tokenLogin", "");
+
         String idPetani = sh.getString("idPetani", "");
+        namaPetani = sh.getString("namaPetani", "");
+
+        Set<String> petaniListSet = sh.getStringSet("petaniList", new HashSet<>());
+        petaniList = new ArrayList<>(petaniListSet);
+
+        Set<String> idPetaniListSet = sh.getStringSet("idPetaniList", new HashSet<>());
+        idPetaniList = new ArrayList<>(idPetaniListSet);
+
         String idLahan = sh.getString("idLahan", "");
+        namaLahan = sh.getString("namaLahan", "");
+
+        Set<String> lahanListSet = sh.getStringSet("lahanList", new HashSet<>());
+        lahanList = new ArrayList<>(lahanListSet);
+
+        Set<String> idLahanListSet = sh.getStringSet("idLahanList", new HashSet<>());
+        idLahanList = new ArrayList<>(idLahanListSet);
+
         String idPeriode = sh.getString("idPeriode", "");
+
+        Set<String> periodeListSet = sh.getStringSet("periodeList", new HashSet<>());
+        periodeList = new ArrayList<>(periodeListSet);
+
 
         if (getIntent().getExtras() != null) {
 
@@ -130,14 +153,16 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                     idLahan, idPeriode);
 
             String dataJson = getIntent().getStringExtra("dataJadwal");
-            namaPetani = getIntent().getStringExtra("namaPetani");
-            namaLahan = getIntent().getStringExtra("namaLahan");
-            idPeriode = getIntent().getStringExtra("namaPeriode");
-            petaniList = getIntent().getStringArrayListExtra("petaniList");
-            idPetaniList = getIntent().getIntegerArrayListExtra("idPetaniList");
-            lahanList = getIntent().getStringArrayListExtra("lahanList");
-            idLahanList = getIntent().getStringArrayListExtra("idLahanList");
-            periodeList = getIntent().getStringArrayListExtra("periodeList");
+
+//            namaPetani = getIntent().getStringExtra("namaPetani");
+//            namaLahan = getIntent().getStringExtra("namaLahan");
+//            idPeriode = getIntent().getStringExtra("namaPeriode");
+
+//            petaniList = getIntent().getStringArrayListExtra("petaniList");
+//            idPetaniList = getIntent().getIntegerArrayListExtra("idPetaniList");
+//            lahanList = getIntent().getStringArrayListExtra("lahanList");
+//            idLahanList = getIntent().getStringArrayListExtra("idLahanList");
+//            periodeList = getIntent().getStringArrayListExtra("periodeList");
 
             if(dataJson != null) {
 
@@ -541,9 +566,30 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                                         preferences = getSharedPreferences(
                                                 "MySharedPref", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = preferences.edit();
-                                        editor.putString("idPetani", idPetani);
-                                        editor.putString("idLahan", idLahan);
-                                        editor.putString("idPeriode", idPeriode);
+                                        editor.putString("idPetani", idPetaniSpinner);
+                                        editor.putString("namaPetani", namaPetani);
+
+                                        Set<String> petaniListSet = new HashSet<>(petaniList);
+                                        editor.putStringSet("petaniList", petaniListSet);
+
+                                        Set<String> idPetaniListSet = new HashSet<>(idPetaniList);
+                                        editor.putStringSet("idPetaniList", idPetaniListSet);
+
+                                        editor.putString("idLahan", idLahanSpinner);
+                                        editor.putString("namaLahan", namaLahan);
+
+                                        Set<String> lahanListSet = new HashSet<>(lahanList);
+                                        editor.putStringSet("lahanList", lahanListSet);
+
+                                        Set<String> idLahanListSet = new HashSet<>(idLahanList);
+                                        editor.putStringSet("idLahanList", idLahanListSet);
+
+                                        editor.putString("idPeriode", idPeriodeSpinner);
+                                        editor.putString("namaPeriode", idPeriodeSpinner);
+
+                                        Set<String> periodeListSet = new HashSet<>(periodeList);
+                                        editor.putStringSet("periodeList", periodeListSet);
+
                                         editor.apply();
 
                                         data = response.body().getData();
@@ -826,6 +872,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 //                spPetani.setHint("Pilih Petani");
 
                 idPetaniSpinner = idPetaniList.get(position);
+                namaPetani = petaniList.get(position);
 
                 idLahanList = new ArrayList<>();
                 idLahanSpinner = "";
@@ -853,6 +900,7 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                                        int i, long l) {
 
                 idLahanSpinner = idLahanList.get(i);
+                namaLahan = lahanList.get(i);
 
                 setSpinnerPeriode(tokenLogin, idLahanSpinner);
 
@@ -939,11 +987,11 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
     }
 
-    private void setSpinnerLahan(String tokenLogin, Integer idPetani) {
+    private void setSpinnerLahan(String tokenLogin, String idPetani) {
 
         GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
         Call<DropdownFilterLahan> dropdownFilterLahanCall = service.dropdownFilterLahan(tokenLogin,
-                idPetani);
+                Integer.parseInt(idPetani));
         dropdownFilterLahanCall.enqueue(new Callback<DropdownFilterLahan>() {
             @Override
             public void onResponse(Call<DropdownFilterLahan> call,
@@ -968,6 +1016,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
                             }
 
                             spLahan.setItem(lahanList);
+                            spLahan.setHint("Pilih Lahan");
+                            spPeriode.setHint("Pilih Periode");
                         }
 
                         String message = response.body().getMessage();
@@ -1021,12 +1071,12 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
 
                             for(int i = 0; i < listData.size(); i++) {
                                 petaniList.add(listData.get(i).getFullnameVar());
-                                idPetaniList.add(listData.get(i).getIdSeq());
+                                idPetaniList.add(String.valueOf(listData.get(i).getIdSeq()));
                             }
 
                             spPetani.setItem(petaniList);
 
-                            idPetaniSpinner =  Integer.parseInt(idPetani);
+                            idPetaniSpinner =  idPetani;
                             int indexPetani = petaniList.indexOf(namaPetani);
                             spPetani.setHint(namaPetani);
 
