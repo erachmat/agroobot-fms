@@ -95,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferences.Editor editor = preferences.edit();
                                     editor.putString("tokenLogin", result.getToken());
                                     editor.putString("fullnameVar", result.getFullnameVar());
+                                    editor.putString("idSeq", String.valueOf(result.getIdSeq()));
                                     editor.putBoolean("isUserLogin", true);
                                     editor.apply();
 

@@ -206,6 +206,10 @@ public class FormAddActivity extends AppCompatActivity {
                     createActivityBody.setSatuanTxt(satuanHst);
                     createActivityBody.setCreatedByVar(fullnameVar);
 
+                    Gson gson = new Gson();
+                    String json = gson.toJson(createActivityBody);
+                    Log.e("ADD_ACTIVITY_BODY", json);
+
                     GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
                     Call<CreateActivityResponse> createActivityResponseCall =
                             service.createActivity(tokenLogin, createActivityBody);
@@ -247,9 +251,10 @@ public class FormAddActivity extends AppCompatActivity {
                                         finish();
                                     }
 
-//                                    String message = response.body().getMessage();
-//                                    Toast.makeText(FormAddActivity.this, message,
-//                                            Toast.LENGTH_SHORT).show();
+                                    String message = response.body().getMessage();
+                                    Toast.makeText(FormAddActivity.this, message,
+                                            Toast.LENGTH_SHORT).show();
+                                    Log.e("ADD_ACTIVITY", message.toString());
                                 } else {
                                     Toast.makeText(FormAddActivity.this,
                                             "Something went wrong...Please try later!",

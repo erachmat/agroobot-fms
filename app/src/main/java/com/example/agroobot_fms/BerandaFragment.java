@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
-import com.example.agroobot_fms.adapter.DataPanenAdapter;
 import com.example.agroobot_fms.adapter.GetActivityAdapter;
 import com.example.agroobot_fms.api.ApiClient;
 import com.example.agroobot_fms.api.GetService;
@@ -33,9 +32,8 @@ import com.example.agroobot_fms.model.dropdown_farmer.DropdownFarmer;
 import com.example.agroobot_fms.model.dropdown_filter_lahan.DropdownFilterLahan;
 import com.example.agroobot_fms.model.dropdown_filter_periode.DropdownFilterPeriode;
 import com.example.agroobot_fms.model.get_activity_dashboard.GetActivityDashboard;
-import com.example.agroobot_fms.model.get_one.Data;
-import com.example.agroobot_fms.model.get_one.GetOne;
 import com.example.agroobot_fms.model.get_one.GetOneBody;
+import com.example.agroobot_fms.model.get_petani_dashboard.GetPetaniDashboard;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.eazegraph.lib.charts.PieChart;
@@ -115,10 +113,11 @@ public class BerandaFragment extends Fragment {
                 Context.MODE_PRIVATE);
         String tokenLogin = sh.getString("tokenLogin", "");
         String fullnameVar = sh.getString("fullnameVar", "");
+        String idSeq = sh.getString("idSeq", "");
 
-        initView(view, fullnameVar, tokenLogin);
+        initView(view, fullnameVar, tokenLogin, idSeq);
         initSpinner(view, tokenLogin);
-        initData(tokenLogin);
+        initData(tokenLogin, idSeq);
 
         counterClick = 0;
 
@@ -139,6 +138,14 @@ public class BerandaFragment extends Fragment {
                                        int position, long id) {
 
                 idPetani = idPetaniList.get(position);
+
+                idLahanList = new ArrayList<>();
+                idLahan = "";
+                spLahan.setItem(idLahanList);
+
+                periodeList = new ArrayList<>();
+                idPeriode = "";
+                spPeriode.setItem(periodeList);
 
                 setSpinnerLahan(tokenLogin, idPetani);
 
@@ -357,7 +364,7 @@ public class BerandaFragment extends Fragment {
 
     }
 
-    private void initData(String tokenLogin) {
+    private void initData(String tokenLogin, String idSeq) {
 
         GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
         Call<DataDashboard> dataDashboardCall = service.getDataDashboard(tokenLogin);
@@ -375,7 +382,7 @@ public class BerandaFragment extends Fragment {
 
                             txtTotalProjects.setText(String.valueOf(dataItem.getTotalProjectInt()));
                             txtTotalFa.setText(String.valueOf(dataItem.getTotalFaInt()));
-                            txtTotalPetani.setText(String.valueOf(dataItem.getTotalFarmerInt()));
+//                            txtTotalPetani.setText(String.valueOf(dataItem.getTotalFarmerInt()));
 
                             String totalPanen = dataItem.getTotalPanenFlo() + " Kg";
                             txtTotalPanen.setText(totalPanen);
@@ -484,7 +491,10 @@ public class BerandaFragment extends Fragment {
                             realisasiPendanaan = "Rp " + realisasiPendanaan;
                             txtRealisasiPendanaan.setText(realisasiPendanaan);
 
-                        } else {
+                            getTotalPetani(tokenLogin, idSeq);
+
+                        }
+                        else {
 
                             SharedPreferences sh = getContext().getSharedPreferences(
                                     "MySharedPref", Context.MODE_PRIVATE);
@@ -516,7 +526,6 @@ public class BerandaFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DataDashboard> call, Throwable t) {
-
                 swipeRefresh.setRefreshing(false);
                 Toast.makeText(getContext(),
                         "Something went wrong...Please try later!",
@@ -527,7 +536,61 @@ public class BerandaFragment extends Fragment {
 
     }
 
-    private void initView(View view, String fullnameVar, String tokenLogin) {
+    private void getTotalPetani(String tokenLogin, String idSeq) {
+        GetService service = ApiClient.getRetrofitInstance().create(GetService.class);
+        Call<GetPetaniDashboard> getPetaniDashboardCall = service.getPetaniDashboard(tokenLogin, idSeq);
+        getPetaniDashboardCall.enqueue(new Callback<GetPetaniDashboard>() {
+            @Override
+            public void onResponse(Call<GetPetaniDashboard> call, Response<GetPetaniDashboard> response) {
+                if(response.code() == 200) {
+                    if (response.body() != null) {
+                        if(response.body().getCode() == 0) {
+
+                            List<com.example.agroobot_fms.model.get_petani_dashboard.Datum> dataItem
+                                    = response.body().getData();
+                            txtTotalPetani.setText(String.valueOf(dataItem.get(0).getTotalFarmerInt()));
+                        }
+                        else {
+
+                            SharedPreferences sh = getContext().getSharedPreferences(
+                                    "MySharedPref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("isUserLogin", false);
+                            editor.apply();
+
+                            Intent intent = new Intent(getContext(),
+                                    LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
+
+//                        String message = response.body().getMessage();
+//                        Toast.makeText(getContext(), message,
+//                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(),
+                                "Something went wrong...Please try later!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(),
+                            "Something went wrong...Please try later!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetPetaniDashboard> call, Throwable t) {
+                Toast.makeText(getContext(),
+                        "Something went wrong...Please try later!",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("Failure", t.toString());
+            }
+        });
+    }
+
+    private void initView(View view, String fullnameVar, String tokenLogin, String idSeq) {
 
         txtUsername = view.findViewById(R.id.txt_username);
         String username = "Halo " + fullnameVar + ",";
@@ -564,7 +627,7 @@ public class BerandaFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initData(tokenLogin);
+                initData(tokenLogin, idSeq);
             }
         });
 

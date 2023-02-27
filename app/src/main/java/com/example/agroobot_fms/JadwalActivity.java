@@ -435,8 +435,8 @@ public class JadwalActivity extends AppCompatActivity implements CalendarAdapter
             public void onRefresh() {
 
                 GetOneBody getOneBody = new GetOneBody();
-                getOneBody.setUserIdInt(idPetani);
-                getOneBody.setLandCodeVar(idLahan);
+                getOneBody.setUserIdInt(idPetaniSpinner);
+                getOneBody.setLandCodeVar(idLahanSpinner);
                 getOneBody.setPeriodPlantTxt(idPeriode);
 
                 GetService service = ApiClient.getRetrofitInstance().create(GetService.class);

@@ -168,6 +168,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                     <TextView
@@ -239,6 +241,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                     <TextView
@@ -258,6 +262,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/worksans_regular"
                         android:textSize="@dimen/_12ssp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:textColor="@color/grey_dark_25" />
 
                 </LinearLayout>

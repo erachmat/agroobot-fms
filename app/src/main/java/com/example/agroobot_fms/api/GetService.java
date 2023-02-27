@@ -39,6 +39,7 @@ import static com.example.agroobot_fms.utils.Constants.GET_ONE_BUDGET_DETAIL_URL
 import static com.example.agroobot_fms.utils.Constants.GET_ONE_BUDGET_PLAN_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ONE_CULTIVATION_TASK_URL;
 import static com.example.agroobot_fms.utils.Constants.GET_ONE_DATA_PANEN_URL;
+import static com.example.agroobot_fms.utils.Constants.GET_PETANI_DASHBOARD_URL;
 import static com.example.agroobot_fms.utils.Constants.LIST_MENU_URL;
 import static com.example.agroobot_fms.utils.Constants.LOGIN_URL;
 import static com.example.agroobot_fms.utils.Constants.UPDATE_ACTIVITY_URL;
@@ -100,6 +101,7 @@ import com.example.agroobot_fms.model.get_one.GetOne;
 import com.example.agroobot_fms.model.get_one.GetOneBody;
 import com.example.agroobot_fms.model.get_one_budget_detail.GetOneBudgetDetail;
 import com.example.agroobot_fms.model.get_one_budget_plan.GetOneBudgetPlan;
+import com.example.agroobot_fms.model.get_petani_dashboard.GetPetaniDashboard;
 import com.example.agroobot_fms.model.list_menu.ListMenu;
 import com.example.agroobot_fms.model.list_menu.ListMenuBody;
 import com.example.agroobot_fms.model.login.LoginBody;
@@ -152,6 +154,10 @@ public interface GetService {
 
     @POST(LIST_MENU_URL)
     Call<ListMenu> listMenu(@Body ListMenuBody loginBody);
+
+    @GET(GET_PETANI_DASHBOARD_URL)
+    Call<GetPetaniDashboard> getPetaniDashboard(@Header("Authorization") String token,
+            @Query("field_assistant_id_int") String fieldAssistantIdInt);
 
     @GET(GET_ALL_DATA_PANEN_URL)
     Call<DataPanen> getAllDataPanen(@Header("Authorization") String token);

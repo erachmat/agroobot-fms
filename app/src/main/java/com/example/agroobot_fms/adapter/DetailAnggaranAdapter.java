@@ -78,7 +78,7 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
         holder.txtKegiatan.setText(dataItem.getActivityTxt());
 
         String totalRp = NumberFormat.getInstance(Locale.ENGLISH).
-                    format(Integer.parseInt(dataItem.getTotalPriceVar()));
+                    format(Long.parseLong(dataItem.getTotalPriceVar()));
         totalRp = "Rp " + totalRp;
         holder.txtTotalNominal.setText(totalRp);
 
@@ -419,12 +419,12 @@ public class DetailAnggaranAdapter extends RecyclerView.Adapter<DetailAnggaranAd
                 txtSatuan.setText(dataItem.getSatuanVar());
 
                 String hargaRp = NumberFormat.getInstance(Locale.ENGLISH).
-                        format(Integer.parseInt(dataItem.getPriceVar()));
+                        format(Long.parseLong(dataItem.getPriceVar()));
                 hargaRp = "Rp " + hargaRp;
                 txtHarga.setText(hargaRp);
 
                 String totalRp = NumberFormat.getInstance(Locale.ENGLISH).
-                        format(Integer.parseInt(dataItem.getTotalPriceVar()));
+                        format(Long.parseLong(dataItem.getTotalPriceVar()));
                 totalRp = "Rp " + totalRp;
                 txtTotalHarga.setText(totalRp);
 
